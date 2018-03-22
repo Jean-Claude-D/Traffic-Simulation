@@ -21,7 +21,7 @@ namespace TrafficLibrary
         {
             _random = new Random();
         }
-
+        
         /// <summary>
         /// The total number of IVehicle in this simulation
         /// </summary>
@@ -72,7 +72,7 @@ namespace TrafficLibrary
         {
 
         }
-
+        
         /// <summary>
         /// Initializes this TrafficControl's
         /// fields from the fileContent
@@ -83,7 +83,7 @@ namespace TrafficLibrary
         {
 
         }
-
+        
         /// <summary>
         /// Updates this simulation, run at
         /// every tick of the program loop
