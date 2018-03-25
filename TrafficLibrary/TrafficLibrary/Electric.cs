@@ -11,16 +11,16 @@ namespace TrafficLibrary
         public event Handler Done;
         public event Handler Moved;
         public event Handler Waiting;
-        private IVehicle v;
+        public IVehicle Vehicle;
 
         public Electric(IVehicle v)
         {
             if (v != null)
             {
-                this.v = v;
-                this.v.Done += Done;
-                this.v.Moved += Moved;
-                this.v.Waiting += Waiting;
+                this.Vehicle = v;
+                this.Vehicle.Done += Done;
+                this.Vehicle.Moved += Moved;
+                this.Vehicle.Waiting += Waiting;
             }
             else
             {
@@ -29,19 +29,19 @@ namespace TrafficLibrary
         }
         public Direction Direction
         {
-            get { return v.Direction; }
+            get { return Vehicle.Direction; }
         }
         public int X
         {
-            get { return v.X; }
+            get { return Vehicle.X; }
         }
         public int Y
         {
-            get { return v.Y; }
+            get { return Vehicle.Y; }
         }
         public int Passengers
         {
-            get { return v.Passengers; }
+            get { return Vehicle.Passengers; }
         }
         public double EmissionIdle
         {
@@ -49,7 +49,7 @@ namespace TrafficLibrary
         }
         public double EmissionMoving
         {
-            get { return v.EmissionMoving / 4; }
+            get { return Vehicle.EmissionMoving / 4; }
         }
 
         
