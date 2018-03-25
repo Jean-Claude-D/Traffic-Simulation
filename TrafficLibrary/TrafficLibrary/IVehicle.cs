@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TrafficLibrary
 {
-    public delegate void Handler();
+    delegate void Handler(IVehicle v);
 
     enum Direction
     {
@@ -15,7 +15,7 @@ namespace TrafficLibrary
         Left,
         Right,
         None
-    };
+    }
 
     interface IVehicle
     {

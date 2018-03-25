@@ -24,7 +24,7 @@ namespace TrafficLibrary
             }
             else
             {
-                throw new NullReferenceException("Vehicle is null!");
+                throw new ArgumentException("Vehicle is null!");
             }
         }
         public Direction Direction
