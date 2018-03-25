@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace TrafficLibrary
 {
-    public class Light
+    public class Light : Tile
     {
         private ISignalStrategy strategy;
 
         public Light(ISignalStrategy member, Direction d)
         {
+            base.direction = d;
             strategy = member;
         }
         public Colour colour;   

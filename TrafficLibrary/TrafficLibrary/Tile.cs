@@ -6,14 +6,6 @@ using System.Threading.Tasks;
 
 namespace TrafficLibrary
 {
-    public enum Direction
-    {
-        Left,
-        Right,
-        Up,
-        Down,
-        None
-    }
     public class Tile
     {
         public Direction direction;
