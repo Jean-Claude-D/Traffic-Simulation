@@ -16,6 +16,8 @@ namespace TrafficLibrary
         private double emissionMoving;
         private Grid grid;
 
+        //public Vehicle() { }
+
         public Vehicle(double emissionMoving, double emissionIdle, int passengers, Grid grid)
         {
             this.emissionMoving = emissionMoving;
