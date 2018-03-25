@@ -25,27 +25,27 @@ namespace TrafficLibrary
 
         Direction Direction
         {
-            get; set;
+            get;
         }
         int X
         {
-            get; set;
+            get;
         }
         int Y
         {
-            get; set;
+            get;
         }
         int Passengers
         {
-            get; set;
+            get;
         }
         double EmissionIdle
         {
-            get; set;
+            get;
         }
         double EmissionMoving
         {
-            get; set;
+            get;
         }
 
         void Move(ISignalStrategy signal);

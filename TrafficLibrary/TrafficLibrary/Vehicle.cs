@@ -25,35 +25,40 @@ namespace TrafficLibrary
             this.direction = grid[x, y].Direction;
         }
 
+        public Vehicle(double emissionMoving, double emissionIdle, int passengers, Grid grid, int x, int y)
+        {
+            this.emissionMoving = emissionMoving;
+            this.emissionIdle = emissionIdle;
+            this.passengers = passengers;
+            this.grid = grid;
+            this.x = x;
+            this.y = y;
+            this.direction = grid[x, y].Direction;
+        }
+
         public Direction Direction
         {
             get { return this.direction; }
-            private set { this.direction = value; }
         }
         public int X
         {
             get { return this.x; }
-            private set { this.x = value; }
         }
         public int Y
         {
             get { return this.y; }
-            private set { this.y = value; }
         }
         public int Passengers
         {
             get { return this.passengers; }
-            private set { this.passengers = value; }
         }
         public double EmissionIdle
         {
             get { return this.emissionIdle; }
-            private set { this.emissionIdle = value; }
         }
         public double EmissionMoving
         {
             get { return this.emissionMoving; }
-            private set { this.emissionMoving = value; }
         }
 
         public event Handler Done;
