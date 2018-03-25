@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TrafficLibrary
 {
-    class Electric : IVehicle
+    public class Electric : IVehicle
     {
         public event Handler Done;
         public event Handler Moved;

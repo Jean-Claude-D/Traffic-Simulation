@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TrafficLibrary
 {
-    class Motorcycle:Vehicle
+    public class Motorcycle:Vehicle
     {
         public Motorcycle(Grid grid): base(2, 1, 1, grid)
         {

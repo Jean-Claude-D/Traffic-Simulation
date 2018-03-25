@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace TrafficLibrary
 {
-    delegate void Handler(IVehicle v);
+    public delegate void Handler(IVehicle v);
 
-    enum Direction
+    public enum Direction
     {
         Up,
         Down,
@@ -17,7 +17,7 @@ namespace TrafficLibrary
         None
     }
 
-    interface IVehicle
+    public interface IVehicle
     {
         event Handler Done;
         event Handler Moved;

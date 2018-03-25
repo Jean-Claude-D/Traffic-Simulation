@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TrafficLibrary
 {
-    abstract class Vehicle : IVehicle
+    public abstract class Vehicle : IVehicle
     {
         private Direction direction;
         private int x;
