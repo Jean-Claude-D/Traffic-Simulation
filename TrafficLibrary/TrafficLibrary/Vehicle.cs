@@ -115,7 +115,7 @@ namespace TrafficLibrary
                         }
                         break;
                     default:
-                        Waiting.Invoke(this);
+                        Waiting?.Invoke(this);
                         break;
                 }
                 Moved?.Invoke(this);
