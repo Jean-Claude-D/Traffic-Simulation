@@ -15,10 +15,17 @@ namespace TrafficLibrary
 
         public Electric(IVehicle v)
         {
-            this.v = v;
-            this.v.Done += Done;
-            this.v.Moved += Moved;
-            this.v.Waiting += Waiting;
+            if (v != null)
+            {
+                this.v = v;
+                this.v.Done += Done;
+                this.v.Moved += Moved;
+                this.v.Waiting += Waiting;
+            }
+            else
+            {
+                throw new NullReferenceException("Vehicle is null!");
+            }
         }
         public Direction Direction
         {
