@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -81,7 +82,35 @@ namespace TrafficLibrary
         /// to parse for Grid and Intersection initialization</param>
         public void Parse(String fileContent)
         {
+            string[] lines = fileContent.Split
+                (new string[] { Environment.NewLine },
+                StringSplitOptions.None);
+        }
 
+        private static void validate(String line, Regex regex, string expectedMessage = null, int lineNum = -1)
+        {
+            if(!regex.IsMatch(line))
+            {
+                string exceptionMessage = "";
+
+                if(lineNum >= 0)
+                {
+                    exceptionMessage += "Error at line " + lineNum + " :"
+                        + Environment.NewLine;
+                }
+
+                exceptionMessage += line + Environment.NewLine + "Expected :"
+                    + Environment.NewLine;
+
+                if(!expectedMessage.Equals(null))
+                {
+                    exceptionMessage += expectedMessage;
+                }
+                else
+                {
+                    exceptionMessage += regex.ToString();
+                }
+            }
         }
         
         /// <summary>
