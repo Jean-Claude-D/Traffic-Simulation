@@ -73,8 +73,11 @@ namespace TrafficLibrary
         {
 
         }
-
-        private static Regex singleNumber = new Regex("^[0-9]+$");
+        
+        private static Regex singleInteger = new Regex(@"^[0-9]{1,9}$");
+        private static Regex multipleIntegers = new Regex(@"^(?:[0-9]{1,9}\s+).(?:[0-9]{1,9})+$");
+        private static int minDelay = 2;
+        private static int maxDelay = 10;
         
         /// <summary>
         /// Initializes this TrafficControl's
@@ -88,7 +91,64 @@ namespace TrafficLibrary
                 (new string[] { Environment.NewLine },
                 StringSplitOptions.None);
 
-            int totalNumVehicles;
+            /* Validate then Parse the total number of vehicles */
+            validate(lines[0],
+                singleInteger,
+                "A single positive numerical integer",
+                0);
+            int totalNumVehicles = parseLine<int>(
+                (line) => int.Parse(line),
+                (num) => num > 0,
+                lines[0],
+                0);
+
+            /* Validate then Parse the delay */
+            validate(lines[1],
+                singleInteger,
+                "A single positive numerical integer",
+                1);
+            int delay = parseLine<int>(
+                (line) => int.Parse(line),
+                (givenDelay) => givenDelay >= minDelay && givenDelay <= maxDelay,
+                lines[1],
+                1);
+
+            /* Validate then Parse the percentage of cars */
+            validate(lines[2],
+                singleInteger,
+                "A single positive numerical integer",
+                2);
+            int carPercent = parseLine<int>(
+                (line) => int.Parse(line),
+                (percent) => percent >= 0 && percent <= 100,
+                lines[2],
+                2);
+
+            /* Validate then Parse the percentage of electrics */
+            validate(lines[3],
+                singleInteger,
+                "A single positive numerical integer",
+                3);
+            int electricPercent = parseLine<int>(
+                (line) => int.Parse(line),
+                (percent) => percent >= 0 && percent <= 100,
+                lines[3],
+                3);
+
+            validate(lines[4],
+                multipleIntegers,
+                "multiple positive numerical integers",
+                4);
+            int[] timings = parseLine<int[]>(
+                (line) =>
+                {
+                    string[] numsStr = line.Split(' ', '\t');
+                    return numsStr.Select<int[]>((numStr) => int.Parse(numStr));
+                },
+                (nums) => nums.All((num) => num > 0) && nums.Length == 4,
+                lines[4],
+                4);
+
         }
 
         /// <summary>
@@ -138,7 +198,7 @@ namespace TrafficLibrary
         /// expected from the data in string</param>
         /// <param name="lineNum">The line number from the context</param>
         /// <returns></returns>
-        private static T parseLine<T>(Func<string, T> parse, Predicate<T> isValid, string line, string conditionsMessage = null, int lineNum = -1)
+        private static T parseLine<T>(Func<string, T> parse, Predicate<T> isValid, string line, int lineNum = -1, string conditionsMessage = null)
         {
             T data = parse(line);
 
