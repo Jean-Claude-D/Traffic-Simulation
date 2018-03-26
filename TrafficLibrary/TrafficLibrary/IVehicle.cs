@@ -8,15 +8,6 @@ namespace TrafficLibrary
 {
     public delegate void Handler(IVehicle v);
 
-    public enum Direction
-    {
-        Up,
-        Down,
-        Left,
-        Right,
-        None
-    }
-
     public interface IVehicle
     {
         event Handler Done;
