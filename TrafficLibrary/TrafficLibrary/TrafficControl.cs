@@ -166,6 +166,7 @@ namespace TrafficLibrary
                 (nums) => nums.All((num) => num > 0) && nums.Length == 4,
                 lines[4],
                 4);
+            ISignalStrategy trafficLight = new FixedSignal(timings);
 
             Tile[,] grid;
             {
@@ -181,8 +182,17 @@ namespace TrafficLibrary
                             new char[] { ' ', '\t' },
                             StringSplitOptions.RemoveEmptyEntries);
 
-                        
-                    },);
+                        Tile[] tiles = new Tile[tilesStr.Length];
+                        for(int i = 0; i < tiles.Length; i++)
+                        {
+                            tiles[i] = createTile(tilesStr, trafficLight);
+                        }
+
+                        return tiles;
+                    },
+                    (tileArr) => true,
+                    lines[5],
+                    5);
             }
 
 
@@ -205,9 +215,10 @@ namespace TrafficLibrary
         /// <param name="tileId">The character representing the Tile to be created</param>
         /// <param name="trafficLight">The ISignalStrategy governing Light Tiles</param>
         /// <returns></returns>
-        private static Tile createTile(char tileId, ISignalStartegy trafficLight)
+        private static Tile createTile(string tileId, ISignalStartegy trafficLight)
         {
-            switch(tileId)
+            char tileIdChar = tileId[0];
+            switch(tileIdChar)
             {
                 case 'G':
                     return new Grass();
