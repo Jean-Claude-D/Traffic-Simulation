@@ -74,7 +74,7 @@ namespace TrafficLibrary
 
         public bool InIntersection()
         {
-            if(grid[x,y].GetType == typeof(IntersectionTile))
+            if(grid[x,y].GetType() == typeof(IntersectionTile))
             {
                 return true;
             }
@@ -86,7 +86,7 @@ namespace TrafficLibrary
 
         public void Move(ISignalStrategy signal)
         {
-            if((!NextIsIntersection()) || ((NextIsIntersection() || InIntersection()) && signal.getColour == Colour.Green))
+            if((!NextIsIntersection()) || InIntersection() || signal.getColour() == Colour.Green)
             {
                 switch (this.direction)
                 {
