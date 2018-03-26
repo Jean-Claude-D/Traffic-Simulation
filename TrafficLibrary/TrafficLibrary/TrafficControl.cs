@@ -73,6 +73,8 @@ namespace TrafficLibrary
         {
 
         }
+
+        private static Regex singleNumber = new Regex("^[0-9]+$");
         
         /// <summary>
         /// Initializes this TrafficControl's
@@ -85,8 +87,18 @@ namespace TrafficLibrary
             string[] lines = fileContent.Split
                 (new string[] { Environment.NewLine },
                 StringSplitOptions.None);
+
+            int totalNumVehicles;
         }
 
+        /// <summary>
+        /// Throws an ArgumentException if line does not match regex,
+        /// does nothing otherwise
+        /// </summary>
+        /// <param name="line">The string to match</param>
+        /// <param name="expectedMessage">The string describing what format
+        /// line must respect</param>
+        /// <param name="lineNum">The line number from the context</param>
         private static void validate(String line, Regex regex, string expectedMessage = null, int lineNum = -1)
         {
             if(!regex.IsMatch(line))
@@ -110,6 +122,49 @@ namespace TrafficLibrary
                 {
                     exceptionMessage += regex.ToString();
                 }
+
+                throw new ArgumentException(exceptionMessage);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T">The target type of the parsing</typeparam>
+        /// <param name="parse">The function parsing from string to data's target type</param>
+        /// <param name="isValid">The predicate validating the actual data</param>
+        /// <param name="line">The data in string format</param>
+        /// <param name="conditionsMessage">The error message explaining what is
+        /// expected from the data in string</param>
+        /// <param name="lineNum">The line number from the context</param>
+        /// <returns></returns>
+        private static T parseLine<T>(Func<string, T> parse, Predicate<T> isValid, string line, string conditionsMessage = null, int lineNum = -1)
+        {
+            T data = parse(line);
+
+            if(isValid(data))
+            {
+                return data;
+            }
+            else
+            {
+                string exceptionMessage = "";
+
+                if (lineNum >= 0)
+                {
+                    exceptionMessage += "Error at line " + lineNum + " :"
+                        + Environment.NewLine;
+                }
+
+                exceptionMessage += line;
+
+                if (!conditionsMessage.Equals(null))
+                {
+                    exceptionMessage += Environment.NewLine +  "Error :"
+                    + Environment.NewLine + conditionsMessage;
+                }
+
+                throw new ArgumentException(exceptionMessage);
             }
         }
         
