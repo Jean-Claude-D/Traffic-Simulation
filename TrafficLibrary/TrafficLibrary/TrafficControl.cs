@@ -75,7 +75,10 @@ namespace TrafficLibrary
         }
         
         private static Regex singleInteger = new Regex(@"^[0-9]{1,9}$");
-        private static Regex multipleIntegers = new Regex(@"^(?:[0-9]{1,9}\s+).(?:[0-9]{1,9})+$");
+        private static Regex multipleIntegers = new Regex(@"^(?:[0-9]{1,9}\s+).(?:[0-9]{1,9})$");
+        private static string validTileChars = "GURDLI1234";
+        private static Regex multipleWhiteSpacedTiles =
+            new Regex(@"^(?i:(?:[" + validTileChars + @"]\s+).(?:[" + validTileChars + @"]))$");
         private static int minDelay = 2;
         private static int maxDelay = 10;
         
@@ -87,12 +90,13 @@ namespace TrafficLibrary
         /// to parse for Grid and Intersection initialization</param>
         public void Parse(String fileContent)
         {
-            string[] lines = fileContent.Split
-                (new string[] { Environment.NewLine },
+            string[] lines = fileContent.Split(
+                new string[] { Environment.NewLine },
                 StringSplitOptions.None);
 
             /* Validate then Parse the total number of vehicles */
-            validate(lines[0],
+            validate(
+                lines[0],
                 singleInteger,
                 "A single positive numerical integer",
                 0);
@@ -103,7 +107,8 @@ namespace TrafficLibrary
                 0);
 
             /* Validate then Parse the delay */
-            validate(lines[1],
+            validate(
+                lines[1],
                 singleInteger,
                 "A single positive numerical integer",
                 1);
@@ -114,7 +119,8 @@ namespace TrafficLibrary
                 1);
 
             /* Validate then Parse the percentage of cars */
-            validate(lines[2],
+            validate(
+                lines[2],
                 singleInteger,
                 "A single positive numerical integer",
                 2);
@@ -125,7 +131,8 @@ namespace TrafficLibrary
                 2);
 
             /* Validate then Parse the percentage of electrics */
-            validate(lines[3],
+            validate(
+                lines[3],
                 singleInteger,
                 "A single positive numerical integer",
                 3);
@@ -135,19 +142,60 @@ namespace TrafficLibrary
                 lines[3],
                 3);
 
-            validate(lines[4],
+            /* Validate then Parse the light timings */
+            validate(
+                lines[4],
                 multipleIntegers,
                 "multiple positive numerical integers",
                 4);
             int[] timings = parseLine<int[]>(
                 (line) =>
                 {
-                    string[] numsStr = line.Split(' ', '\t');
-                    return numsStr.Select<int[]>((numStr) => int.Parse(numStr));
+                    string[] numsStr = line.Split(
+                        new char[] { ' ', '\t' },
+                        StringSplitOptions.RemoveEmptyEntries);
+
+                    int[] nums = new int[numsStr.Length];
+                    for(int i = 0; i < nums.Length; i++)
+                    {
+                        nums[i] = int.Parse(numsStr[i]);
+                    }
+                    
+                    return nums;
                 },
                 (nums) => nums.All((num) => num > 0) && nums.Length == 4,
                 lines[4],
                 4);
+
+            Tile[,] grid;
+            {
+                validate(
+                    lines[5],
+                    multipleWhiteSpacedTiles,
+                    "multiple white-space spaced characters (0-9 or A-Z)",
+                    5);
+                Tile[] firstRow = parseLine<Tile[]>(
+                    (line) =>
+                    {
+                        string[] tilesStr = line.Split(
+                            new char[] { ' ', '\t' },
+                            StringSplitOptions.RemoveEmptyEntries);
+
+                        
+                    },);
+            }
+
+
+
+            /* Validate then Parse the each grid horizontal line */
+            for (int i = 5; i < lines.Length; i++)
+            {
+                validate(
+                    lines[i],
+                    multipleWhiteSpacedTiles,
+                    "multiple white-space spaced characters (0-9 or A-Z)",
+                    i);
+            }
 
         }
 
