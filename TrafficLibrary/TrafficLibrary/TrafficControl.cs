@@ -200,6 +200,43 @@ namespace TrafficLibrary
         }
 
         /// <summary>
+        /// Instantiate the appropriate Tile depending on tileId
+        /// </summary>
+        /// <param name="tileId">The character representing the Tile to be created</param>
+        /// <param name="trafficLight">The ISignalStrategy governing Light Tiles</param>
+        /// <returns></returns>
+        private static Tile createTile(char tileId, ISignalStartegy trafficLight)
+        {
+            switch(tileId)
+            {
+                case 'G':
+                    return new Grass();
+                case 'U':
+                    return new Road(Direction.Up);
+                case 'R':
+                    return new Road(Direction.Right);
+                case 'D':
+                    return new Road(Direction.Down);
+                case 'L':
+                    return new Road(Direction.Left);
+                case 'I':
+                    return new IntersectionTile();
+                case '1':
+                    return new Light(trafficLight, Direction.Down);
+                case '2':
+                    return new Light(trafficLight, Direction.Left);
+                case '3':
+                    return new Light(trafficLight, Direction.Right);
+                case '4':
+                    return new Light(trafficLight, Direction.Up);
+                default:
+                    throw new ArgumentException("Cannot create tile \'"
+                        + tileId + "\', must be one of :" + 
+                       Environment.NewLine + validTileChars);
+            }
+        }
+
+        /// <summary>
         /// Throws an ArgumentException if line does not match regex,
         /// does nothing otherwise
         /// </summary>
