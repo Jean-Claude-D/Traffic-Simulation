@@ -193,19 +193,25 @@ namespace TrafficLibrary
                     (tileArr) => true,
                     lines[5],
                     5);
+
+                grid = new Tile[firstRow.Length, lines.Length - 5];
+                for(int i = 0; i < firstRow.Length; i++)
+                {
+                    grid[0, i] = firstRow[i];
+                }
             }
 
 
 
             /* Validate then Parse the each grid horizontal line */
-            for (int i = 5; i < lines.Length; i++)
+            /*for (int i = 5; i < lines.Length; i++)
             {
                 validate(
                     lines[i],
                     multipleWhiteSpacedTiles,
                     "multiple white-space spaced characters (0-9 or A-Z)",
                     i);
-            }
+            }*/
 
         }
 
