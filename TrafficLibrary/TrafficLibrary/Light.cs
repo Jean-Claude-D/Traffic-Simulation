@@ -3,19 +3,34 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
 
 namespace TrafficLibrary
 {
+    /// <summary>
+    /// Light class representing each light tile
+    /// </summary>
     public class Light : Tile
     {
         private ISignalStrategy strategy;
-
+        /// <summary>
+        /// Light constructor instantiating a light tile with a direction
+        /// </summary>
+        /// <param name="member"></param>
+        /// <param name="d"></param>
         public Light(ISignalStrategy member, Direction d) : base(d)
         {
             base.direction = d;
             base.occupied = false;
             strategy = member;
         }
-        public Colour colour = GetColour(strategy);  
+        /// <summary>
+        /// The color property which determines the color of the light
+        /// </summary>
+        public Color color 
+        {
+            get { return strategy.GetColor(); } 
+            set { color = value; }
+        } 
     }
 }

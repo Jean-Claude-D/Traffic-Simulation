@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace TrafficLibrary
 {
+    /// <summary>
+    /// Tile abstract class
+    /// </summary>
     public abstract class Tile
     {
         public Direction direction;

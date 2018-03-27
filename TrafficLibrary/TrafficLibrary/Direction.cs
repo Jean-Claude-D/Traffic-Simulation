@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace TrafficLibrary
 {
-
+    /// <summary>
+    /// Direction enum
+    /// </summary>
     public enum Direction
     {
         Left,

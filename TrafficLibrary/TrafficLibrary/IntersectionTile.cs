@@ -9,6 +9,12 @@ namespace TrafficLibrary
     
     public class IntersectionTile : Tile
     {
-        public IntersectionTile() : base(Direction.None) { }
+        /// <summary>
+        /// Constructor that makes an IntersectionTile and passes none to the direction because intersection tiles cannot have a direction
+        /// </summary>
+        public IntersectionTile() : base(Direction.None)
+        {
+            base.occupied = false;
+        }
     }
 }
