@@ -35,7 +35,11 @@ namespace TrafficLibrary
 
         public void Update()
         {
-            throw new NotImplementedException();
+            foreach(var v in vehicles)
+            {
+                v.Move(signal);
+            }
+            signal.Update();
         }
 
         public void Add(IVehicle vehicle)
