@@ -9,6 +9,6 @@ namespace TrafficLibrary
     
     public class IntersectionTile : Tile
     {
-        public IntersectionTile() : base(Direction.None, true) { }
+        public IntersectionTile() : base(Direction.None) { }
     }
 }

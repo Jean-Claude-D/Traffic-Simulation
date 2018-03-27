@@ -6,14 +6,13 @@ using System.Threading.Tasks;
 
 namespace TrafficLibrary
 {
-    public class Tile
+    public abstract class Tile
     {
         public Direction direction;
         public bool occupied;
-        public Tile(Direction direction, bool occupied)
+        public Tile(Direction direction)
         {
             this.direction = direction;
-            this.occupied = occupied;
         }
     }
 }

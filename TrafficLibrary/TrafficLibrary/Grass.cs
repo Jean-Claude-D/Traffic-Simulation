@@ -8,7 +8,7 @@ namespace TrafficLibrary
 {
     public class Grass : Tile
     {
-        public Grass() : base(Direction.None,true)
+        public Grass() : base(Direction.None)
         {}
     }
 }

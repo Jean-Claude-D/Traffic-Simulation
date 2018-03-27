@@ -8,7 +8,7 @@ namespace TrafficLibrary
 {
     class Road : Tile
     {
-        public Road(Direction direction) : base(direction,true)
+        public Road(Direction direction) : base(direction)
         {
         }
     }
