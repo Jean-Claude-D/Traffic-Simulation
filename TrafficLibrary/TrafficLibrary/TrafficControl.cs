@@ -170,6 +170,7 @@ namespace TrafficLibrary
 
             Tile[,] grid;
             {
+                /* Validate then Parse the first Tile line */
                 validate(
                     lines[5],
                     multipleWhiteSpacedTiles,
@@ -194,6 +195,7 @@ namespace TrafficLibrary
                     lines[5],
                     5);
 
+                /* Add the first Tile line to the grid */
                 grid = new Tile[firstRow.Length, lines.Length - 5];
                 for(int i = 0; i < firstRow.Length; i++)
                 {
@@ -201,17 +203,40 @@ namespace TrafficLibrary
                 }
             }
 
-
-
-            /* Validate then Parse the each grid horizontal line */
-            /*for (int i = 5; i < lines.Length; i++)
+            /* Validate then Parse each grid horizontal line */
+            for (int i = 6; i < lines.Length; i++)
             {
                 validate(
                     lines[i],
                     multipleWhiteSpacedTiles,
                     "multiple white-space spaced characters (0-9 or A-Z)",
                     i);
-            }*/
+
+                Tile[] tileRow = parseLine<Tile[]>(
+                    (line) =>
+                    {
+                        string[] tilesStr = line.Split(
+                            new char[] { ' ', '\t' },
+                            StringSplitOptions.RemoveEmptyEntries);
+
+                        Tile[] tiles = new Tile[tilesStr.Length];
+                        for (int i = 0; i < tiles.Length; i++)
+                        {
+                            tiles[i] = createTile(tilesStr, trafficLight);
+                        }
+
+                        return tiles;
+                    },
+                    (tileArr) => true,
+                    lines[i],
+                    i);
+
+                /* Add the Tile line to the grid */
+                for (int j = 0; j < tileRow.Length; j++)
+                {
+                    grid[0, j] = tileRow[j];
+                }
+            }
 
         }
 
