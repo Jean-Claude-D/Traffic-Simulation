@@ -54,6 +54,7 @@
     <Compile Include="Road.cs" />
     <Compile Include="Tile.cs" />
     <Compile Include="TrafficControl.cs" />
+    <Compile Include="Vehicle.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
