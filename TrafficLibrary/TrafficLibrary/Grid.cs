@@ -22,7 +22,11 @@ namespace TrafficLibrary
         {
             if (tiles.GetLength(0) < 4 || tiles.GetLength(1) < 4)
             {
-                throw new ArgumentException("Tile must be at least 4x4 ");
+                throw new ArgumentException("Grid must be at least 4x4 ");
+            }
+            if(tiles.GetLength(0) != tiles.GetLength(0))
+            {
+                throw new ArgumentException("Grid must be a square ");
             }
             this.tiles = tiles;
         }
