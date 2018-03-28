@@ -195,6 +195,16 @@ namespace TrafficLibrary
                     lines[5],
                     5);
 
+                /* Grid must be square */
+                if(firstRow.Length != lines.Length - 5)
+                {
+                    throw new ArgumentException
+                        ("Error at line :" + Environment.NewLine +
+                        "5" + Environment.NewLine +
+                        "Expected :" + Environment.NewLine +
+                        "Grid of Tile must be square");
+                }
+
                 /* Add the first Tile line to the grid */
                 grid = new Tile[firstRow.Length, lines.Length - 5];
                 for(int i = 0; i < firstRow.Length; i++)
@@ -231,12 +241,24 @@ namespace TrafficLibrary
                     lines[i],
                     i);
 
+                if (firstRow.Length != lines.Length - 5)
+                {
+                    throw new ArgumentException
+                        ("Error at line :" + Environment.NewLine +
+                        "5" + Environment.NewLine +
+                        "Expected :" + Environment.NewLine +
+                        "Grid of Tile must be square");
+                }
+
                 /* Add the Tile line to the grid */
                 for (int j = 0; j < tileRow.Length; j++)
                 {
                     grid[0, j] = tileRow[j];
                 }
             }
+
+            Grid = new Grid(grid);
+
 
         }
 
