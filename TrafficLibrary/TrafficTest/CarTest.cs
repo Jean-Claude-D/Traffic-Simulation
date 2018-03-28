@@ -7,6 +7,9 @@ namespace TrafficTest
     [TestClass]
     public class CarTest
     {
+        /// <summary>
+        /// Testing car constructor, NextInIntersection function for all vehicles, and IsIntersection property
+        /// </summary>
         [TestMethod]
         public void TestConstructorAndProperties()
         {
@@ -43,9 +46,11 @@ namespace TrafficTest
             Assert.AreEqual(newCar.X,10);
             Assert.AreEqual(newCar.Y, 12);
         }
+        [TestMethod]
+
         public void TestInIntersection()
         {
-            IntersectionTile t = new IntersectionTile();
+            Grass t = new Grass();
             IntersectionTile t2 = new IntersectionTile();
             IntersectionTile t3 = new IntersectionTile();
             IntersectionTile t4 = new IntersectionTile();
@@ -56,9 +61,39 @@ namespace TrafficTest
             iGrid[1, 0] = t3;
             iGrid[1, 1] = t4;
 
-            Car newCar = new Car(iGrid, 1, 1);
+            Grid someGrid = new Grid(iGrid);
 
-            Assert.AreEqual();
+            Car newCar = new Car(someGrid, 1, 1);
+            Car notIn = new Car(someGrid, 0, 0);
+
+            Assert.AreEqual(newCar.InIntersection(),true);
+            Assert.AreEqual(notIn.InIntersection(),false);
+        }
+        [TestMethod]
+        public void TestNextInIntersection()
+        {
+            Road t = new Road(Direction.Left);
+            Grass t2 = new Grass();
+            IntersectionTile t3 = new IntersectionTile();
+            Road t4 = new Road(Direction.Left);
+
+            Tile[,] iGrid = new Tile[2, 2];
+            iGrid[0, 0] = t2;
+            iGrid[0, 1] = t;
+            iGrid[1, 0] = t3;
+            iGrid[1, 1] = t4;
+
+            Grid someGrid = new Grid(iGrid);
+
+            Car newCar = new Car(someGrid, 0, 1);
+            Car someCar = new Car(someGrid, 1, 1);
+            Assert.AreEqual(newCar.NextIsIntersection(),false);
+            Assert.AreEqual(someCar.NextIsIntersection(), true); 
+        }
+
+        public void TestMove()
+        {
+
         }
     }
 }
