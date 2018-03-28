@@ -186,7 +186,7 @@ namespace TrafficLibrary
                         Tile[] tiles = new Tile[tilesStr.Length];
                         for(int i = 0; i < tiles.Length; i++)
                         {
-                            tiles[i] = createTile(tilesStr, trafficLight);
+                            tiles[i] = createTile(tilesStr[i], trafficLight);
                         }
 
                         return tiles;
@@ -230,9 +230,9 @@ namespace TrafficLibrary
                             StringSplitOptions.RemoveEmptyEntries);
 
                         Tile[] tiles = new Tile[tilesStr.Length];
-                        for (int i = 0; i < tiles.Length; i++)
+                        for (int j = 0; j < tiles.Length; j++)
                         {
-                            tiles[i] = createTile(tilesStr, trafficLight);
+                            tiles[i] = createTile(tilesStr[j], trafficLight);
                         }
 
                         return tiles;
@@ -241,11 +241,11 @@ namespace TrafficLibrary
                     lines[i],
                     i);
 
-                if (firstRow.Length != lines.Length - 5)
+                if (tileRow.Length != lines.Length - 5)
                 {
                     throw new ArgumentException
                         ("Error at line :" + Environment.NewLine +
-                        "5" + Environment.NewLine +
+                        i + Environment.NewLine +
                         "Expected :" + Environment.NewLine +
                         "Grid of Tile must be square");
                 }
@@ -258,8 +258,6 @@ namespace TrafficLibrary
             }
 
             Grid = new Grid(grid);
-
-
         }
 
         /// <summary>
@@ -268,7 +266,7 @@ namespace TrafficLibrary
         /// <param name="tileId">The character representing the Tile to be created</param>
         /// <param name="trafficLight">The ISignalStrategy governing Light Tiles</param>
         /// <returns></returns>
-        private static Tile createTile(string tileId, ISignalStartegy trafficLight)
+        private static Tile createTile(string tileId, ISignalStrategy trafficLight)
         {
             char tileIdChar = tileId[0];
             switch(tileIdChar)
