@@ -31,20 +31,28 @@ namespace TrafficLibrary
             this.signal = signal;
             this.startCoords = startCoords;
             this.grid = grid;
+            random = new Random();
         }
 
         public void Update()
         {
-            foreach(var v in vehicles)
+            for(int i = 0; i < vehicles.Count; i++)
             {
-                v.Move(signal);
+                vehicles[i].Move(signal);
+                if (vehicles[i].Direction == Direction.None)
+                {
+                    vehicles[i].removeFromIntersection(vehicles[i]);
+                    i--;
+                }
             }
             signal.Update();
         }
 
         public void Add(IVehicle vehicle)
         {
-            throw new NotImplementedException();
+            Vector2 vCoords = startCoords[random.Next(startCoords.Count)];
+            vehicle.X = vCoords.X;
+            vehicle.Y = vCoords.Y;
         }
 
         private void removeFromIntersection(IVehicle vehicle)
