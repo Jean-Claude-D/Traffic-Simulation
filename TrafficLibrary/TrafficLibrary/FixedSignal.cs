@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TrafficLibrary
 {
-    class FixedSignal
+    public class FixedSignal
     {
         private int[] timing;
         private int currentIndex;
