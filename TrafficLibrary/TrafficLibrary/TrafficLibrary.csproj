@@ -54,6 +54,7 @@
     <Compile Include="Intersection.cs" />
     <Compile Include="ISignalStrategy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Total.cs" />
     <Compile Include="Road.cs" />
     <Compile Include="Tile.cs" />
     <Compile Include="TrafficControl.cs" />

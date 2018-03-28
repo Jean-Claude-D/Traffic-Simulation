@@ -54,17 +54,17 @@ namespace TrafficLibrary
 
         public bool InIntersection()
         {
-            return v.InIntersection();
+            return Vehicle.InIntersection();
         }
 
         public void Move(ISignalStrategy signal)
         {
-            v.Move(signal);
+            Vehicle.Move(signal);
         }
 
         public bool NextIsIntersection()
         {
-            return v.NextIsIntersection();
+            return Vehicle.NextIsIntersection();
         }
     }
 }
