@@ -24,7 +24,7 @@ namespace TrafficLibrary
             {
                 throw new ArgumentException("Grid must be at least 4x4 ");
             }
-            if(tiles.GetLength(0) != tiles.GetLength(0))
+            if(tiles.GetLength(0) != tiles.GetLength(1))
             {
                 throw new ArgumentException("Grid must be a square ");
             }
@@ -48,7 +48,7 @@ namespace TrafficLibrary
         /// </summary>
         public int Size
         {
-            get {  return tiles.GetLength(0) * tiles.GetLength(1); }
+            get {  return tiles.GetLength(0); }
         }
         public bool IsOccupied(int x, int y)
         {
