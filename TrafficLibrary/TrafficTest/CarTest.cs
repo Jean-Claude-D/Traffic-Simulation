@@ -93,6 +93,50 @@ namespace TrafficTest
 
         public void TestMove()
         {
+            //Instantiating 16 tiles for the grid
+            Grass g1 = new Grass();
+            Grass g2 = new Grass();
+            Grass g3 = new Grass();
+            Grass g4 = new Grass();
+            Grass g5 = new Grass();
+            Grass g6 = new Grass();
+            Grass g7 = new Grass();
+            Grass g8 = new Grass();
+            Grass g9 = new Grass();
+            IntersectionTile i = new IntersectionTile();
+            Road rL1 = new Road(Direction.Left);
+            Road rL2 = new Road(Direction.Left);
+            Road rL3 = new Road(Direction.Left);
+            Road rD1 = new Road(Direction.Down);
+            Road rD2 = new Road(Direction.Down);
+            Road rD3 = new Road(Direction.Down);
+
+            Tile[,] sim = new Tile[4, 4];
+
+            sim[0, 0] = g1;
+            sim[0, 1] = rD1;
+            sim[0, 2] = g2;
+            sim[0, 3] = g3;
+            sim[1, 0] = g4;
+            sim[1, 1] = rD2;
+            sim[1, 2] = g5;
+            sim[1, 3] = g6;
+            sim[2, 0] = rL1;
+            sim[2, 1] = i;
+            sim[2, 2] = rL2;
+            sim[2, 3] = rL3;
+            sim[3, 0] = g7;
+            sim[3, 1] = rD3;
+            sim[3, 2] = g8;
+            sim[3, 3] = g9;
+
+            Grid board = new Grid(sim);
+
+            Car noMove = new Car(board,3,3);
+            Car downCar = new Car(board, 1, 0);
+            Car leftCar = new Car(board,2,2);
+
+            noMove.Move();
 
         }
     }
