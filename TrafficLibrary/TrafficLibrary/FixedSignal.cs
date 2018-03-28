@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TrafficLibrary
 {
-    public class FixedSignal
+    public class FixedSignal : ISignalStrategy
     {
         private int[] timing;
         private int currentIndex;
@@ -15,6 +15,16 @@ namespace TrafficLibrary
         private int counter;
 
         public FixedSignal(params int[] timing)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Colour GetColour(Direction dir)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update()
         {
             throw new NotImplementedException();
         }
