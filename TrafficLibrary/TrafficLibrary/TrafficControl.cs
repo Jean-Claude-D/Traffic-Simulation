@@ -40,10 +40,10 @@ namespace TrafficLibrary
         /// </summary>
         private double _percentCar;
         /// <summary>
-        /// The actual percentage of Car compared to
+        /// The actual number of Car compared to
         /// other IVehicle implementations in this simulation
         /// </summary>
-        private double _currPercentCar;
+        private int _carCount;
 
         /// <summary>
         /// The target percentage of Electric compared to
@@ -54,7 +54,7 @@ namespace TrafficLibrary
         /// The actual percentage of Electric compared to
         /// other IVehicle implementations in this simulation
         /// </summary>
-        private double _currPercentElectric;
+        private double _electricCount;
 
         /// <summary>
         /// The counter for Update to update contained
@@ -442,12 +442,13 @@ namespace TrafficLibrary
                 if(_numVehicles < _maxVehicles)
                 {
                     IVehicle newIVehicle;
+                    _numVehicles++;
 
-                    if((_currPercentCar - _percentCar) < 0.005)
+                    if ((_numVehicles / (double)_carCount) - _percentCar < 0.005)
                     {
                         //randomly car or motorcycle
                     }
-                    else if(_currPercentCar > _percentCar)
+                    else if((_numVehicles / (double)_carCount) > _percentCar)
                     {
                         //instantiate motorcycle
                     }
@@ -456,11 +457,11 @@ namespace TrafficLibrary
                         //instantiate car
                     }
 
-                    if((_currPercentElectric - _percentElectric) < 0.005)
+                    if(((_numVehicles / (double)_electricCount) - _percentElectric) < 0.005)
                     {
                         //randomly decorates newIVehicle with Electric
                     }
-                    else if(_currPercentElectric < _percentElectric)
+                    else if((_numVehicles / (double)_electricCount) < _percentElectric)
                     {
                         //decorates newIVehicle with Electric 
                     }
