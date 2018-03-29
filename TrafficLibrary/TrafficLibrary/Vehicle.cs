@@ -94,27 +94,43 @@ namespace TrafficLibrary
                 switch (this.direction)
                 {
                     case Direction.Down:
-                        if (!grid[x, y-1].Occupied)
+                        if (!grid[x, y+1].Occupied && y+1 < grid.Size)
                         {
                             this.y++;
                         }
+                        else
+                        {
+                            Done?.Invoke(this);
+                        }
                         break;
                     case Direction.Up:
-                        if (!grid[x, y+1].Occupied)
+                        if (!grid[x, y-1].Occupied && y-1 >= 0)
                         {
                             this.y--;
                         }
+                        else
+                        {
+                            Done?.Invoke(this);
+                        }
                         break;
                     case Direction.Left:
-                        if (!grid[x-1, y].Occupied)
+                        if (!grid[x-1, y].Occupied && x-1 >= 0)
                         {
                             this.x--;
                         }
+                        else
+                        {
+                            Done?.Invoke(this);
+                        }
                         break;
                     case Direction.Right:
-                        if (!grid[x+1, y].Occupied)
+                        if (!grid[x+1, y].Occupied && x+1 < grid.Size)
                         {
                             this.x++;
+                        }
+                        else
+                        {
+                            Done?.Invoke(this);
                         }
                         break;
                     default:
