@@ -8,7 +8,11 @@ using System.Threading.Tasks;
 
 namespace TrafficLibrary
 {
-    class TrafficControl
+    /// <summary>
+    /// Main Class in charge of
+    /// initializing the simulation
+    /// </summary>
+    public class TrafficControl
     {
         /// <summary>
         /// The Random used to generate
@@ -24,6 +28,7 @@ namespace TrafficLibrary
         {
             return _random.Next(2) == 0;
         }
+
         /// <summary>
         /// Instantiates the definition of TrafficControl,
         /// used to initialize the _random field
@@ -71,10 +76,24 @@ namespace TrafficLibrary
         /// </summary>
         private int _delayCounter;
         /// <summary>
-        /// The numer of calls to Update it takes
+        /// The number of calls to Update it takes
         /// for update to take place
         /// </summary>
         private int _delay;
+        /// <summary>
+        /// The minimum delay allowed in Parse
+        /// </summary>
+        private static int _minDelay = 2;
+        /// <summary>
+        /// The maximum delay allowed in Parse
+        /// </summary>
+        private static int _maxDelay = 10;
+
+        /// <summary>
+        /// The vald characters representing Tile objects
+        /// in the string to parse
+        /// </summary>
+        private static string _validTileChars = "GURDLI1234";
 
         /// <summary>
         /// The Intersection representing
@@ -108,17 +127,24 @@ namespace TrafficLibrary
         /// Creates a new empty TrafficControl object
         /// </summary>
         public TrafficControl()
-        {
-
-        }
+        { }
         
-        private static Regex singleInteger = new Regex(@"^[0-9]{1,9}$");
-        private static Regex multipleIntegers = new Regex(@"^(?:[0-9]{1,9}\s+).(?:[0-9]{1,9})$");
-        private static string validTileChars = "GURDLI1234";
-        private static Regex multipleWhiteSpacedTiles =
-            new Regex(@"^(?i:(?:[" + validTileChars + @"]\s+).(?:[" + validTileChars + @"]))$");
-        private static int minDelay = 2;
-        private static int maxDelay = 10;
+        /// <summary>
+        /// The regular expression for a single integer
+        /// in a string (the integer can be up to 9 digits)
+        /// </summary>
+        private static Regex _singleInteger = new Regex(@"^[0-9]{1,9}$");
+        /// <summary>
+        /// The regular expression for 1 or many integers
+        /// in a string (the integer can be up to 9 digits)
+        /// </summary>
+        private static Regex _multipleIntegers = new Regex(@"^(?:[0-9]{1,9}\s+).(?:[0-9]{1,9})$");
+        /// <summary>
+        /// The regular expression for 1 or many 'Tile character'
+        /// in a string (refer to _validTileChars)
+        /// </summary>
+        private static Regex _multipleWhiteSpacedTiles =
+            new Regex(@"^(?i:(?:[" + _validTileChars + @"]\s+).(?:[" + _validTileChars + @"]))$");
         
         /// <summary>
         /// Initializes this TrafficControl's
@@ -135,7 +161,7 @@ namespace TrafficLibrary
             /* Validate then Parse the total number of vehicles */
             validate(
                 lines[0],
-                singleInteger,
+                _singleInteger,
                 "A single positive numerical integer",
                 0);
             int totalNumVehicles = parseLine<int>(
@@ -147,19 +173,19 @@ namespace TrafficLibrary
             /* Validate then Parse the delay */
             validate(
                 lines[1],
-                singleInteger,
+                _singleInteger,
                 "A single positive numerical integer",
                 1);
             int delay = parseLine<int>(
                 (line) => int.Parse(line),
-                (givenDelay) => givenDelay >= minDelay && givenDelay <= maxDelay,
+                (givenDelay) => givenDelay >= _minDelay && givenDelay <= _maxDelay,
                 lines[1],
                 1);
 
             /* Validate then Parse the percentage of cars */
             validate(
                 lines[2],
-                singleInteger,
+                _singleInteger,
                 "A single positive numerical integer",
                 2);
             int carPercent = parseLine<int>(
@@ -171,7 +197,7 @@ namespace TrafficLibrary
             /* Validate then Parse the percentage of electrics */
             validate(
                 lines[3],
-                singleInteger,
+                _singleInteger,
                 "A single positive numerical integer",
                 3);
             int electricPercent = parseLine<int>(
@@ -183,7 +209,7 @@ namespace TrafficLibrary
             /* Validate then Parse the light timings */
             validate(
                 lines[4],
-                multipleIntegers,
+                _multipleIntegers,
                 "multiple positive numerical integers",
                 4);
             int[] timings = parseLine<int[]>(
@@ -211,7 +237,7 @@ namespace TrafficLibrary
                 /* Validate then Parse the first Tile line */
                 validate(
                     lines[5],
-                    multipleWhiteSpacedTiles,
+                    _multipleWhiteSpacedTiles,
                     "multiple white-space spaced characters (0-9 or A-Z)",
                     5);
                 Tile[] firstRow = parseLine<Tile[]>(
@@ -256,7 +282,7 @@ namespace TrafficLibrary
             {
                 validate(
                     lines[i],
-                    multipleWhiteSpacedTiles,
+                    _multipleWhiteSpacedTiles,
                     "multiple white-space spaced characters (0-9 or A-Z)",
                     i);
 
@@ -279,6 +305,7 @@ namespace TrafficLibrary
                     lines[i],
                     i);
 
+                /* All lines must have the same length */
                 if (tileRow.Length != lines.Length - 5)
                 {
                     throw new ArgumentException
@@ -297,12 +324,13 @@ namespace TrafficLibrary
 
             Grid = new Grid(grid);
 
+            /* Instantiate entry points to be used by Intersection */
             List<Vector2> entryPoints = new List<Vector2>();
             for(int i = 0; i < Grid.Size; i++)
             {
                 for(int j = 0; j < Grid.Size; i++)
                 {
-                    Direction currTileDir = Grid[i, j].direction;
+                    Direction currTileDir = Grid[i, j].Direction;
                     if((currTileDir == Direction.Up && j == (Grid.Size - 1)) ||
                         (currTileDir == Direction.Right && i == 0) ||
                         (currTileDir == Direction.Down && j == 0) ||
@@ -319,9 +347,14 @@ namespace TrafficLibrary
             _delay = delay;
             _delayCounter = 0;
 
-            _numVehicles = totalNumVehicles;
+            _maxVehicles = totalNumVehicles;
+            _numVehicles = 0;
+
             _percentCar = carPercent;
+            _carCount = 0;
+
             _percentElectric = electricPercent;
+            _electricCount = 0;
         }
 
         /// <summary>
@@ -358,7 +391,7 @@ namespace TrafficLibrary
                 default:
                     throw new ArgumentException("Cannot create tile \'"
                         + tileId + "\', must be one of :" + 
-                       Environment.NewLine + validTileChars);
+                       Environment.NewLine + _validTileChars);
             }
         }
 
