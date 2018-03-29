@@ -94,41 +94,41 @@ namespace TrafficLibrary
                 switch (this.direction)
                 {
                     case Direction.Down:
-                        if (!grid[x, y+1].Occupied && y+1 < grid.Size)
+                        if (!grid[x, y+1].Occupied)
                         {
                             this.y++;
                         }
-                        else
+                        else if(y + 1 < grid.Size)
                         {
                             Done?.Invoke(this);
                         }
                         break;
                     case Direction.Up:
-                        if (!grid[x, y-1].Occupied && y-1 >= 0)
+                        if (!grid[x, y-1].Occupied)
                         {
                             this.y--;
                         }
-                        else
+                        else if(y - 1 >= 0)
                         {
                             Done?.Invoke(this);
                         }
                         break;
                     case Direction.Left:
-                        if (!grid[x-1, y].Occupied && x-1 >= 0)
+                        if (!grid[x-1, y].Occupied)
                         {
                             this.x--;
                         }
-                        else
+                        else if(x - 1 >= 0)
                         {
                             Done?.Invoke(this);
                         }
                         break;
                     case Direction.Right:
-                        if (!grid[x+1, y].Occupied && x+1 < grid.Size)
+                        if (!grid[x+1, y].Occupied)
                         {
                             this.x++;
                         }
-                        else
+                        else if(x + 1 < grid.Size)
                         {
                             Done?.Invoke(this);
                         }
