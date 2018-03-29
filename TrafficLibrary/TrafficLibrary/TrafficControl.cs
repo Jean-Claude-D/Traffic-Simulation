@@ -16,6 +16,15 @@ namespace TrafficLibrary
         /// </summary>
         private static Random _random;
         /// <summary>
+        /// Generates a random bool value
+        /// from _random
+        /// </summary>
+        /// <returns>Randomly true or false</returns>
+        private static bool randBool()
+        {
+            return _random.Next(2) == 0;
+        }
+        /// <summary>
         /// Instantiates the definition of TrafficControl,
         /// used to initialize the _random field
         /// </summary>
@@ -442,29 +451,41 @@ namespace TrafficLibrary
                 if(_numVehicles < _maxVehicles)
                 {
                     IVehicle newIVehicle;
-                    _numVehicles++;
 
                     if ((_numVehicles / (double)_carCount) - _percentCar < 0.005)
                     {
-                        //randomly car or motorcycle
+                        if(randBool())
+                        {
+                            newIVehicle = createCar();
+                        }
+                        else
+                        {
+                            newIVehicle = createMotorcycle();
+                        }
                     }
                     else if((_numVehicles / (double)_carCount) > _percentCar)
                     {
-                        //instantiate motorcycle
+                        newIVehicle = createMotorcycle();
                     }
                     else
                     {
-                        //instantiate car
+                        newIVehicle = createCar();
                     }
+
 
                     if(((_numVehicles / (double)_electricCount) - _percentElectric) < 0.005)
                     {
-                        //randomly decorates newIVehicle with Electric
+                        if(randBool())
+                        {
+                            newIVehicle = createElectric(newIVehicle);
+                        }
                     }
                     else if((_numVehicles / (double)_electricCount) < _percentElectric)
                     {
-                        //decorates newIVehicle with Electric 
+                        newIVehicle = createElectric(newIVehicle);
                     }
+
+                    Total.Passengers += newIVehicle.Passengers;
 
                     //subscribe objects to newIVehicle
                     //add newIVehicle
@@ -472,6 +493,41 @@ namespace TrafficLibrary
 
                 Intersection.Update();
             }
+        }
+
+        /// <summary>
+        /// Create a new Car object,
+        /// also updates TrafficControl's counters
+        /// </summary>
+        /// <returns>a new Car with this TrafficControl's Grid</returns>
+        private Car createCar()
+        {
+            _numVehicles++;
+            _carCount++;
+            return new Car(Grid);
+        }
+
+        /// <summary>
+        /// Create a new Motorcycle object,
+        /// also updates TrafficControl's counters
+        /// </summary>
+        /// <returns>a new Motorcycle with this TrafficControl's Grid</returns>
+        private Motorcycle createMotorcycle()
+        {
+            _numVehicles++;
+            return new Motorcycle(Grid);
+        }
+
+        /// <summary>
+        /// Decorates an IVehicle with Electric,
+        /// also updates TrafficControl's counter
+        /// </summary>
+        /// <param name="toDecorate">The IVehicle to make Electric</param>
+        /// <returns>The IVehicle toDecorate as an Electric</returns>
+        private Electric createElectric(IVehicle toDecorate)
+        {
+            _electricCount++;
+            return new Electric(toDecorate);
         }
     }
 }
