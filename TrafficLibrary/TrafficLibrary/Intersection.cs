@@ -22,7 +22,7 @@ namespace TrafficLibrary
 
         static Intersection()
         {
-            throw new NotImplementedException();
+            random = new Random();
         }
 
         public Intersection(ISignalStrategy signal, List<Vector2> startCoords, Grid grid)
@@ -30,7 +30,6 @@ namespace TrafficLibrary
             this.signal = signal;
             this.startCoords = startCoords;
             this.grid = grid;
-            random = new Random();
         }
 
         public void Update()
