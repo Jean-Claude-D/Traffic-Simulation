@@ -37,14 +37,14 @@ namespace TrafficLibrary
             foreach(var v in vehicles)
             {
                 v.Move(signal);
-                if (v.Direction == Direction.None)
-                {
-                    removeFromIntersection(v);
-                }
             }
             signal.Update();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="vehicle"></param>
         public void Add(IVehicle vehicle)
         {
             vehicles.Add(vehicle);
