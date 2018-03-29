@@ -1,4 +1,5 @@
 ﻿using System;
+using TrafficLibrary;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,8 +11,9 @@ namespace TrafficTest
     {
     }
 
-    public class TileMock
+    public class TileMock : Tile
     {
-
+        public TileMock(Direction dir) : base(dir)
+        { }
     }
 }
