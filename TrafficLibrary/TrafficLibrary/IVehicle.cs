@@ -16,15 +16,15 @@ namespace TrafficLibrary
 
         Direction Direction
         {
-            get;
+            get;set;
         }
         int X
         {
-            get;
+            get;set;
         }
         int Y
         {
-            get;
+            get;set;
         }
         int Passengers
         {
