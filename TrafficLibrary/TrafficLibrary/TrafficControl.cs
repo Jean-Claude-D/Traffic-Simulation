@@ -428,8 +428,12 @@ namespace TrafficLibrary
             if(_delayCounter++ >= _delay)
             {
                 _delayCounter = 0;
+                if(_numVehicles < _maxVehicles)
+                {
+                    //create IVehicle
+                }
 
-
+                Intersection.Update();
             }
         }
     }
