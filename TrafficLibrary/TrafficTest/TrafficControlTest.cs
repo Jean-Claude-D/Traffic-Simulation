@@ -11,7 +11,7 @@ namespace TrafficTest
         [TestMethod]
         public void TestParse()
         {
-            string file1 = File.ReadAllText(@"..\..\..\trafficfile.txt");
+            string file1 = File.ReadAllText(@"..\..\Properties\trafficfile.txt");
             string file2 = File.ReadAllText(@"..\..\..\TrafficTest\Properties\grid.txt");
 
             TrafficControl tc = new TrafficControl();
