@@ -485,7 +485,12 @@ namespace TrafficLibrary
                         newIVehicle = createElectric(newIVehicle);
                     }
 
-                    Total.Passengers += newIVehicle.Passengers;
+                    //Total.Passengers += newIVehicle.Passengers;
+                    newIVehicle.Moved += Total.Moved;
+                    newIVehicle.Waiting += Total.Waiting;
+                    newIVehicle.Done += Total.VehicleOver;
+
+
 
                     //subscribe objects to newIVehicle
                     //add newIVehicle
@@ -493,6 +498,11 @@ namespace TrafficLibrary
 
                 Intersection.Update();
             }
+        }
+
+        private void NewIVehicle_Moved(IVehicle v)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
