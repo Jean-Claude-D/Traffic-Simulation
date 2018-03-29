@@ -89,20 +89,28 @@ namespace TrafficLibrary
 
         public void Move(ISignalStrategy signal)
         {
-            if((!NextIsIntersection()) || InIntersection() || signal.getColour(this.direction) == Colour.Green)
+            if((!NextIsIntersection()) || InIntersection() || signal.GetColour(this.direction) == Colour.Green)
             {
                 switch (this.direction)
                 {
                     case Direction.Down:
-                        if (!grid[x, y-1].Occupied)
+                        if (!grid[x, y+1].Occupied)
                         {
                             this.y++;
                         }
+                        else if(y + 1 < grid.Size)
+                        {
+                            Done?.Invoke(this);
+                        }
                         break;
                     case Direction.Up:
-                        if (!grid[x, y+1].Occupied)
+                        if (!grid[x, y-1].Occupied)
                         {
                             this.y--;
+                        }
+                        else if(y - 1 >= 0)
+                        {
+                            Done?.Invoke(this);
                         }
                         break;
                     case Direction.Left:
@@ -110,11 +118,19 @@ namespace TrafficLibrary
                         {
                             this.x--;
                         }
+                        else if(x - 1 >= 0)
+                        {
+                            Done?.Invoke(this);
+                        }
                         break;
                     case Direction.Right:
                         if (!grid[x+1, y].Occupied)
                         {
                             this.x++;
+                        }
+                        else if(x + 1 < grid.Size)
+                        {
+                            Done?.Invoke(this);
                         }
                         break;
                     default:

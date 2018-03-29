@@ -10,14 +10,18 @@ namespace TrafficLibrary
     public class FixedSignal : ISignalStrategy
     {
         private int[] timing;
-        private int currentIndex;
-        private Colour updown;
-        private Colour rightleft;
-        private int counter = 0;
+        private int currentIndex = 0;
+        private Colour updown = Colour.Red;
+        private Colour rightleft = Colour.Red;
+        private int totalCycleTime = 0;
 
         public FixedSignal(params int[] timing)
         {
-            this.timing = timing;
+            for(int i = 0; i < timing.Length; i++)
+            {
+                this.timing[i] = timing[i];
+                totalCycleTime += timing[i];
+            }
         }
 
         public Colour GetColour(Direction dir)
@@ -38,34 +42,27 @@ namespace TrafficLibrary
 
         public void Update()
         {
-            //time it takes to run a whole cycle, from green back to green
-            int totalCycleTime = 0;
-            foreach (int i in timing)
-            {
-                totalCycleTime += i;
-            }
+            currentIndex %= totalCycleTime;
 
-            int cycleTime = counter % totalCycleTime;
-
-            if (cycleTime <= timing[0])
+            if (currentIndex <= timing[0])
             {
                 rightleft = Colour.Green;
                 updown = Colour.Red;
             }
-            else if (cycleTime <= timing[0] + timing[1])
+            else if (currentIndex <= timing[0] + timing[1])
             {
                 rightleft = Colour.Amber;
             }
-            else if (cycleTime <= timing[0] + timing[1] + timing[2])
+            else if (currentIndex <= timing[0] + timing[1] + timing[2])
             {
                 rightleft = Colour.Red;
                 updown = Colour.Green;
             }
-            else if (cycleTime <= timing[0] + timing[1] + timing[2] + timing[3])
+            else if (currentIndex <= timing[0] + timing[1] + timing[2] + timing[3])
             {
                 updown = Colour.Amber;
             }
-            counter++;
+            currentIndex++;
         }
     }
 }
