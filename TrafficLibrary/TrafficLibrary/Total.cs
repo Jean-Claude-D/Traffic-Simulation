@@ -28,14 +28,10 @@ namespace TrafficLibrary
         }
 
         /// <summary>
-        /// Creates a new Total object with a
-        /// starting amount of vehicles
+        /// Creates a new Total object
         /// </summary>
-        /// <param name="totalVehicles">The total number of vehicles</param>
-        public Total(int totalVehicles)
-        {
-
-        }
+        public Total()
+        { }
 
         /// <summary>
         /// Handler for IVehicle's Done event
@@ -43,7 +39,7 @@ namespace TrafficLibrary
         /// <param name="vehicle">The IVehicle that fires the Done event</param>
         public void VehicleOver(IVehicle vehicle)
         {
-
+            Passengers += vehicle.Passengers;
         }
         /// <summary>
         /// Handler for IVehicle's Moved event
@@ -51,7 +47,7 @@ namespace TrafficLibrary
         /// <param name="vehicle">The IVehicle that fires the Moved event</param>
         public void Moved(IVehicle vehicle)
         {
-
+            Emissions += vehicle.EmissionMoving;
         }
 
         /// <summary>
@@ -60,7 +56,7 @@ namespace TrafficLibrary
         /// <param name="vehicle">The IVehicle that fires the Waiting event</param>
         public void Waiting(IVehicle vehicle)
         {
-
+            Emissions += vehicle.EmissionIdle;
         }
     }
 }
