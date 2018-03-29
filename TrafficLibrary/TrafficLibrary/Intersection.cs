@@ -61,7 +61,7 @@ namespace TrafficLibrary
 
             vehicle.X = vCoords.X;
             vehicle.Y = vCoords.Y;
-            //vehicle.Direction = ; what
+            vehicle.Direction = grid[vehicle.X, vehicle.Y].Direction;
             vehicle.Done += removeFromIntersection(vehicle);
         }
 
