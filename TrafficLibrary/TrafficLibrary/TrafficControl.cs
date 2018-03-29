@@ -484,8 +484,7 @@ namespace TrafficLibrary
                     {
                         newIVehicle = createElectric(newIVehicle);
                     }
-
-                    //Total.Passengers += newIVehicle.Passengers;
+                    
                     newIVehicle.Moved += Total.Moved;
                     newIVehicle.Waiting += Total.Waiting;
                     newIVehicle.Done += Total.VehicleOver;
