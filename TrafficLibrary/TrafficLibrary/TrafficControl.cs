@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -258,7 +259,25 @@ namespace TrafficLibrary
             }
 
             Grid = new Grid(grid);
+
+            List<Vector2> entryPoints = new List<Vector2>();
+            for(int i = 0; i < Grid.Size; i++)
+            {
+                for(int j = 0; j < Grid.Size; i++)
+                {
+                    Direction currTileDir = Grid[i, j].direction;
+                    if((currTileDir == Direction.Up && j == (Grid.Size - 1)) ||
+                        (currTileDir == Direction.Right && i == 0) ||
+                        (currTileDir == Direction.Down && j == 0) ||
+                        (currTileDir == Direction.Left && i == (Grid.Size - 1)))
+                    {
+                        entryPoints.Add(new Vector2(i, j));
+                    }
+                }
+            }
+
             Total = new Total();
+            Intersection = new Intersection(trafficLight, entryPoints, Grid);
         }
 
         /// <summary>
