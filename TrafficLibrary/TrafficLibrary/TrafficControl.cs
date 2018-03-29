@@ -35,15 +35,26 @@ namespace TrafficLibrary
         private int _maxVehicles;
 
         /// <summary>
-        /// Percentage of Car compared to
+        /// The target percentage of Car compared to
         /// other IVehicle implementations in this simulation
         /// </summary>
         private double _percentCar;
         /// <summary>
-        /// Percentage of Electric compared to
+        /// The actual percentage of Car compared to
+        /// other IVehicle implementations in this simulation
+        /// </summary>
+        private double _currPercentCar;
+
+        /// <summary>
+        /// The target percentage of Electric compared to
         /// other IVehicle implementations in this simulation
         /// </summary>
         private double _percentElectric;
+        /// <summary>
+        /// The actual percentage of Electric compared to
+        /// other IVehicle implementations in this simulation
+        /// </summary>
+        private double _currPercentElectric;
 
         /// <summary>
         /// The counter for Update to update contained
@@ -430,7 +441,32 @@ namespace TrafficLibrary
                 _delayCounter = 0;
                 if(_numVehicles < _maxVehicles)
                 {
-                    //create IVehicle
+                    IVehicle newIVehicle;
+
+                    if((_currPercentCar - _percentCar) < 0.005)
+                    {
+                        //randomly car or motorcycle
+                    }
+                    else if(_currPercentCar > _percentCar)
+                    {
+                        //instantiate motorcycle
+                    }
+                    else
+                    {
+                        //instantiate car
+                    }
+
+                    if((_currPercentElectric - _percentElectric) < 0.005)
+                    {
+                        //randomly decorates newIVehicle with Electric
+                    }
+                    else if(_currPercentElectric < _percentElectric)
+                    {
+                        //decorates newIVehicle with Electric 
+                    }
+
+                    //subscribe objects to newIVehicle
+                    //add newIVehicle
                 }
 
                 Intersection.Update();
