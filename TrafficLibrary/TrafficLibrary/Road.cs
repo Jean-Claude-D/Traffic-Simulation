@@ -10,7 +10,7 @@ namespace TrafficLibrary
     /// <summary>
     /// The road tile
     /// </summary>
-    class Road : Tile
+    public class Road : Tile
     {
         /// <summary>
         /// Road constructor which passes the direction to the tile class
