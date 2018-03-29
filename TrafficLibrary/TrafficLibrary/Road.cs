@@ -18,7 +18,7 @@ namespace TrafficLibrary
         /// <param name="direction"></param>
         public Road(Direction direction) : base(direction)
         {
-            base.occupied = false;
+            base.Occupied = false;
         }
     }
 }

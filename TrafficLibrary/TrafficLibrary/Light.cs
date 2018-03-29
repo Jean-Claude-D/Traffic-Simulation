@@ -20,8 +20,8 @@ namespace TrafficLibrary
         /// <param name="d"></param>
         public Light(ISignalStrategy member, Direction d) : base(d)
         {
-            base.direction = d;
-            base.occupied = false;
+            base.Direction = d;
+            base.Occupied = false;
             strategy = member;
         }
         /// <summary>
