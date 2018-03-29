@@ -150,7 +150,7 @@ namespace TrafficLibrary
             switch (this.direction)
             {
                 case Direction.Down:
-                    if (grid[x, y+1].GetType() == typeof(IntersectionTile))
+                    if (grid[x, y+1].GetType().Equals(typeof(IntersectionTile)))
                     {
                         return true;
                     }
@@ -160,7 +160,7 @@ namespace TrafficLibrary
                     }
                     break;
                 case Direction.Up:
-                    if (grid[x, y-1].GetType() == typeof(IntersectionTile))
+                    if (grid[x, y-1].GetType().Equals(typeof(IntersectionTile)))
                     {
                         return true;
                     }
@@ -170,7 +170,7 @@ namespace TrafficLibrary
                     }
                     break;
                 case Direction.Left:
-                    if (grid[x-1, y] is IntersectionTile)
+                    if (grid[x-1, y].GetType().Equals(typeof(IntersectionTile)))
                     {
                         return true;
                     }
@@ -180,7 +180,7 @@ namespace TrafficLibrary
                     }
                     break;
                 case Direction.Right:
-                    if (grid[x+1, y].GetType() == typeof(IntersectionTile))
+                    if (grid[x+1, y].GetType().Equals(typeof(IntersectionTile)))
                     {
                         return true;
                     }
