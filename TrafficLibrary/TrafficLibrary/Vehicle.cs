@@ -196,7 +196,7 @@ namespace TrafficLibrary
                     }
                     break;
                 default:
-                    return false;
+                    return true;
                     break;
             };
         }
