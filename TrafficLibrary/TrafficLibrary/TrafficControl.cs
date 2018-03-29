@@ -258,6 +258,7 @@ namespace TrafficLibrary
             }
 
             Grid = new Grid(grid);
+            Total = new Total();
         }
 
         /// <summary>
