@@ -86,7 +86,7 @@ namespace TrafficLibrary
 
         public void Move(ISignalStrategy signal)
         {
-            if((!NextIsIntersection()) || InIntersection() || signal.getColour() == Colour.Green)
+            if((!NextIsIntersection()) || InIntersection() || signal.getColour(this.direction) == Colour.Green)
             {
                 switch (this.direction)
                 {
