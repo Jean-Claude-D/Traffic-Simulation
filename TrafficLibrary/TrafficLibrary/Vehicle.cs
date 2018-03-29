@@ -170,7 +170,7 @@ namespace TrafficLibrary
                     }
                     break;
                 case Direction.Left:
-                    if (grid[x-1, y].GetType() == typeof(IntersectionTile))
+                    if (grid[x-1, y] is IntersectionTile)
                     {
                         return true;
                     }
@@ -190,7 +190,7 @@ namespace TrafficLibrary
                     }
                     break;
                 default:
-                    return false;
+                    return true;
                     break;
             };
         }

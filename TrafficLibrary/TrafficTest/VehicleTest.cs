@@ -13,57 +13,45 @@ namespace TrafficTest
         [TestMethod]
         public void TestConstructorAndProperties()
         {
-            Car someCar;
-            Assert.ThrowsException<ArgumentException>(() => someCar = new Car(null));
 
-            Tile t = new Grass();
-            Tile t2 = new Grass();
-            Tile t3 = new Grass();
-            Tile t4 = new Grass();
-
-            Tile[,] tGrid = new Tile[2, 2];
-
-            tGrid[0, 0] = t;
-            tGrid[0, 1] = t2;
-            tGrid[1, 0] = t3;
-            tGrid[1, 1] = t4;
-
-            //Check constructor without x and y
+            Tile[,] tGrid = new Tile[4, 4];
             Grid someGrid = new Grid(tGrid);
-            Car okCar = new Car(someGrid);
+            for (int i = 0; i < someGrid.Size; i++)
+            {
+                for (int j = 0; j < someGrid.Size; j++)
+                {
+                     someGrid[i, j] = new Grass();
+                }
+            }
+
+            Car okCar = new Car(someGrid,2,3);
 
             Assert.AreEqual(okCar.EmissionMoving, 5);
             Assert.AreEqual(okCar.EmissionIdle, 2);
             Assert.AreEqual(okCar.Passengers, 3);
 
-            //check constructor with x and y
-            Car newCar = new Car(someGrid, 10, 12);
 
-            Assert.AreEqual(newCar.EmissionMoving, 5);
-            Assert.AreEqual(newCar.EmissionIdle, 2);
-            Assert.AreEqual(newCar.Passengers, 3);
-
-            Assert.AreEqual(newCar.X, 10);
-            Assert.AreEqual(newCar.Y, 12);
+            Assert.AreEqual(okCar.X, 2);
+            Assert.AreEqual(okCar.Y, 3);
         }
         [TestMethod]
 
         public void TestInIntersection()
         {
-            Grass t = new Grass();
-            IntersectionTile t2 = new IntersectionTile();
-            IntersectionTile t3 = new IntersectionTile();
-            IntersectionTile t4 = new IntersectionTile();
+            Tile[,] tGrid = new Tile[4, 4];
+            Grid someGrid = new Grid(tGrid);
+            for (int i = 0; i < someGrid.Size; i++)
+            {
+                for (int j = 0; j < someGrid.Size; j++)
+                {
+                    if (i == 1 && j == 2)
+                        someGrid[i, j] = new IntersectionTile();
+                    else
+                        someGrid[i, j] = new Grass();
+                }   
+            }
 
-            Tile[,] iGrid = new Tile[2, 2];
-            iGrid[0, 0] = t;
-            iGrid[0, 1] = t2;
-            iGrid[1, 0] = t3;
-            iGrid[1, 1] = t4;
-
-            Grid someGrid = new Grid(iGrid);
-
-            Car newCar = new Car(someGrid, 1, 1);
+            Car newCar = new Car(someGrid, 1, 2);
             Car notIn = new Car(someGrid, 0, 0);
 
             Assert.AreEqual(newCar.InIntersection(), true);
@@ -72,23 +60,31 @@ namespace TrafficTest
         [TestMethod]
         public void TestNextInIntersection()
         {
-            Road t = new Road(Direction.Left);
-            Grass t2 = new Grass();
-            IntersectionTile t3 = new IntersectionTile();
-            Road t4 = new Road(Direction.Left);
+            Tile[,] tGrid = new Tile[4, 4];
 
-            Tile[,] iGrid = new Tile[2, 2];
-            iGrid[0, 0] = t2;
-            iGrid[0, 1] = t;
-            iGrid[1, 0] = t3;
-            iGrid[1, 1] = t4;
+            Grid someGrid = new Grid(tGrid);
 
-            Grid someGrid = new Grid(iGrid);
+            for (int i = 0; i < someGrid.Size; i++)
+            {
+                for (int j = 0; j < someGrid.Size; j++)
+                {
+                    if (i == 3 && j == 1)
+                        someGrid[i, j] = new Road(Direction.Left);
+                    else if (i == 2 && j == 2)
+                        someGrid[i, j] = new IntersectionTile();
+                    else if (i == 3 && j == 2)
+                        someGrid[i, j] = new Road(Direction.Left);
+                    else
+                    {
+                        someGrid[i, j] = new Grass();
+                    }
+                }
+            }
 
-            Car newCar = new Car(someGrid, 0, 1);
-            Car someCar = new Car(someGrid, 1, 1);
-            Assert.AreEqual(newCar.NextIsIntersection(), false);
-            Assert.AreEqual(someCar.NextIsIntersection(), true);
+            Car notCar = new Car(someGrid, 3, 2);
+            Car otherCar = new Car(someGrid, 3, 1);
+            Assert.AreEqual(notCar.NextIsIntersection(), true);
+
         }
         [TestMethod]
         public void TestMove()
@@ -134,13 +130,15 @@ namespace TrafficTest
             Grid board = new Grid(sim);
 
             Car downCar = new Car(board, 1, 0);
+            downCar.Direction = Direction.Down;
             Car leftCar = new Car(board, 2, 2);
+            leftCar.Direction = Direction.Left;
 
             downCar.Move(someS);
             leftCar.Move(someS);
 
             //Check that the cars move either down or left
-            Assert.AreEqual(downCar.Y, 1);
+            Assert.AreEqual(downCar.X, 1);
             Assert.AreEqual(leftCar.X, 1);
         }
         [TestMethod]
@@ -149,35 +147,21 @@ namespace TrafficTest
             Motorcycle m1;
             Assert.ThrowsException<ArgumentException>(() => m1 = new Motorcycle(null));
 
-            Tile t = new Grass();
-            Tile t2 = new Grass();
-            Tile t3 = new Grass();
-            Tile t4 = new Grass();
-
-            Tile[,] tGrid = new Tile[2, 2];
-
-            tGrid[0, 0] = t;
-            tGrid[0, 1] = t2;
-            tGrid[1, 0] = t3;
-            tGrid[1, 1] = t4;
-
-            //Check constructor without x and y
+            Tile[,] tGrid = new Tile[4, 4];
             Grid someGrid = new Grid(tGrid);
+            for (int i = 0; i < someGrid.Size; i++)
+            {
+                for (int j = 0; j < someGrid.Size; j++)
+                {
+                    someGrid[i, j] = new Grass();
+                }
+            }
+
             Motorcycle m = new Motorcycle(someGrid);
 
             Assert.AreEqual(m.EmissionMoving, 2);
             Assert.AreEqual(m.EmissionIdle, 1);
             Assert.AreEqual(m.Passengers, 1);
-
-            //check constructor with x and y
-            Car newCar = new Car(someGrid, 10, 12);
-
-            Assert.AreEqual(newCar.EmissionMoving, 2);
-            Assert.AreEqual(newCar.EmissionIdle, 1);
-            Assert.AreEqual(newCar.Passengers, 1);
-
-            Assert.AreEqual(newCar.X, 10);
-            Assert.AreEqual(newCar.Y, 12);
         }
         [TestMethod]
         public void TestElectric()
@@ -186,20 +170,17 @@ namespace TrafficTest
             Electric e1;
             Assert.ThrowsException<ArgumentException>(() => e1 = new Electric(null));
 
-            Tile t = new Grass();
-            Tile t2 = new Grass();
-            Tile t3 = new Grass();
-            Tile t4 = new Grass();
-
-            Tile[,] tGrid = new Tile[2, 2];
-
-            tGrid[0, 0] = t;
-            tGrid[0, 1] = t2;
-            tGrid[1, 0] = t3;
-            tGrid[1, 1] = t4;
+            Tile[,] tGrid = new Tile[4, 4];
+            Grid someGrid = new Grid(tGrid);
+            for (int i = 0; i < someGrid.Size; i++)
+            {
+                for (int j = 0; j < someGrid.Size; j++)
+                {
+                     someGrid[i, j] = new Grass();
+                }
+            }
 
             //Check constructor without x and y
-            Grid someGrid = new Grid(tGrid);
             Car okCar = new Car(someGrid);
             Electric e = new Electric(okCar); 
 
