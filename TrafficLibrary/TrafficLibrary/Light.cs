@@ -27,10 +27,10 @@ namespace TrafficLibrary
         /// <summary>
         /// The color property which determines the color of the light
         /// </summary>
-        public Color color 
+        public Colour colour 
         {
-            get { return strategy.GetColor(); } 
-            set { color = value; }
+            get { return strategy.GetColour(); } 
+            set { colour = value; }
         } 
     }
 }
