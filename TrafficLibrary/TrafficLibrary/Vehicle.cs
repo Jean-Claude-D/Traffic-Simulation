@@ -46,14 +46,17 @@ namespace TrafficLibrary
         public Direction Direction
         {
             get { return this.direction; }
+            set { this.direction = value; }
         }
         public int X
         {
             get { return this.x; }
+            set { this.x = value; }
         }
         public int Y
         {
             get { return this.y; }
+            set { this.y = value }
         }
         public int Passengers
         {
