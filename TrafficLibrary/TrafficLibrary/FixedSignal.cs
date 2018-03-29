@@ -42,24 +42,23 @@ namespace TrafficLibrary
 
         public void Update()
         {
+            currentIndex %= totalCycleTime;
 
-            int cycleTime = currentIndex % totalCycleTime;
-
-            if (cycleTime <= timing[0])
+            if (currentIndex <= timing[0])
             {
                 rightleft = Colour.Green;
                 updown = Colour.Red;
             }
-            else if (cycleTime <= timing[0] + timing[1])
+            else if (currentIndex <= timing[0] + timing[1])
             {
                 rightleft = Colour.Amber;
             }
-            else if (cycleTime <= timing[0] + timing[1] + timing[2])
+            else if (currentIndex <= timing[0] + timing[1] + timing[2])
             {
                 rightleft = Colour.Red;
                 updown = Colour.Green;
             }
-            else if (cycleTime <= timing[0] + timing[1] + timing[2] + timing[3])
+            else if (currentIndex <= timing[0] + timing[1] + timing[2] + timing[3])
             {
                 updown = Colour.Amber;
             }

@@ -34,13 +34,12 @@ namespace TrafficLibrary
 
         public void Update()
         {
-            for(int i = 0; i < vehicles.Count; i++)
+            foreach(var v in vehicles)
             {
-                vehicles[i].Move(signal);
-                if (vehicles[i].Direction == Direction.None)
+                v.Move(signal);
+                if (v.Direction == Direction.None)
                 {
-                    removeFromIntersection(vehicles[i]);
-                    i--;
+                    removeFromIntersection(v);
                 }
             }
             signal.Update();
