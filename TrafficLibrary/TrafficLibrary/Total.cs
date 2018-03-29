@@ -9,8 +9,8 @@ namespace TrafficLibrary
     public class Total
     {
         /// <summary>
-        /// The total number of passengers in all IVehicle
-        /// currently in the simulation
+        /// The total number of passengers that made
+        /// it alive through the intersection
         /// </summary>
         public int Passengers
         {
