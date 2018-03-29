@@ -29,6 +29,12 @@ namespace TrafficLibrary
         /// </summary>
         private int _numVehicles;
         /// <summary>
+        /// The maximum number of IVehicle this
+        /// simulation should ever contain
+        /// </summary>
+        private int _maxVehicles;
+
+        /// <summary>
         /// Percentage of Car compared to
         /// other IVehicle implementations in this simulation
         /// </summary>
@@ -38,6 +44,17 @@ namespace TrafficLibrary
         /// other IVehicle implementations in this simulation
         /// </summary>
         private double _percentElectric;
+
+        /// <summary>
+        /// The counter for Update to update contained
+        /// objects at every "_delay" call
+        /// </summary>
+        private int _delayCounter;
+        /// <summary>
+        /// The numer of calls to Update it takes
+        /// for update to take place
+        /// </summary>
+        private int _delay;
 
         /// <summary>
         /// The Intersection representing
@@ -278,6 +295,13 @@ namespace TrafficLibrary
 
             Total = new Total();
             Intersection = new Intersection(trafficLight, entryPoints, Grid);
+
+            _delay = delay;
+            _delayCounter = 0;
+
+            _numVehicles = totalNumVehicles;
+            _percentCar = carPercent;
+            _percentElectric = electricPercent;
         }
 
         /// <summary>
@@ -401,7 +425,12 @@ namespace TrafficLibrary
         /// </summary>
         public void Update()
         {
-            
+            if(_delayCounter++ >= _delay)
+            {
+                _delayCounter = 0;
+
+
+            }
         }
     }
 }
