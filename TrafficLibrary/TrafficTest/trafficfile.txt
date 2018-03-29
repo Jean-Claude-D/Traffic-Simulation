@@ -1,0 +1,13 @@
+100
+2
+80
+10
+20 5 10 5
+G G G D U G G G
+G G G D U G G G
+G G 1 D U 2 G G
+L L L I I L L L
+R R R I I R R R
+G G 3 D U 4 G G
+G G G D U G G G
+G G G D U G G G
