@@ -41,7 +41,7 @@ namespace TrafficLibrary
         /// Handler for IVehicle's Done event
         /// </summary>
         /// <param name="vehicle">The IVehicle that fires the Done event</param>
-        public VehicleOver(IVehicle vehicle)
+        public void VehicleOver(IVehicle vehicle)
         {
 
         }
@@ -49,7 +49,7 @@ namespace TrafficLibrary
         /// Handler for IVehicle's Moved event
         /// </summary>
         /// <param name="vehicle">The IVehicle that fires the Moved event</param>
-        public Moved(IVehicle vehicle)
+        public void Moved(IVehicle vehicle)
         {
 
         }
@@ -58,7 +58,7 @@ namespace TrafficLibrary
         /// Handler for IVehicle's Waiting event
         /// </summary>
         /// <param name="vehicle">The IVehicle that fires the Waiting event</param>
-        public Waiting(IVehicle vehicle)
+        public void Waiting(IVehicle vehicle)
         {
 
         }
