@@ -56,7 +56,7 @@ namespace TrafficLibrary
         public int Y
         {
             get { return this.y; }
-            set { this.y = value }
+            set { this.y = value; }
         }
         public int Passengers
         {
@@ -94,15 +94,23 @@ namespace TrafficLibrary
                 switch (this.direction)
                 {
                     case Direction.Down:
-                        if (!grid[x, y-1].Occupied)
+                        if (!grid[x, y+1].Occupied)
                         {
                             this.y++;
                         }
+                        else if(y + 1 < grid.Size)
+                        {
+                            Done?.Invoke(this);
+                        }
                         break;
                     case Direction.Up:
-                        if (!grid[x, y+1].Occupied)
+                        if (!grid[x, y-1].Occupied)
                         {
                             this.y--;
+                        }
+                        else if(y - 1 >= 0)
+                        {
+                            Done?.Invoke(this);
                         }
                         break;
                     case Direction.Left:
@@ -110,11 +118,19 @@ namespace TrafficLibrary
                         {
                             this.x--;
                         }
+                        else if(x - 1 >= 0)
+                        {
+                            Done?.Invoke(this);
+                        }
                         break;
                     case Direction.Right:
                         if (!grid[x+1, y].Occupied)
                         {
                             this.x++;
+                        }
+                        else if(x + 1 < grid.Size)
+                        {
+                            Done?.Invoke(this);
                         }
                         break;
                     default:
