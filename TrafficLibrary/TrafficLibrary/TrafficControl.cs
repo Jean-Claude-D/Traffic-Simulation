@@ -138,13 +138,13 @@ namespace TrafficLibrary
         /// The regular expression for 1 or many integers
         /// in a string (the integer can be up to 9 digits)
         /// </summary>
-        private static Regex _multipleIntegers = new Regex(@"^(?:[0-9]{1,9}\s+).(?:[0-9]{1,9})$");
+        private static Regex _multipleIntegers = new Regex(@"^(?:[0-9]{1,9}\s+)*(?:[0-9]{1,9})$");
         /// <summary>
         /// The regular expression for 1 or many 'Tile character'
         /// in a string (refer to _validTileChars)
         /// </summary>
         private static Regex _multipleWhiteSpacedTiles =
-            new Regex(@"^(?i:(?:[" + _validTileChars + @"]\s+).(?:[" + _validTileChars + @"]))$");
+            new Regex(@"^(?i:(?:[" + _validTileChars + @"]\s+)*(?:[" + _validTileChars + @"]))$");
         
         /// <summary>
         /// Initializes this TrafficControl's
