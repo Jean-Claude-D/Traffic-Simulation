@@ -15,7 +15,7 @@ namespace TrafficLibrary
         public bool Occupied;
         public Tile(Direction direction)
         {
-            this.direction = direction;
+            this.Direction = direction;
         }
     }
 }
