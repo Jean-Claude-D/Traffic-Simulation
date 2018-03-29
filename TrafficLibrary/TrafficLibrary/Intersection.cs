@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace TrafficLibrary
 {
-    class Intersection : IEnumerable
+    public class Intersection : IEnumerable
     {
         private List<IVehicle> vehicles;
         private List<Vector2> startCoords;
@@ -31,21 +31,43 @@ namespace TrafficLibrary
             this.signal = signal;
             this.startCoords = startCoords;
             this.grid = grid;
+            random = new Random();
         }
 
         public void Update()
         {
-            throw new NotImplementedException();
+            for(int i = 0; i < vehicles.Count; i++)
+            {
+                vehicles[i].Move(signal);
+                if (vehicles[i].Direction == Direction.None)
+                {
+                    removeFromIntersection(vehicles[i]);
+                    i--;
+                }
+            }
+            signal.Update();
         }
 
         public void Add(IVehicle vehicle)
         {
-            throw new NotImplementedException();
+            vehicles.Add(vehicle);
+            Vector2 vCoords;
+           
+            do
+            {
+                vCoords = startCoords[random.Next(startCoords.Count)];
+            }
+            while (grid.IsOccupied(vCoords.X, vCoords.Y));
+
+            vehicle.X = vCoords.X;
+            vehicle.Y = vCoords.Y;
+            vehicle.Direction = grid[vehicle.X, vehicle.Y].Direction;
+            vehicle.Done += removeFromIntersection(vehicle);
         }
 
-        private void removeFromIntersection(IVehicle vehicle)
+        private void removeFromIntersection(IVehicle v)
         {
-            throw new NotImplementedException();
+            vehicles.Remove(v);
         }
     }
 }

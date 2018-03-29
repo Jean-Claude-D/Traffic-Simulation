@@ -20,17 +20,17 @@ namespace TrafficLibrary
         /// <param name="d"></param>
         public Light(ISignalStrategy member, Direction d) : base(d)
         {
-            base.direction = d;
-            base.occupied = false;
+            base.Direction = d;
+            base.Occupied = false;
             strategy = member;
         }
         /// <summary>
         /// The color property which determines the color of the light
         /// </summary>
-        public Color color 
+        public Colour colour 
         {
-            get { return strategy.GetColor(); } 
-            set { color = value; }
+            get { return strategy.GetColour(); } 
+            set { colour = value; }
         } 
     }
 }
