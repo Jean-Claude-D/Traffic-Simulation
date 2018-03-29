@@ -24,7 +24,6 @@ namespace TrafficLibrary
                 this.emissionIdle = emissionIdle;
                 this.passengers = passengers;
                 this.grid = grid;
-                this.direction = grid[x, y].Direction;
             }
             else
             {
@@ -34,13 +33,20 @@ namespace TrafficLibrary
 
         public Vehicle(double emissionMoving, double emissionIdle, int passengers, Grid grid, int x, int y)
         {
-            this.emissionMoving = emissionMoving;
-            this.emissionIdle = emissionIdle;
-            this.passengers = passengers;
-            this.grid = grid;
-            this.x = x;
-            this.y = y;
-            this.direction = grid[x, y].Direction;
+             if (grid != null)
+            {
+                this.emissionMoving = emissionMoving;
+                this.emissionIdle = emissionIdle;
+                this.passengers = passengers;
+                this.grid = grid;
+                this.x = x;
+                this.y = y;
+                this.direction = grid[x, y].Direction;
+            }
+            else
+            {
+                throw new ArgumentException("Null Grid!");
+            }
         }
 
         public Direction Direction
