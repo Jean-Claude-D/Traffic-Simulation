@@ -489,19 +489,11 @@ namespace TrafficLibrary
                     newIVehicle.Waiting += Total.Waiting;
                     newIVehicle.Done += Total.VehicleOver;
 
-
-
-                    //subscribe objects to newIVehicle
-                    //add newIVehicle
+                    Intersection.Add(newIVehicle);
                 }
 
                 Intersection.Update();
             }
-        }
-
-        private void NewIVehicle_Moved(IVehicle v)
-        {
-            throw new NotImplementedException();
         }
 
         /// <summary>
