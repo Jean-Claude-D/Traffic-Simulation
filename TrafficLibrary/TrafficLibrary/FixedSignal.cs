@@ -17,7 +17,10 @@ namespace TrafficLibrary
 
         public FixedSignal(params int[] timing)
         {
-            this.timing = timing;
+            for(int i = 0; i < timing.Length; i++)
+            {
+                this.timing[i] = timing[i];
+            }
         }
 
         public Colour GetColour(Direction dir)

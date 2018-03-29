@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Numerics.Vectors;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -26,7 +25,7 @@ namespace TrafficLibrary
             throw new NotImplementedException();
         }
 
-        public Intersection(ISignalStrategy signal, List<Vector2> startCoords, grid)
+        public Intersection(ISignalStrategy signal, List<Vector2> startCoords, Grid grid)
         {
             this.signal = signal;
             this.startCoords = startCoords;
