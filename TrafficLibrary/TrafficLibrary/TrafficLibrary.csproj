@@ -41,7 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-	<Compile Include="Colour.cs" />
+    <Compile Include="Colour.cs" />
     <Compile Include="FixedSignal.cs" />
     <Compile Include="Intersection.cs" />
     <Compile Include="ISignalStrategy.cs" />

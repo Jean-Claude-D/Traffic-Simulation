@@ -7,17 +7,8 @@ using System.Threading.Tasks;
 namespace TrafficLibrary
 {
 
-    class FixedSignal : ISignalStrategy
+    public class FixedSignal : ISignalStrategy
     {
-        public enum Direction
-        {
-            Left,
-            Right,
-            Up,
-            Down,
-            None
-        }
-
         private int[] timing;
         private int currentIndex;
         private Colour updown;
