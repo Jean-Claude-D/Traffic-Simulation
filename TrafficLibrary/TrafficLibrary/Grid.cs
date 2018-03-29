@@ -52,7 +52,7 @@ namespace TrafficLibrary
         }
         public bool IsOccupied(int x, int y)
         {
-            return this[x, y].occupied;
+            return this[x, y].Occupied;
         }
         public bool InBounds(int x, int y)
         {

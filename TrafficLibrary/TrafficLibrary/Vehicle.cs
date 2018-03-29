@@ -93,13 +93,13 @@ namespace TrafficLibrary
                     case Direction.Down:
                         if (!grid[x, y-1].Occupied)
                         {
-                            this.y--;
+                            this.y++;
                         }
                         break;
                     case Direction.Up:
                         if (!grid[x, y+1].Occupied)
                         {
-                            this.y++;
+                            this.y--;
                         }
                         break;
                     case Direction.Left:
@@ -131,7 +131,7 @@ namespace TrafficLibrary
             switch (this.direction)
             {
                 case Direction.Down:
-                    if (grid[x, y-1].GetType() == typeof(IntersectionTile))
+                    if (grid[x, y+1].GetType() == typeof(IntersectionTile))
                     {
                         return true;
                     }
@@ -141,7 +141,7 @@ namespace TrafficLibrary
                     }
                     break;
                 case Direction.Up:
-                    if (grid[x, y+1].GetType() == typeof(IntersectionTile))
+                    if (grid[x, y-1].GetType() == typeof(IntersectionTile))
                     {
                         return true;
                     }
