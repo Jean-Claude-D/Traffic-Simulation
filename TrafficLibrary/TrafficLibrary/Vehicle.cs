@@ -56,7 +56,7 @@ namespace TrafficLibrary
         public int Y
         {
             get { return this.y; }
-            set { this.y = value }
+            set { this.y = value; }
         }
         public int Passengers
         {
