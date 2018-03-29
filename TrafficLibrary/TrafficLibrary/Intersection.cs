@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
 
 namespace TrafficLibrary
 {
@@ -42,6 +43,8 @@ namespace TrafficLibrary
         }
 
         /// <summary>
+        /// Adds new vehicles into the system.
+        /// Vehicles are placed at the start of the roads randomly.
         /// 
         /// </summary>
         /// <param name="vehicle"></param>
@@ -54,16 +57,18 @@ namespace TrafficLibrary
             {
                 vCoords = startCoords[random.Next(startCoords.Count)];
             }
-            while (grid.IsOccupied(vCoords.X, vCoords.Y));
+            while (grid.IsOccupied((int) vCoords.X, (int) vCoords.Y));
 
-            vehicle.X = vCoords.X;
-            vehicle.Y = vCoords.Y;
+            vehicle.X = (int) vCoords.X;
+            vehicle.Y = (int) vCoords.Y;
             vehicle.Direction = grid[vehicle.X, vehicle.Y].Direction;
-            vehicle.Done += removeFromIntersection(vehicle);
+            vehicle.Done += removeFromIntersection;
         }
 
         private void removeFromIntersection(IVehicle v)
         {
+            v.Direction = Direction.None;
+            
             vehicles.Remove(v);
         }
     }
