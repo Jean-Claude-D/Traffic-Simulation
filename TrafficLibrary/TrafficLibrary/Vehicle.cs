@@ -46,14 +46,17 @@ namespace TrafficLibrary
         public Direction Direction
         {
             get { return this.direction; }
+            set { this.direction = value; }
         }
         public int X
         {
             get { return this.x; }
+            set { this.x = value; }
         }
         public int Y
         {
             get { return this.y; }
+            set { this.y = value; }
         }
         public int Passengers
         {
@@ -86,20 +89,20 @@ namespace TrafficLibrary
 
         public void Move(ISignalStrategy signal)
         {
-            if((!NextIsIntersection()) || InIntersection() || signal.getColour() == Colour.Green)
+            if((!NextIsIntersection()) || InIntersection() || signal.getColour(this.direction) == Colour.Green)
             {
                 switch (this.direction)
                 {
                     case Direction.Down:
                         if (!grid[x, y-1].Occupied)
                         {
-                            this.y--;
+                            this.y++;
                         }
                         break;
                     case Direction.Up:
                         if (!grid[x, y+1].Occupied)
                         {
-                            this.y++;
+                            this.y--;
                         }
                         break;
                     case Direction.Left:
@@ -131,7 +134,7 @@ namespace TrafficLibrary
             switch (this.direction)
             {
                 case Direction.Down:
-                    if (grid[x, y-1].GetType() == typeof(IntersectionTile))
+                    if (grid[x, y+1].GetType() == typeof(IntersectionTile))
                     {
                         return true;
                     }
@@ -141,7 +144,7 @@ namespace TrafficLibrary
                     }
                     break;
                 case Direction.Up:
-                    if (grid[x, y+1].GetType() == typeof(IntersectionTile))
+                    if (grid[x, y-1].GetType() == typeof(IntersectionTile))
                     {
                         return true;
                     }
