@@ -17,6 +17,7 @@ namespace TrafficLibrary
 
         public FixedSignal(params int[] timing)
         {
+            this.timing = new int[timing.Length];
             for(int i = 0; i < timing.Length; i++)
             {
                 this.timing[i] = timing[i];
