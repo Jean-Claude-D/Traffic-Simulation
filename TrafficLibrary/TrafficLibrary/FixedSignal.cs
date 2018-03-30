@@ -65,5 +65,15 @@ namespace TrafficLibrary
             }
             currentIndex++;
         }
+
+        public Colour GetColour(Direction dir)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
