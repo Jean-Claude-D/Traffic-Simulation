@@ -46,8 +46,8 @@
     <Compile Include="Grid.cs" />
     <Compile Include="IntersectionTile.cs" />
     <Compile Include="Light.cs" />
-	<Compile Include="Car.cs" />
-	<Compile Include="Colour.cs" />
+    <Compile Include="Car.cs" />
+    <Compile Include="Colour.cs" />
     <Compile Include="Electric.cs" />
     <Compile Include="IVehicle.cs" />
     <Compile Include="Motorcycle.cs" />

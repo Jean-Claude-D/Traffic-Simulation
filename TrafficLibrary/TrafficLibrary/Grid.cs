@@ -66,7 +66,7 @@ namespace TrafficLibrary
         }
         public bool IsOccupied(int x, int y)
         {
-            if(!(InBounds(x,y))
+            if(!InBounds(x,y))
             {
                 throw new ArgumentException("Your index does not exist it is out of bounds.");
             }
