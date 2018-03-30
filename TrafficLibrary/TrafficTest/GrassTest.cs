@@ -7,7 +7,12 @@ namespace TrafficTest
     public class GrassTest
     {
         [TestMethod]
-        public void TestMethod1()
+        public void GrassConstructor_CheckOccupied()
+        {
+        }
+
+        [TestMethod]
+        public void GrassConstructor_CheckDirection()
         {
         }
     }
