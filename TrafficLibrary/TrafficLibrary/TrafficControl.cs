@@ -273,7 +273,7 @@ namespace TrafficLibrary
                 grid = new Tile[firstRow.Length, lines.Length - 5];
                 for(int i = 0; i < firstRow.Length; i++)
                 {
-                    grid[0, i] = firstRow[i];
+                    grid[i, 0] = firstRow[i];
                 }
             }
 
@@ -318,7 +318,7 @@ namespace TrafficLibrary
                 /* Add the Tile line to the grid */
                 for (int j = 0; j < tileRow.Length; j++)
                 {
-                    grid[0, j] = tileRow[j];
+                    grid[j, i] = tileRow[j];
                 }
             }
 
