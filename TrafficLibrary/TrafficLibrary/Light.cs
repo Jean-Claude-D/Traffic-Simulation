@@ -30,7 +30,7 @@ namespace TrafficLibrary
         public Colour colour 
         {
             get { return strategy.GetColour(this.Direction); } 
-            set { colour = value; }
+            private set { colour = value; }
         } 
     }
 }
