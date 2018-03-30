@@ -49,8 +49,11 @@ namespace TrafficTest
 
             tc.Parse(file1);
 
+            //after 2 updates, there should be something to look at
             tc.Update();
             tc.Update();
+
+            Assert.IsTrue(tc.Total.Passengers > 0);
         }
     }
 }
