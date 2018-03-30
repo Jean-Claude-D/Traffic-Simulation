@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TrafficLibrary
 {
-
+    
     public class FixedSignal : ISignalStrategy
     {
         private int[] timing;
@@ -64,6 +64,16 @@ namespace TrafficLibrary
                 updown = Colour.Amber;
             }
             currentIndex++;
+        }
+
+        public Colour GetColour(Direction dir)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update()
+        {
+            throw new NotImplementedException();
         }
     }
 }
