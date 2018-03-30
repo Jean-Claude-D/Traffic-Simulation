@@ -53,7 +53,7 @@ namespace TrafficTest
                 myTrafficLight.Update();
             }
 
-            Assert.AreEqual(Colour.Green, myLight.colour);
+            Assert.AreEqual(Colour.Green, myLight.Colour);
         }
 
         [TestMethod]
@@ -68,7 +68,7 @@ namespace TrafficTest
                 myTrafficLight.Update();
             }
 
-            Assert.AreEqual(Colour.Amber, myLight.colour);
+            Assert.AreEqual(Colour.Amber, myLight.Colour);
         }
 
         [TestMethod]
@@ -83,7 +83,7 @@ namespace TrafficTest
                 myTrafficLight.Update();
             }
 
-            Assert.AreEqual(Colour.Red, myLight.colour);
+            Assert.AreEqual(Colour.Red, myLight.Colour);
         }
 
         private ISignalStrategy getTrafficLight()

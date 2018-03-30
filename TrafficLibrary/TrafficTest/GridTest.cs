@@ -152,7 +152,7 @@ namespace TrafficTest
             Grid myGrid = new Grid(getGrassTileArr());
             bool isOccupied;
 
-            Assert.ThrowsException<IndexOutOfRangeException>(
+            Assert.ThrowsException<ArgumentException>(
                 () => isOccupied = myGrid.IsOccupied(3, 4));
         }
 
