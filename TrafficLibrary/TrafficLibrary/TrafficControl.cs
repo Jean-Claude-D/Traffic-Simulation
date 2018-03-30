@@ -296,7 +296,7 @@ namespace TrafficLibrary
                         Tile[] tiles = new Tile[tilesStr.Length];
                         for (int j = 0; j < tiles.Length; j++)
                         {
-                            tiles[i] = createTile(tilesStr[j], trafficLight);
+                            tiles[j] = createTile(tilesStr[j], trafficLight);
                         }
 
                         return tiles;

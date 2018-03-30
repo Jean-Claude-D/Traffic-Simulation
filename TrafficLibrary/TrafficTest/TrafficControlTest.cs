@@ -36,14 +36,21 @@ namespace TrafficTest
             TrafficControl tc2 = new TrafficControl();
 
             tc2.Parse(file2);
-            //
+            
             Assert.AreEqual(tc2.Grid[0, 0].GetType(), typeof(Grass));
         }
 
         [TestMethod]
         public void TestUpdate()
         {
+            string file1 = File.ReadAllText(@"..\..\Properties\trafficfile.txt");
+           
+            TrafficControl tc = new TrafficControl();
 
+            tc.Parse(file1);
+
+            tc.Update();
+            tc.Update();
         }
     }
 }
