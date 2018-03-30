@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GrassTest.cs" />
+    <Compile Include="GridTest.cs" />
     <Compile Include="IntersectionTileTest.cs" />
     <Compile Include="LightTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
