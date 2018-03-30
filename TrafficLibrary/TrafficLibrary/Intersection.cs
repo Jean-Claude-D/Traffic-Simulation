@@ -2,13 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Numerics.Vectors;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
 
 namespace TrafficLibrary
 {
-    class Intersection : IEnumerable
+    public class Intersection : IEnumerable
     {
         private List<IVehicle> vehicles;
         private List<Vector2> startCoords;
@@ -23,10 +23,10 @@ namespace TrafficLibrary
 
         static Intersection()
         {
-            throw new NotImplementedException();
+            random = new Random();
         }
 
-        public Intersection(ISignalStrategy signal, List<Vector2> startCoords, grid)
+        public Intersection(ISignalStrategy signal, List<Vector2> startCoords, Grid grid)
         {
             this.signal = signal;
             this.startCoords = startCoords;
@@ -35,17 +35,41 @@ namespace TrafficLibrary
 
         public void Update()
         {
-            throw new NotImplementedException();
+            foreach(var v in vehicles)
+            {
+                v.Move(signal);
+            }
+            signal.Update();
         }
 
+        /// <summary>
+        /// Adds new vehicles into the system.
+        /// Vehicles are placed at the start of the roads randomly.
+        /// 
+        /// </summary>
+        /// <param name="vehicle"></param>
         public void Add(IVehicle vehicle)
         {
-            throw new NotImplementedException();
+            vehicles.Add(vehicle);
+            Vector2 vCoords;
+           
+            do
+            {
+                vCoords = startCoords[random.Next(startCoords.Count)];
+            }
+            while (grid.IsOccupied((int) vCoords.X, (int) vCoords.Y));
+
+            vehicle.X = (int) vCoords.X;
+            vehicle.Y = (int) vCoords.Y;
+            vehicle.Direction = grid[vehicle.X, vehicle.Y].Direction;
+            vehicle.Done += removeFromIntersection;
         }
 
-        private void removeFromIntersection(IVehicle vehicle)
+        private void removeFromIntersection(IVehicle v)
         {
-            throw new NotImplementedException();
+            v.Direction = Direction.None;
+            
+            vehicles.Remove(v);
         }
     }
 }

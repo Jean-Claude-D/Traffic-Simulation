@@ -14,7 +14,7 @@ namespace TrafficLibrary
         /// </summary>
         public IntersectionTile() : base(Direction.None)
         {
-            base.occupied = false;
+            base.Occupied = false;
         }
     }
 }

@@ -1,70 +1,49 @@
 ﻿using System;
-using System.Text;
-using System.Collections.Generic;
+using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TrafficLibrary;
 
 namespace TrafficTest
 {
-    /// <summary>
-    /// Summary description for TrafficControlTest
-    /// </summary>
     [TestClass]
     public class TrafficControlTest
     {
-        public TrafficControlTest()
+        [TestMethod]
+        public void TestParse()
         {
+            string file1 = File.ReadAllText(@"..\..\Properties\trafficfile.txt");
+            string file2 = File.ReadAllText(@"..\..\..\TrafficTest\Properties\grid.txt");
+
+            TrafficControl tc = new TrafficControl();
+
+            tc.Parse(file1);
+            
+            Assert.AreEqual(tc.Grid[0, 0].GetType(), typeof(Grass));
+            Assert.AreEqual(tc.Grid[1, 1].GetType(), typeof(Grass));
+            Assert.AreEqual(tc.Grid[2, 2].GetType(), typeof(Light));
+            Assert.AreEqual(tc.Grid[2, 5].GetType(), typeof(Light));
+            Assert.AreEqual(tc.Grid[3, 3].GetType(), typeof(IntersectionTile));
+            Assert.AreEqual(tc.Grid[3, 4].GetType(), typeof(IntersectionTile));
+            Assert.AreEqual(tc.Grid[3, 5].GetType(), typeof(Road));
+            Assert.AreEqual(tc.Grid[3, 5].Direction, Direction.Down);
+            Assert.AreEqual(tc.Grid[5, 3].Direction, Direction.Left);
+            Assert.AreEqual(tc.Grid[0, 5].Direction, Direction.Right);
+            Assert.AreEqual(tc.Grid[4, 0].Direction, Direction.Up);
+            Assert.IsTrue(tc.Grid.InBounds(7, 7));
+            Assert.IsFalse(tc.Grid.InBounds(8, 8));
+            
+
+            TrafficControl tc2 = new TrafficControl();
+
+            tc2.Parse(file2);
             //
-            // TODO: Add constructor logic here
-            //
+            Assert.AreEqual(tc2.Grid[0, 0].GetType(), typeof(Grass));
         }
-
-        private TestContext testContextInstance;
-
-        /// <summary>
-        ///Gets or sets the test context which provides
-        ///information about and functionality for the current test run.
-        ///</summary>
-        public TestContext TestContext
-        {
-            get
-            {
-                return testContextInstance;
-            }
-            set
-            {
-                testContextInstance = value;
-            }
-        }
-
-        #region Additional test attributes
-        //
-        // You can use the following additional attributes as you write your tests:
-        //
-        // Use ClassInitialize to run code before running the first test in the class
-        // [ClassInitialize()]
-        // public static void MyClassInitialize(TestContext testContext) { }
-        //
-        // Use ClassCleanup to run code after all tests in a class have run
-        // [ClassCleanup()]
-        // public static void MyClassCleanup() { }
-        //
-        // Use TestInitialize to run code before running each test 
-        // [TestInitialize()]
-        // public void MyTestInitialize() { }
-        //
-        // Use TestCleanup to run code after each test has run
-        // [TestCleanup()]
-        // public void MyTestCleanup() { }
-        //
-        #endregion
 
         [TestMethod]
-        public void TestMethod1()
+        public void TestUpdate()
         {
-            //
-            // TODO: Add test logic here
-            //
+
         }
     }
 }

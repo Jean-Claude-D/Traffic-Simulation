@@ -11,11 +11,11 @@ namespace TrafficLibrary
     /// </summary>
     public abstract class Tile
     {
-        public Direction direction;
-        public bool occupied;
+        public Direction Direction;
+        public bool Occupied;
         public Tile(Direction direction)
         {
-            this.direction = direction;
+            this.Direction = direction;
         }
     }
 }
