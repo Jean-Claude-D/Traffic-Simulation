@@ -34,10 +34,7 @@ namespace TrafficTest
             //make the intersection, which tests intersection's constructor
             FixedSignal strategy = new FixedSignal(20, 5, 10, 5);
             List<Vector2> startCoords = new List<Vector2>();
-            startCoords.Add(new Vector2(1, 0));
-            startCoords.Add(new Vector2(3, 1));
             startCoords.Add(new Vector2(0, 2));
-            startCoords.Add(new Vector2(2, 3));
             Intersection test = new Intersection(strategy, startCoords, grid);
             //call add, which tests add
             Car c = new Car(grid, 2, 3);
