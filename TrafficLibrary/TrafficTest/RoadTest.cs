@@ -7,7 +7,17 @@ namespace TrafficTest
     public class RoadTest
     {
         [TestMethod]
-        public void TestMethod1()
+        public void RoadConstructor_WithDirectionNone()
+        {
+        }
+
+        [TestMethod]
+        public void RoadConstructor_WithDirection()
+        {
+        }
+
+        [TestMethod]
+        public void RoadConstructor_CheckOccupied()
         {
         }
     }
