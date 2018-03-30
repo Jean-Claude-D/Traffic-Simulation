@@ -55,9 +55,6 @@ namespace TrafficLibrary
             get { return Vehicle.EmissionMoving / 4; }
         }
 
-        
-
-
         public bool InIntersection()
         {
             return Vehicle.InIntersection();

@@ -16,7 +16,7 @@ namespace TrafficLibrary
         /// </summary>
         public Grass() : base(Direction.None)
         {
-            base.Occupied = false;
+            Occupied = false;
         }
     }
 }

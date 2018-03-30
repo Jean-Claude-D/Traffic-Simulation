@@ -24,7 +24,6 @@ namespace TrafficLibrary
                 this.emissionIdle = emissionIdle;
                 this.passengers = passengers;
                 this.grid = grid;
-                this.direction = grid[x, y].Direction;
             }
             else
             {
@@ -34,13 +33,20 @@ namespace TrafficLibrary
 
         public Vehicle(double emissionMoving, double emissionIdle, int passengers, Grid grid, int x, int y)
         {
-            this.emissionMoving = emissionMoving;
-            this.emissionIdle = emissionIdle;
-            this.passengers = passengers;
-            this.grid = grid;
-            this.x = x;
-            this.y = y;
-            this.direction = grid[x, y].Direction;
+             if (grid != null)
+            {
+                this.emissionMoving = emissionMoving;
+                this.emissionIdle = emissionIdle;
+                this.passengers = passengers;
+                this.grid = grid;
+                this.x = x;
+                this.y = y;
+                this.direction = grid[x, y].Direction;
+            }
+            else
+            {
+                throw new ArgumentException("Null Grid!");
+            }
         }
 
         public Direction Direction
@@ -77,7 +83,7 @@ namespace TrafficLibrary
 
         public bool InIntersection()
         {
-            if(grid[x,y].GetType() == typeof(IntersectionTile))
+            if(grid[x,y].GetType().Equals(typeof(IntersectionTile)))
             {
                 return true;
             }
@@ -150,7 +156,7 @@ namespace TrafficLibrary
             switch (this.direction)
             {
                 case Direction.Down:
-                    if (grid[x, y+1].GetType() == typeof(IntersectionTile))
+                    if (grid[x, y+1].GetType().Equals(typeof(IntersectionTile)))
                     {
                         return true;
                     }
@@ -160,7 +166,7 @@ namespace TrafficLibrary
                     }
                     break;
                 case Direction.Up:
-                    if (grid[x, y-1].GetType() == typeof(IntersectionTile))
+                    if (grid[x, y-1].GetType().Equals(typeof(IntersectionTile)))
                     {
                         return true;
                     }
@@ -170,7 +176,7 @@ namespace TrafficLibrary
                     }
                     break;
                 case Direction.Left:
-                    if (grid[x-1, y].GetType() == typeof(IntersectionTile))
+                    if (grid[x-1, y].GetType().Equals(typeof(IntersectionTile)))
                     {
                         return true;
                     }
@@ -180,7 +186,7 @@ namespace TrafficLibrary
                     }
                     break;
                 case Direction.Right:
-                    if (grid[x+1, y].GetType() == typeof(IntersectionTile))
+                    if (grid[x+1, y].GetType().Equals(typeof(IntersectionTile)))
                     {
                         return true;
                     }
@@ -190,7 +196,7 @@ namespace TrafficLibrary
                     }
                     break;
                 default:
-                    return false;
+                    return true;
                     break;
             };
         }
