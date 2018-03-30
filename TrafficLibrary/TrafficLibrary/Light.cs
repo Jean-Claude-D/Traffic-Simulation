@@ -20,17 +20,24 @@ namespace TrafficLibrary
         /// <param name="d"></param>
         public Light(ISignalStrategy member, Direction d) : base(d)
         {
-            base.Direction = d;
-            base.Occupied = false;
+            if(member == null)
+            {
+                throw new ArgumentException("Cannot have null member");
+            }
+            if(d == Direction.None)
+            {
+                throw new ArgumentException("Cannot have Direction.None direction");
+            }
+            Direction = d;
             strategy = member;
         }
         /// <summary>
         /// The color property which determines the color of the light
         /// </summary>
-        public Colour colour 
+        public Colour Colour 
         {
             get { return strategy.GetColour(this.Direction); } 
-            private set { colour = value; }
+            private set { Colour = value; }
         } 
     }
 }
