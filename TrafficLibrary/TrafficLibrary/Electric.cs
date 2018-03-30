@@ -30,14 +30,17 @@ namespace TrafficLibrary
         public Direction Direction
         {
             get { return Vehicle.Direction; }
+            set { Vehicle.Direction = value; }
         }
         public int X
         {
             get { return Vehicle.X; }
+            set { Vehicle.X = value; }
         }
         public int Y
         {
             get { return Vehicle.Y; }
+            set { Vehicle.Y = value; }
         }
         public int Passengers
         {
@@ -51,9 +54,6 @@ namespace TrafficLibrary
         {
             get { return Vehicle.EmissionMoving / 4; }
         }
-
-        
-
 
         public bool InIntersection()
         {
