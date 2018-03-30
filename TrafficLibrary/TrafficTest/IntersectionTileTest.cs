@@ -7,7 +7,12 @@ namespace TrafficTest
     public class IntersectionTileTest
     {
         [TestMethod]
-        public void TestMethod1()
+        public void IntersectionTileConstructor_CheckOccupied()
+        {
+        }
+
+        [TestMethod]
+        public void IntersectionTileConstructor_CheckDirection()
         {
         }
     }
