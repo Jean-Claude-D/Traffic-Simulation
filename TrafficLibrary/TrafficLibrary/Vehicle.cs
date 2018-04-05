@@ -179,7 +179,11 @@ namespace TrafficLibrary
             switch (this.direction)
             {
                 case Direction.Down:
-                    if (grid[x, y+1].GetType().Equals(typeof(IntersectionTile)))
+                    if(y + 1 < grid.Size)
+                    {
+                        return false;
+                    }
+                    else if (grid[x, y+1].GetType().Equals(typeof(IntersectionTile)))
                     {
                         return true;
                     }
@@ -187,9 +191,12 @@ namespace TrafficLibrary
                     {
                         return false;
                     }
-                    break;
                 case Direction.Up:
-                    if (grid[x, y-1].GetType().Equals(typeof(IntersectionTile)))
+                    if (y - 1 >= 0)
+                    {
+                        return false;
+                    }
+                    else if (grid[x, y-1].GetType().Equals(typeof(IntersectionTile)))
                     {
                         return true;
                     }
@@ -197,9 +204,12 @@ namespace TrafficLibrary
                     {
                         return false;
                     }
-                    break;
                 case Direction.Left:
-                    if (grid[x-1, y].GetType().Equals(typeof(IntersectionTile)))
+                    if (x - 1 >= 0)
+                    {
+                        return false;
+                    }
+                    else if (grid[x-1, y].GetType().Equals(typeof(IntersectionTile)))
                     {
                         return true;
                     }
@@ -207,9 +217,12 @@ namespace TrafficLibrary
                     {
                         return false;
                     }
-                    break;
                 case Direction.Right:
-                    if (grid[x+1, y].GetType().Equals(typeof(IntersectionTile)))
+                    if (x + 1 < grid.Size)
+                    {
+                        return false;
+                    }
+                    else if (grid[x+1, y].GetType().Equals(typeof(IntersectionTile)))
                     {
                         return true;
                     }
@@ -217,10 +230,8 @@ namespace TrafficLibrary
                     {
                         return false;
                     }
-                    break;
                 default:
-                    return true;
-                    break;
+                    return false;
             };
         }
     }
