@@ -42,6 +42,8 @@ namespace TrafficTest
             //call update and test if the car has moved, which tests update
             test.Update();
             Assert.AreEqual(2, c.Y);
+            //call update until the car is removed from the intersection, 
+            //and then check if it has, in fact, been removed
             test.Update();
             test.Update();
             test.Update();
