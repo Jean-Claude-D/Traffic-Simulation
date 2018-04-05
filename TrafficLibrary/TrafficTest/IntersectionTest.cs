@@ -42,6 +42,16 @@ namespace TrafficTest
             //call update and test if the car has moved, which tests update
             test.Update();
             Assert.AreEqual(2, c.Y);
+            test.Update();
+            test.Update();
+            test.Update();
+            test.Update();
+            int counter = 0;
+            foreach (Vehicle v in test)
+            {
+                counter++;
+            }
+            Assert.AreEqual(0, counter);
         }
     }
 }
