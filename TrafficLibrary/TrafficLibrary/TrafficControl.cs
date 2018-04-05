@@ -339,7 +339,6 @@ namespace TrafficLibrary
                         entryPoints.Add(new Vector2(i, j));
                     }
                 }
-                Console.WriteLine();
             }
 
             Total = new Total();
