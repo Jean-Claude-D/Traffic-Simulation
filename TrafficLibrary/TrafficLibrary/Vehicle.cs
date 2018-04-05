@@ -56,12 +56,12 @@ namespace TrafficLibrary
         }
         public int X
         {
-            get { return this.x; }
+            get { Console.WriteLine(this.x); return this.x;  }
             set { this.x = value; }
         }
         public int Y
         {
-            get { return this.y; }
+            get { Console.WriteLine(this.y); return this.y; }
             set { this.y = value; }
         }
         public int Passengers
@@ -97,16 +97,19 @@ namespace TrafficLibrary
         {
             if((!NextIsIntersection()) || InIntersection() || signal.GetColour(this.direction) == Colour.Green)
             {
+                Console.WriteLine("allowed to move");
                 switch (this.direction)
                 {
                     case Direction.Down:
-                        if (y + 1 < grid.Size)
+                        if (y + 1 >= grid.Size)
                         {
+                            Console.WriteLine("Out of bounds");
                             Done?.Invoke(this);
                             break;
                         }
                         else if(!grid[x, y + 1].Occupied)
                         {
+                            Console.WriteLine("Not occupied");
                             this.y++;
                             grid[x, y].Occupied = true;
                             grid[x, y - 1].Occupied = false;
@@ -117,7 +120,7 @@ namespace TrafficLibrary
                         }
                         break;
                     case Direction.Up:
-                        if (y - 1 >= 0)
+                        if (y - 1 < 0)
                         {
                             Done?.Invoke(this);
                             break;
@@ -134,7 +137,7 @@ namespace TrafficLibrary
                         }
                         break;
                     case Direction.Left:
-                        if (x - 1 >= 0)
+                        if (x - 1 < 0)
                         {
                             Done?.Invoke(this);
                             break;
@@ -151,7 +154,7 @@ namespace TrafficLibrary
                         }
                         break;
                     case Direction.Right:
-                        if (x + 1 < grid.Size)
+                        if (x + 1 >= grid.Size)
                         {
                             Done?.Invoke(this);
                         }
