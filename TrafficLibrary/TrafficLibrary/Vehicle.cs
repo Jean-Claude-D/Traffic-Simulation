@@ -100,43 +100,66 @@ namespace TrafficLibrary
                 switch (this.direction)
                 {
                     case Direction.Down:
-                        if (!grid[x, y+1].Occupied)
-                        {
-                            this.y++;
-                        }
-                        else if(y + 1 < grid.Size)
+                        if (y + 1 < grid.Size)
                         {
                             Done?.Invoke(this);
+                            break;
+                        }
+                        else if(!grid[x, y + 1].Occupied)
+                        {
+                            this.y++;
+                            grid[x, y].Occupied = true;
+                            grid[x, y - 1].Occupied = false;
+                        }
+                        else
+                        {
+                            Waiting?.Invoke(this);
                         }
                         break;
                     case Direction.Up:
-                        if (!grid[x, y-1].Occupied)
-                        {
-                            this.y--;
-                        }
-                        else if(y - 1 >= 0)
+                        if (y - 1 >= 0)
                         {
                             Done?.Invoke(this);
+                            break;
+                        }
+                        else if(!grid[x, y - 1].Occupied)
+                        {
+                            this.y--;
+                            grid[x, y].Occupied = true;
+                            grid[x, y + 1].Occupied = false;
+                        }
+                        else
+                        {
+                            Waiting?.Invoke(this);
                         }
                         break;
                     case Direction.Left:
-                        if (!grid[x-1, y].Occupied)
-                        {
-                            this.x--;
-                        }
-                        else if(x - 1 >= 0)
+                        if (x - 1 >= 0)
                         {
                             Done?.Invoke(this);
+                            break;
+                        }
+                        else if(!grid[x - 1, y].Occupied)
+                        {
+                            this.x--;
+                            grid[x, y].Occupied = true;
+                            grid[x + 1, y].Occupied = false;
+                        }
+                        else
+                        {
+                            Waiting?.Invoke(this);
                         }
                         break;
                     case Direction.Right:
-                        if (!grid[x+1, y].Occupied)
-                        {
-                            this.x++;
-                        }
-                        else if(x + 1 < grid.Size)
+                        if (x + 1 < grid.Size)
                         {
                             Done?.Invoke(this);
+                        }
+                        else if(!grid[x + 1, y].Occupied)
+                        {
+                            this.x++;
+                            grid[x, y].Occupied = true;
+                            grid[x - 1, y].Occupied = false;
                         }
                         break;
                     default:
