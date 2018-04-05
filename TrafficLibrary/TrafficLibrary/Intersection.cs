@@ -10,7 +10,7 @@ namespace TrafficLibrary
 {
     public class Intersection : IEnumerable
     {
-        private List<IVehicle> vehicles;
+        private List<IVehicle> vehicles = new List<IVehicle>();
         private List<Vector2> startCoords;
         private Grid grid;
         private ISignalStrategy signal;

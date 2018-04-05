@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TrafficLibrary
 {
-
+    
     public class FixedSignal : ISignalStrategy
     {
         private int[] timing;

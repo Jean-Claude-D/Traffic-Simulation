@@ -15,14 +15,14 @@ namespace TrafficTest
         {
 
             Tile[,] tGrid = new Tile[4, 4];
-            Grid someGrid = new Grid(tGrid);
-            for (int i = 0; i < someGrid.Size; i++)
+            for (int i = 0; i < tGrid.GetLength(0); i++)
             {
-                for (int j = 0; j < someGrid.Size; j++)
+                for (int j = 0; j < tGrid.GetLength(1); j++)
                 {
-                     someGrid[i, j] = new Grass();
+                    tGrid[i, j] = new Grass();
                 }
             }
+            Grid someGrid = new Grid(tGrid);
 
             Car okCar = new Car(someGrid,2,3);
 
@@ -39,17 +39,17 @@ namespace TrafficTest
         public void TestInIntersection()
         {
             Tile[,] tGrid = new Tile[4, 4];
-            Grid someGrid = new Grid(tGrid);
-            for (int i = 0; i < someGrid.Size; i++)
+            for (int i = 0; i < tGrid.GetLength(0); i++)
             {
-                for (int j = 0; j < someGrid.Size; j++)
+                for (int j = 0; j < tGrid.GetLength(1); j++)
                 {
                     if (i == 1 && j == 2)
-                        someGrid[i, j] = new IntersectionTile();
+                        tGrid[i, j] = new IntersectionTile();
                     else
-                        someGrid[i, j] = new Grass();
-                }   
+                        tGrid[i, j] = new Grass();
+                }
             }
+            Grid someGrid = new Grid(tGrid);
 
             Car newCar = new Car(someGrid, 1, 2);
             Car notIn = new Car(someGrid, 0, 0);
@@ -61,25 +61,23 @@ namespace TrafficTest
         public void TestNextInIntersection()
         {
             Tile[,] tGrid = new Tile[4, 4];
-
-            Grid someGrid = new Grid(tGrid);
-
-            for (int i = 0; i < someGrid.Size; i++)
+            for (int i = 0; i < tGrid.GetLength(0); i++)
             {
-                for (int j = 0; j < someGrid.Size; j++)
+                for (int j = 0; j < tGrid.GetLength(1); j++)
                 {
                     if (i == 3 && j == 1)
-                        someGrid[i, j] = new Road(Direction.Left);
+                        tGrid[i, j] = new Road(Direction.Left);
                     else if (i == 2 && j == 2)
-                        someGrid[i, j] = new IntersectionTile();
+                        tGrid[i, j] = new IntersectionTile();
                     else if (i == 3 && j == 2)
-                        someGrid[i, j] = new Road(Direction.Left);
+                        tGrid[i, j] = new Road(Direction.Left);
                     else
                     {
-                        someGrid[i, j] = new Grass();
+                        tGrid[i, j] = new Grass();
                     }
                 }
             }
+            Grid someGrid = new Grid(tGrid);
 
             Car notCar = new Car(someGrid, 3, 2);
             Car otherCar = new Car(someGrid, 3, 1);
@@ -157,14 +155,14 @@ namespace TrafficTest
             Assert.ThrowsException<ArgumentException>(() => m1 = new Motorcycle(null));
 
             Tile[,] tGrid = new Tile[4, 4];
-            Grid someGrid = new Grid(tGrid);
-            for (int i = 0; i < someGrid.Size; i++)
+            for (int i = 0; i < tGrid.GetLength(0); i++)
             {
-                for (int j = 0; j < someGrid.Size; j++)
+                for (int j = 0; j < tGrid.GetLength(1); j++)
                 {
-                    someGrid[i, j] = new Grass();
+                    tGrid[i, j] = new Grass();
                 }
             }
+            Grid someGrid = new Grid(tGrid);
 
             Motorcycle m = new Motorcycle(someGrid);
 
@@ -180,14 +178,14 @@ namespace TrafficTest
             Assert.ThrowsException<ArgumentException>(() => e1 = new Electric(null));
 
             Tile[,] tGrid = new Tile[4, 4];
-            Grid someGrid = new Grid(tGrid);
-            for (int i = 0; i < someGrid.Size; i++)
+            for (int i = 0; i < tGrid.GetLength(0); i++)
             {
-                for (int j = 0; j < someGrid.Size; j++)
+                for (int j = 0; j < tGrid.GetLength(1); j++)
                 {
-                     someGrid[i, j] = new Grass();
+                    tGrid[i, j] = new Grass();
                 }
             }
+            Grid someGrid = new Grid(tGrid);
 
             //Check constructor without x and y
             Car okCar = new Car(someGrid);
