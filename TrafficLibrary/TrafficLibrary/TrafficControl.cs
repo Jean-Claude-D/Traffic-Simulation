@@ -330,7 +330,6 @@ namespace TrafficLibrary
             {
                 for (int j = 0; j < Grid.Size; j++)
                 {
-                    Console.Write(Grid[i, j].Direction + "\t");
                     Direction currTileDir = Grid[i, j].Direction;
                     if ((currTileDir == Direction.Up && i == (Grid.Size - 1)) ||
                         (currTileDir == Direction.Right && j == 0) ||
@@ -341,12 +340,6 @@ namespace TrafficLibrary
                     }
                 }
                 Console.WriteLine();
-            }
-
-            Console.WriteLine();
-            foreach(Vector2 v in entryPoints)
-            {
-                Console.Write(v.ToString() + "\t");
             }
 
             Total = new Total();
@@ -486,7 +479,6 @@ namespace TrafficLibrary
         /// </summary>
         public void Update()
         {
-            Console.WriteLine(_delayCounter + 1 + " >= " + _delay);
             if (++_delayCounter >= _delay)
             {
                 _delayCounter = 0;
@@ -530,10 +522,8 @@ namespace TrafficLibrary
                     newIVehicle.Moved += Total.Moved;
                     newIVehicle.Waiting += Total.Waiting;
                     newIVehicle.Done += Total.VehicleOver;
-
-                    Console.WriteLine("Going to add a vehicle");
+                    
                     Intersection.Add(newIVehicle);
-                    Console.WriteLine("Added a vehicle : " + newIVehicle.Passengers);
                 }
 
                 Intersection.Update();
