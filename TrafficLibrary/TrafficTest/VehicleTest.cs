@@ -140,6 +140,15 @@ namespace TrafficTest
             //Check that the cars move either down or left
             Assert.AreEqual(downCar.X, 1);
             Assert.AreEqual(leftCar.X, 1);
+
+            //Check that the tiles are occupied where the car moved
+            Assert.AreEqual(true, board[downCar.X,downCar.Y].Occupied);
+            Assert.AreEqual(true, board[leftCar.X,leftCar.Y].Occupied);
+
+            //Check that the tiles that were previously occupied are no longer occupied
+            Assert.AreEqual(true, board[downCar.X, downCar.Y + 1].Occupied);
+            Assert.AreEqual(true, board[leftCar.X + 1, leftCar.Y].Occupied);
+
         }
         [TestMethod]
         public void TestMotorcycle()
@@ -183,6 +192,7 @@ namespace TrafficTest
             //Check constructor without x and y
             Car okCar = new Car(someGrid);
             Electric e = new Electric(okCar); 
+
 
             Assert.AreEqual(e.EmissionMoving, okCar.EmissionMoving / 4);
             Assert.AreEqual(e.EmissionIdle, 0);
