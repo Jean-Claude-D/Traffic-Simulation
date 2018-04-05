@@ -49,10 +49,11 @@ namespace TrafficTest
 
             tc.Parse(file1);
 
-            //after 2 updates, there should be something to look at
-            tc.Update();
-            tc.Update();
-
+            //after 100 updates, there should be something to look at
+            for (int i = 0; i < 100; i++)
+            {
+                tc.Update();
+            }
             Assert.IsTrue(tc.Total.Passengers > 0);
         }
     }
