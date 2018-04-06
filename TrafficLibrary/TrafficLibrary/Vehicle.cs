@@ -56,12 +56,12 @@ namespace TrafficLibrary
         }
         public int X
         {
-            get { Console.WriteLine(this.x); return this.x;  }
+            get { return this.x;  }
             set { this.x = value; }
         }
         public int Y
         {
-            get { Console.WriteLine(this.y); return this.y; }
+            get { return this.y; }
             set { this.y = value; }
         }
         public int Passengers
@@ -97,19 +97,16 @@ namespace TrafficLibrary
         {
             if((!NextIsIntersection()) || InIntersection() || signal.GetColour(this.direction) == Colour.Green)
             {
-                Console.WriteLine("allowed to move");
                 switch (this.direction)
                 {
                     case Direction.Down:
                         if (y + 1 >= grid.Size)
                         {
-                            Console.WriteLine("Out of bounds");
                             Done?.Invoke(this);
                             break;
                         }
                         else if(!grid[x, y + 1].Occupied)
                         {
-                            Console.WriteLine("Not occupied");
                             this.y++;
                             grid[x, y].Occupied = true;
                             grid[x, y - 1].Occupied = false;
