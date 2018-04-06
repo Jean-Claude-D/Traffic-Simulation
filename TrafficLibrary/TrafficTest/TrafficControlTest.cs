@@ -27,7 +27,7 @@ namespace TrafficTest
             Assert.AreEqual(tc.Grid[3, 5].GetType(), typeof(Road));
             Assert.AreEqual(tc.Grid[3, 5].Direction, Direction.Down);
             Assert.AreEqual(tc.Grid[5, 3].Direction, Direction.Left);
-            Assert.AreEqual(tc.Grid[0, 5].Direction, Direction.Right);
+            Assert.AreEqual(tc.Grid[0, 4].Direction, Direction.Right);
             Assert.AreEqual(tc.Grid[4, 0].Direction, Direction.Up);
             Assert.IsTrue(tc.Grid.InBounds(7, 7));
             Assert.IsFalse(tc.Grid.InBounds(8, 8));
