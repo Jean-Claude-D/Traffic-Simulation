@@ -100,7 +100,7 @@ namespace TrafficLibrary
                 switch (this.direction)
                 {
                     case Direction.Down:
-                        if (y + 1 > grid.Size)
+                        if (y + 1 >= grid.Size)
                         {
                             Done?.Invoke(this);
                             break;
@@ -117,7 +117,7 @@ namespace TrafficLibrary
                         }
                         break;
                     case Direction.Up:
-                        if (y - 1 <= 0)
+                        if (y - 1 < 0)
                         {
                             Done?.Invoke(this);
                             break;
@@ -134,7 +134,7 @@ namespace TrafficLibrary
                         }
                         break;
                     case Direction.Left:
-                        if (x - 1 <= 0)
+                        if (x - 1 < 0)
                         {
                             Done?.Invoke(this);
                             break;
@@ -151,7 +151,7 @@ namespace TrafficLibrary
                         }
                         break;
                     case Direction.Right:
-                        if (x + 1 > grid.Size)
+                        if (x + 1 >= grid.Size)
                         {
                             Done?.Invoke(this);
                         }
