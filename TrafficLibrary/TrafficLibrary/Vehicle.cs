@@ -83,8 +83,13 @@ namespace TrafficLibrary
 
         public bool InIntersection()
         {
+            if(!grid.InBounds(x,y))
+            {
+                throw new ArgumentException("Tile that you're getting must be in bounds.");
+            }
             if(grid[x,y].GetType().Equals(typeof(IntersectionTile)))
             {
+                grid[x,y].Occupied = true;
                 return true;
             }
             else
@@ -95,6 +100,10 @@ namespace TrafficLibrary
 
         public void Move(ISignalStrategy signal)
         {
+            if(!grid.InBounds(x,y))
+            {
+                Done?.Invoke(this);
+            }
             if((!NextIsIntersection()) || InIntersection() || signal.GetColour(this.direction) == Colour.Green)
             {
                 switch (this.direction)
