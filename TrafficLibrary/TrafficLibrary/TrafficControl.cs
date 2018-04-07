@@ -133,18 +133,18 @@ namespace TrafficLibrary
         /// The regular expression for a single integer
         /// in a string (the integer can be up to 9 digits)
         /// </summary>
-        private static Regex _singleInteger = new Regex(@"^[0-9]{1,9}$");
+        private static Regex _singleInteger = new Regex(@"^[0-9]{1,9}\s*$");
         /// <summary>
         /// The regular expression for 1 or many integers
         /// in a string (the integer can be up to 9 digits)
         /// </summary>
-        private static Regex _multipleIntegers = new Regex(@"^(?:[0-9]{1,9}\s+)*(?:[0-9]{1,9})$");
+        private static Regex _multipleIntegers = new Regex(@"^(?:[0-9]{1,9}\s+)*(?:[0-9]{1,9})\s*$");
         /// <summary>
         /// The regular expression for 1 or many 'Tile character'
         /// in a string (refer to _validTileChars)
         /// </summary>
         private static Regex _multipleWhiteSpacedTiles =
-            new Regex(@"^(?i:(?:[" + _validTileChars + @"]\s+)*(?:[" + _validTileChars + @"]))$");
+            new Regex(@"^(?:(?i:[" + _validTileChars + @"]\s+)*(?i:[" + _validTileChars + @"]))\s*$");
 
         /// <summary>
         /// Initializes this TrafficControl's
@@ -273,7 +273,7 @@ namespace TrafficLibrary
                 grid = new Tile[firstRow.Length, lines.Length - 5];
                 for (int i = 0; i < firstRow.Length; i++)
                 {
-                    grid[i, 0] = firstRow[i];
+                    grid[0, i] = firstRow[i];
                 }
             }
 
@@ -318,7 +318,7 @@ namespace TrafficLibrary
                 /* Add the Tile line to the grid */
                 for (int j = 0; j < tileRow.Length; j++)
                 {
-                    grid[j, i] = tileRow[j];
+                    grid[i - 5, j] = tileRow[j];
                 }
             }
 
@@ -328,13 +328,13 @@ namespace TrafficLibrary
             List<Vector2> entryPoints = new List<Vector2>();
             for (int i = 0; i < Grid.Size; i++)
             {
-                for (int j = 0; j < Grid.Size; i++)
+                for (int j = 0; j < Grid.Size; j++)
                 {
                     Direction currTileDir = Grid[i, j].Direction;
-                    if ((currTileDir == Direction.Up && j == (Grid.Size - 1)) ||
-                        (currTileDir == Direction.Right && i == 0) ||
-                        (currTileDir == Direction.Down && j == 0) ||
-                        (currTileDir == Direction.Left && i == (Grid.Size - 1)))
+                    if ((currTileDir == Direction.Up && i == (Grid.Size - 1)) ||
+                        (currTileDir == Direction.Right && j == 0) ||
+                        (currTileDir == Direction.Down && i == 0) ||
+                        (currTileDir == Direction.Left && j == (Grid.Size - 1)))
                     {
                         entryPoints.Add(new Vector2(i, j));
                     }
@@ -478,7 +478,7 @@ namespace TrafficLibrary
         /// </summary>
         public void Update()
         {
-            if (_delayCounter++ >= _delay)
+            if (++_delayCounter >= _delay)
             {
                 _delayCounter = 0;
                 if (_numVehicles < _maxVehicles)
@@ -521,7 +521,7 @@ namespace TrafficLibrary
                     newIVehicle.Moved += Total.Moved;
                     newIVehicle.Waiting += Total.Waiting;
                     newIVehicle.Done += Total.VehicleOver;
-
+                    
                     Intersection.Add(newIVehicle);
                 }
 
