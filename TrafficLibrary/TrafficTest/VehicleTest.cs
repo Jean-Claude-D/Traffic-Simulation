@@ -153,6 +153,7 @@ namespace TrafficTest
             Assert.AreEqual(false, board[downCar.X, downCar.Y - 1].Occupied);
             Assert.AreEqual(false, board[leftCar.X + 1, leftCar.Y].Occupied);
 
+
         }
         [TestMethod]
         public void TestMotorcycle()
