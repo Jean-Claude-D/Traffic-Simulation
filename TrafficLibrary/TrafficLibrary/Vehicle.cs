@@ -17,19 +17,8 @@ namespace TrafficLibrary
         private Grid grid;
 
         public Vehicle(double emissionMoving, double emissionIdle, int passengers, Grid grid)
-        {
-            if (grid != null)
-            {
-                this.emissionMoving = emissionMoving;
-                this.emissionIdle = emissionIdle;
-                this.passengers = passengers;
-                this.grid = grid;
-            }
-            else
-            {
-                throw new ArgumentException("Null Grid!");
-            }
-        }
+            : this(emissionMoving, emissionIdle, passengers, grid, default(int), default(int))
+        { }
 
         public Vehicle(double emissionMoving, double emissionIdle, int passengers, Grid grid, int x, int y)
         {
