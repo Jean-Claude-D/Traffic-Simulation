@@ -56,7 +56,7 @@ namespace TrafficLibrary
         }
         public int X
         {
-            get { return this.x; }
+            get { return this.x;  }
             set { this.x = value; }
         }
         public int Y
@@ -85,6 +85,7 @@ namespace TrafficLibrary
         {
             if(grid[x,y].GetType().Equals(typeof(IntersectionTile)))
             {
+                grid[x,y].Occupied = true;
                 return true;
             }
             else
@@ -95,7 +96,7 @@ namespace TrafficLibrary
 
         public void Move(ISignalStrategy signal)
         {
-            if((!NextIsIntersection()) || InIntersection() || signal.GetColour(this.direction) == Colour.Green)
+            if ((!NextIsIntersection()) || InIntersection() || signal.GetColour(this.direction) == Colour.Green)
             {
                 switch (this.direction)
                 {
@@ -105,7 +106,7 @@ namespace TrafficLibrary
                             Done?.Invoke(this);
                             break;
                         }
-                        else if(!grid[x, y + 1].Occupied)
+                        else if (!grid[x, y + 1].Occupied)
                         {
                             this.y++;
                             grid[x, y].Occupied = true;
@@ -122,7 +123,7 @@ namespace TrafficLibrary
                             Done?.Invoke(this);
                             break;
                         }
-                        else if(!grid[x, y - 1].Occupied)
+                        else if (!grid[x, y - 1].Occupied)
                         {
                             this.y--;
                             grid[x, y].Occupied = true;
@@ -139,7 +140,7 @@ namespace TrafficLibrary
                             Done?.Invoke(this);
                             break;
                         }
-                        else if(!grid[x - 1, y].Occupied)
+                        else if (!grid[x - 1, y].Occupied)
                         {
                             this.x--;
                             grid[x, y].Occupied = true;
@@ -155,7 +156,7 @@ namespace TrafficLibrary
                         {
                             Done?.Invoke(this);
                         }
-                        else if(!grid[x + 1, y].Occupied)
+                        else if (!grid[x + 1, y].Occupied)
                         {
                             this.x++;
                             grid[x, y].Occupied = true;
@@ -173,6 +174,7 @@ namespace TrafficLibrary
                 Waiting?.Invoke(this);
             }
         }
+
 
         public bool NextIsIntersection()
         {
