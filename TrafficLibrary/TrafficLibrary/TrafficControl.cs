@@ -330,7 +330,7 @@ namespace TrafficLibrary
             {
                 for (int j = 0; j < Grid.Size; j++)
                 {
-                    Direction currTileDir = Grid[i, j].Direction;
+                    Direction currTileDir = Grid[j, i].Direction;
                     if ((currTileDir == Direction.Up && i == (Grid.Size - 1)) ||
                         (currTileDir == Direction.Right && j == 0) ||
                         (currTileDir == Direction.Down && i == 0) ||
