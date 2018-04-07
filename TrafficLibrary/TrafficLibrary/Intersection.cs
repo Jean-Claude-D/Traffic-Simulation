@@ -35,9 +35,9 @@ namespace TrafficLibrary
 
         public void Update()
         {
-            for(int i = 0; i < vehicles.Count; i++)
+            foreach(var v in vehicles)
             {
-                vehicles[i].Move(signal);
+                v.Move(signal);
             }
             signal.Update();
         }
