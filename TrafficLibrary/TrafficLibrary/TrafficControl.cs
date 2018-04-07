@@ -144,7 +144,7 @@ namespace TrafficLibrary
         /// in a string (refer to _validTileChars)
         /// </summary>
         private static Regex _multipleWhiteSpacedTiles =
-            new Regex(@"^(?:(?i:[" + _validTileChars + @"]\s+)*(?i:[" + _validTileChars + @"]))\s*$");
+            new Regex(@"^(?i:[" + _validTileChars + @"]\s+)*(?i:[" + _validTileChars + @"])\s*$");
 
         /// <summary>
         /// Initializes this TrafficControl's
