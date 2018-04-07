@@ -73,10 +73,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="grid.txt" />
     <Content Include="Properties\grid.txt" />
     <Content Include="Properties\trafficfile.txt" />
-    <Content Include="trafficfile.txt" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
