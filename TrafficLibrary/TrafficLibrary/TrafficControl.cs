@@ -144,7 +144,7 @@ namespace TrafficLibrary
         /// in a string (refer to _validTileChars)
         /// </summary>
         private static Regex _multipleWhiteSpacedTiles =
-            new Regex(@"^(?:(?i:[" + _validTileChars + @"]\s+)*(?i:[" + _validTileChars + @"]))\s*$");
+            new Regex(@"^(?i:[" + _validTileChars + @"]\s+)*(?i:[" + _validTileChars + @"])\s*$");
 
         /// <summary>
         /// Initializes this TrafficControl's
@@ -396,7 +396,9 @@ namespace TrafficLibrary
         }
 
         /// <summary>
-        /// 
+        /// Parses the given line with parse and
+        /// validates the parsed data with isValid
+        /// throws an ArgumentException if parsing of validation fails
         /// </summary>
         /// <typeparam name="T">The target type of the parsing</typeparam>
         /// <param name="parse">The function parsing from string to data's target type</param>
@@ -405,10 +407,19 @@ namespace TrafficLibrary
         /// <param name="conditionsMessage">The error message explaining what is
         /// expected from the data in string</param>
         /// <param name="lineNum">The line number from the context</param>
-        /// <returns></returns>
+        /// <returns>The parsed and validates line</returns>
         private static T parseLine<T>(Func<string, T> parse, Predicate<T> isValid, string line, int lineNum = -1, string conditionsMessage = null)
         {
-            T data = parse(line);
+            T data = default(T);
+            try
+            {
+                data = parse(line);
+            }
+            catch (Exception exc)
+            {
+                throw new ArgumentException
+                    (conditionsMessage + ":" + Environment.NewLine, exc);
+            }
 
             if (isValid(data))
             {

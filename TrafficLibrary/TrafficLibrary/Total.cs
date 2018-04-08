@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace TrafficLibrary
 {
+    /// <summary>
+    /// Holds data of statistics
+    /// about the simulation
+    /// </summary>
     public class Total
     {
         /// <summary>
