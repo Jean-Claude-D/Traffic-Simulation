@@ -108,36 +108,52 @@ namespace TrafficTest
 
             Tile[,] sim = new Tile[4, 4];
 
-            sim[0, 0] = g1;
-            sim[0, 1] = rD1;
-            sim[0, 2] = g2;
-            sim[0, 3] = g3;
-            sim[1, 0] = g4;
-            sim[1, 1] = rD2;
-            sim[1, 2] = g5;
-            sim[1, 3] = g6;
-            sim[2, 0] = rL1;
-            sim[2, 1] = i;
-            sim[2, 2] = rL2;
-            sim[2, 3] = rL3;
-            sim[3, 0] = g7;
-            sim[3, 1] = rD3;
-            sim[3, 2] = g8;
-            sim[3, 3] = g9;
+            sim[0, 0] = new Grass();
+            sim[0, 1] = new Grass();
+            sim[0, 2] = new Road(Direction.Left);
+            sim[0, 3] = new Grass();
+            sim[1, 0] = new Grass();
+            sim[1, 1] = new Grass();
+            sim[1, 2] = new Road(Direction.Left);
+            sim[1, 3] = new Grass();
+            sim[2, 0] = new Road(Direction.Down);
+            sim[2, 1] = new Road(Direction.Down);
+            sim[2, 2] = new IntersectionTile();
+            sim[2, 3] = new Road(Direction.Down);
+            sim[3, 0] = new Grass();
+            sim[3, 1] = new Grass();
+            sim[3, 2] = new Road(Direction.Left);
+            sim[3, 3] = new Grass();
+
+
+            //g g d g
+            //g g d g
+            //l l i l
+            //g g d g
 
             Grid board = new Grid(sim);
 
-            Car downCar = new Car(board, 1, 0);
+            Car downCar = new Car(board, 2, 0);
             downCar.Direction = Direction.Down;
-            Car leftCar = new Car(board, 2, 2);
+            Car leftCar = new Car(board, 1,2);
             leftCar.Direction = Direction.Left;
 
             downCar.Move(someS);
             leftCar.Move(someS);
 
             //Check that the cars move either down or left
-            Assert.AreEqual(downCar.X, 1);
-            Assert.AreEqual(leftCar.X, 1);
+            Assert.AreEqual(downCar.Y, 1);
+            Assert.AreEqual(leftCar.X, 0);
+
+            //Check that the tiles are occupied where the car moved
+            Assert.AreEqual(true, board[downCar.X,downCar.Y].Occupied);
+            Assert.AreEqual(true, board[leftCar.X,leftCar.Y].Occupied);
+
+            //Check that the tiles that were previously occupied are no longer occupied
+            Assert.AreEqual(false, board[downCar.X, downCar.Y - 1].Occupied);
+            Assert.AreEqual(false, board[leftCar.X + 1, leftCar.Y].Occupied);
+
+
         }
         [TestMethod]
         public void TestMotorcycle()
@@ -181,6 +197,7 @@ namespace TrafficTest
             //Check constructor without x and y
             Car okCar = new Car(someGrid);
             Electric e = new Electric(okCar); 
+
 
             Assert.AreEqual(e.EmissionMoving, okCar.EmissionMoving / 4);
             Assert.AreEqual(e.EmissionIdle, 0);
