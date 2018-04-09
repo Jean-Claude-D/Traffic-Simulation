@@ -8,15 +8,50 @@ using Microsoft.Xna.Framework.Input;
 namespace TrafficSimulation
 {
     /// <summary>
-    /// This is the main type for your game.
+    /// Manages all the graphical
+    /// representations of a traffic simulation
     /// </summary>
     public class Simulation : Game
     {
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        private GraphicsDeviceManager graphics;
+        private SpriteBatch spriteBatch;
 
         private TrafficControl _trafficControl;
 
+        /// <summary>
+        /// The GridSprite graphically representing
+        /// tiles in the simulation
+        /// </summary>
+        public GridSprite GridSprite
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// The TotalSprite graphically representing
+        /// staistics of the simulation
+        /// </summary>
+        public TotalSprite TotalSprite
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// The VehicleSprite graphically representing
+        /// all vehicles in the simulation
+        /// </summary>
+        public VehicleSprite VehicleSprite
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// Creates a new Simulation object managing all the graphical
+        /// representations of a traffic simulation
+        /// </summary>
         public Simulation()
         {
             graphics = new GraphicsDeviceManager(this);
