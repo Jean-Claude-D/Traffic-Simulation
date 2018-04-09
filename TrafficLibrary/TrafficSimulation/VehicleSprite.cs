@@ -56,6 +56,9 @@ namespace TrafficSimulation
                         case Direction.Right:
                             spriteBatch.Draw(carRightImg, new Vector2(v.X * 30, v.Y * 30), Color.Bisque);
                             break;
+                        default:
+                            spriteBatch.Draw(carRightImg, new Vector2(v.X * 30, v.Y * 30), Color.Bisque);
+                            break;
                     }
                 }
                 else
@@ -74,6 +77,9 @@ namespace TrafficSimulation
                         case Direction.Right:
                             spriteBatch.Draw(motoRightImg, new Vector2(v.X * 30, v.Y * 30), Color.Bisque);
                             break;
+                        default:
+                            spriteBatch.Draw(motoRightImg, new Vector2(v.X * 30, v.Y * 30), Color.Bisque);
+                            break;
                     }
                 }
             }
@@ -86,7 +92,7 @@ namespace TrafficSimulation
         }
 
         private int _count = 0;
-        private int _threshold = 10;
+        private int _threshold = 1;
 
         public override void Update(GameTime gameTime)
         {
