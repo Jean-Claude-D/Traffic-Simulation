@@ -17,7 +17,7 @@ namespace TrafficSimulation
         private SpriteBatch spriteBatch;
 
         private TrafficControl _trafficControl;
-
+        
         /// <summary>
         /// The GridSprite graphically representing
         /// tiles in the simulation
@@ -82,7 +82,7 @@ namespace TrafficSimulation
 
             _trafficControl.Parse(fileContent);
 
-
+            
             GridSprite = new GridSprite(this, _trafficControl.Grid);
             Components.Add(GridSprite);
 
