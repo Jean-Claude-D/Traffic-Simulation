@@ -35,6 +35,11 @@ namespace TrafficSimulation
         private Simulation s;
         private int counter;
 
+        /// <summary>
+        /// GridSprite constructor that takes simulation and grid passed by the simulation
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="g"></param>
         public GridSprite(Simulation s,Grid g)
             : base(s)
         {
@@ -46,6 +51,9 @@ namespace TrafficSimulation
             base.Initialize();
         }
 
+        /// <summary>
+        /// Loads the image file into the class
+        /// </summary>
         protected override void LoadContent()
         {
 
@@ -64,8 +72,21 @@ namespace TrafficSimulation
             base.LoadContent();
         }
 
+        /// <summary>
+        /// Re-updates the grid based on other clases
+        /// </summary>
+        /// <param name="gameTime"></param>
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+        }
 
 
+        /// <summary>
+        /// Draws the grid based on the tile array passed into the parameters
+        /// Draws depending on which type the tile is in the array
+        /// </summary>
+        /// <param name="gameTime"></param>
         public override void Draw(GameTime gameTime)
         {
             spriteBatch.Begin();
