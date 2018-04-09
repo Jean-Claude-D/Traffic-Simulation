@@ -1,4 +1,6 @@
 ﻿using TrafficLibrary;
+using System;
+using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -13,11 +15,13 @@ namespace TrafficSimulation
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        private TrafficControl _trafficControl;
+
         public Simulation()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-
+            _trafficControl = new TrafficControl();
         }
 
         /// <summary>
@@ -29,6 +33,22 @@ namespace TrafficSimulation
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+
+            string fileName = "grid.txt";
+            string fileContent = null;
+            try
+            {
+                fileContent = File.ReadAllText(fileName);
+            }
+            catch(IOException exc)
+            {
+                throw new Exception("Could not read \'" + fileName + "\'", exc);
+            }
+
+            _trafficControl.Parse(fileContent);
+
+
+            GridSprite g = new GridSprite(this, _trafficControl.Grid);
 
             base.Initialize();
         }
