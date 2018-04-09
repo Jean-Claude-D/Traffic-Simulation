@@ -53,6 +53,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\carDown.png" />
+    <Content Include="Content\carLeft.png" />
+    <Content Include="Content\carRight.png" />
+    <Content Include="Content\carUp.png" />
+    <Content Include="Content\grass.png" />
+    <Content Include="Content\green.png" />
+    <Content Include="Content\grid.txt" />
+    <Content Include="Content\intersection.png" />
+    <Content Include="Content\motorcycleDown.png" />
+    <Content Include="Content\motorcycleLeft.png" />
+    <Content Include="Content\motorcycleRight.png" />
+    <Content Include="Content\motorcycleUp.png" />
+    <Content Include="Content\red.png" />
+    <Content Include="Content\roaddown.png" />
+    <Content Include="Content\roadleft.png" />
+    <Content Include="Content\roadright.png" />
+    <Content Include="Content\roadup.png" />
+    <Content Include="Content\yellow.png" />
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
