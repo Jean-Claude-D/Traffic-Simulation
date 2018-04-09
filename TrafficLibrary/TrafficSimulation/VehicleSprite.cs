@@ -28,7 +28,7 @@ namespace TrafficSimulation
         private Texture2D motoRightImg;
         private SpriteBatch spriteBatch;
 
-        public VehicleSprite(Simulation game, Intersection intersection) : base(game)
+        public VehicleSprite(Simulation game, Intersection intersection, TrafficControl trafficControl) : base(game)
         {
             this.intersection = intersection;
             this.trafficControl = trafficControl;
