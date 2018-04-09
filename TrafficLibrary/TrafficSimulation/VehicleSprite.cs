@@ -77,6 +77,7 @@ namespace TrafficSimulation
                     }
                 }
             }
+            spriteBatch.End();
         }
 
         public override void Initialize()
@@ -84,10 +85,17 @@ namespace TrafficSimulation
             base.Initialize();
         }
 
+        private int _count = 0;
+        private int _threshold = 10;
+
         public override void Update(GameTime gameTime)
         {
-            trafficControl.Update();
-            base.Update(gameTime);
+            if(_count++ >= _threshold)
+            {
+                trafficControl.Update();
+                base.Update(gameTime);
+                _count = 0;
+            }
         }
 
         protected override void LoadContent()

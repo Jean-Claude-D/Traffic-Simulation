@@ -33,7 +33,6 @@ namespace TrafficSimulation
         //class variables
         private Grid g;
         private Simulation s;
-        private int counter;
 
         /// <summary>
         /// GridSprite constructor that takes simulation and grid passed by the simulation

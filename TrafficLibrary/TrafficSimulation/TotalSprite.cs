@@ -13,7 +13,7 @@ using TrafficLibrary;
 
 namespace TrafficSimulation
 {
-    class TotalSprite : DrawableGameComponent
+    public class TotalSprite : DrawableGameComponent
     {
 
         private Total total;
@@ -37,6 +37,7 @@ namespace TrafficSimulation
 
         protected override void LoadContent()
         {
+            spriteBatch = new SpriteBatch(GraphicsDevice);
             font = sim.Content.Load<SpriteFont>("font");
             base.LoadContent();
         }
@@ -49,8 +50,8 @@ namespace TrafficSimulation
         public override void Draw(GameTime gameTime)
         {
             spriteBatch.Begin();
-            spriteBatch.DrawString(font, "Total Emissions: " + total.Passengers.ToString(), new Vector2(0, 0), Color.White);
-            spriteBatch.DrawString(font, "Total Passengers:" + total.Emissions.ToString(), new Vector2(0, 10), Color.White);
+            spriteBatch.DrawString(font, "Total Emissions: " + total.Passengers.ToString(), new Vector2(0, sim.GraphicsDevice.Viewport.Height - 50), Color.White);
+            spriteBatch.DrawString(font, "Total Passengers: " + total.Emissions.ToString(), new Vector2(0, sim.GraphicsDevice.Viewport.Height - 20), Color.White);
             spriteBatch.End();
             base.Draw(gameTime);
         }

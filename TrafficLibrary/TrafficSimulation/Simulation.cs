@@ -69,16 +69,13 @@ namespace TrafficSimulation
         {
             // TODO: Add your initialization logic here
 
+            
+
             string fileName = "grid.txt";
             string fileContent = null;
-            try
-            {
+            
                 fileContent = File.ReadAllText(fileName);
-            }
-            catch(IOException exc)
-            {
-                throw new Exception("Could not read \'" + fileName + "\'", exc);
-            }
+            
 
             _trafficControl.Parse(fileContent);
 
@@ -89,8 +86,12 @@ namespace TrafficSimulation
             TotalSprite = new TotalSprite(this, _trafficControl.Total);
             Components.Add(TotalSprite);
 
-            VehicleSprite = new VehicleSprite(this, _trafficControl);
+            VehicleSprite = new VehicleSprite(this, _trafficControl.Intersection, _trafficControl);
             Components.Add(VehicleSprite);
+
+            graphics.PreferredBackBufferHeight = (_trafficControl.Grid.Size * 30) + 60;
+            graphics.PreferredBackBufferWidth = _trafficControl.Grid.Size * 30;
+            graphics.ApplyChanges();
 
             base.Initialize();
         }
