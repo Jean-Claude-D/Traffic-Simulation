@@ -9,7 +9,7 @@ namespace TrafficLibrary
     /// <summary>
     /// Handle for events fired by an IVehicle
     /// </summary>
-    /// <param name="v"></param>
+    /// <param name="iVehicle">The IVehicle firing the event</param>
     public delegate void IVehicleHandler(IVehicle iVehicle);
 
     /// <summary>
