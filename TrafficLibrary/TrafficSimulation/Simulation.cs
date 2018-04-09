@@ -8,15 +8,50 @@ using Microsoft.Xna.Framework.Input;
 namespace TrafficSimulation
 {
     /// <summary>
-    /// This is the main type for your game.
+    /// Manages all the graphical
+    /// representations of a traffic simulation
     /// </summary>
     public class Simulation : Game
     {
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        private GraphicsDeviceManager graphics;
+        private SpriteBatch spriteBatch;
 
         private TrafficControl _trafficControl;
+        
+        /// <summary>
+        /// The GridSprite graphically representing
+        /// tiles in the simulation
+        /// </summary>
+        public GridSprite GridSprite
+        {
+            get;
+            private set;
+        }
 
+        /// <summary>
+        /// The TotalSprite graphically representing
+        /// staistics of the simulation
+        /// </summary>
+        public TotalSprite TotalSprite
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// The VehicleSprite graphically representing
+        /// all vehicles in the simulation
+        /// </summary>
+        public VehicleSprite VehicleSprite
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// Creates a new Simulation object managing all the graphical
+        /// representations of a traffic simulation
+        /// </summary>
         public Simulation()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -47,8 +82,15 @@ namespace TrafficSimulation
 
             _trafficControl.Parse(fileContent);
 
+            
+            GridSprite = new GridSprite(this, _trafficControl.Grid);
+            Components.Add(GridSprite);
 
-            GridSprite g = new GridSprite(this, _trafficControl.Grid);
+            TotalSprite = new TotalSprite(this, _trafficControl.Total);
+            Components.Add(TotalSprite);
+
+            VehicleSprite = new VehicleSprite(this, _trafficControl);
+            Components.Add(VehicleSprite);
 
             base.Initialize();
         }
@@ -95,7 +137,7 @@ namespace TrafficSimulation
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             // TODO: Add your drawing code here
 
