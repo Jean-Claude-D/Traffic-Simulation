@@ -93,6 +93,7 @@ namespace TrafficLibrary
                         if (y + 1 >= grid.Size)
                         {
                             Done?.Invoke(this);
+                            grid[x, y].Occupied = false;
                             break;
                         }
                         else if (!grid[x, y + 1].Occupied)
@@ -110,6 +111,7 @@ namespace TrafficLibrary
                         if (y - 1 < 0)
                         {
                             Done?.Invoke(this);
+                            grid[x, y].Occupied = false;
                             break;
                         }
                         else if (!grid[x, y - 1].Occupied)
@@ -127,6 +129,7 @@ namespace TrafficLibrary
                         if (x - 1 < 0)
                         {
                             Done?.Invoke(this);
+                            grid[x, y].Occupied = false;
                             break;
                         }
                         else if (!grid[x - 1, y].Occupied)
@@ -144,6 +147,7 @@ namespace TrafficLibrary
                         if (x + 1 >= grid.Size)
                         {
                             Done?.Invoke(this);
+                            grid[x, y].Occupied = false;
                         }
                         else if (!grid[x + 1, y].Occupied)
                         {

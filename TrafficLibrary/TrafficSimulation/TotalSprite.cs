@@ -50,8 +50,8 @@ namespace TrafficSimulation
         public override void Draw(GameTime gameTime)
         {
             spriteBatch.Begin();
-            spriteBatch.DrawString(font, "Total Emissions: " + total.Passengers.ToString(), new Vector2(0, sim.GraphicsDevice.Viewport.Height - 50), Color.White);
-            spriteBatch.DrawString(font, "Total Passengers: " + total.Emissions.ToString(), new Vector2(0, sim.GraphicsDevice.Viewport.Height - 20), Color.White);
+            spriteBatch.DrawString(font, "Total Emissions: " + total.Emissions.ToString(), new Vector2(0, sim.GraphicsDevice.Viewport.Height - 50), Color.White);
+            spriteBatch.DrawString(font, "Total Passengers: " + total.Passengers.ToString(), new Vector2(0, sim.GraphicsDevice.Viewport.Height - 20), Color.White);
             spriteBatch.End();
             base.Draw(gameTime);
         }
