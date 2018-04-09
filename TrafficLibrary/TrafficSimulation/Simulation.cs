@@ -83,7 +83,14 @@ namespace TrafficSimulation
             _trafficControl.Parse(fileContent);
 
 
-            GridSprite g = new GridSprite(this, _trafficControl.Grid);
+            GridSprite = new GridSprite(this, _trafficControl.Grid);
+            Components.Add(GridSprite);
+
+            TotalSprite = new TotalSprite(this, _trafficControl.Total);
+            Components.Add(TotalSprite);
+
+            VehicleSprite = new VehicleSprite(this, _trafficControl.Intersection);
+            Components.Add(VehicleSprite);
 
             base.Initialize();
         }
