@@ -13,7 +13,6 @@ namespace Game
 {
     public class GridSprite : DrawableGameComponent
     {
-        private string file2;
 
         private TrafficControl tc = new TrafficControl();
         private Grid grid;
@@ -37,21 +36,18 @@ namespace Game
         private int counter;
         private int threshold;
 
-        public GridSprite(Game1 game)
+        public GridSprite(Simulation s,Grid g)
             : base(game)
         {
             this.game = game;
         }
         public override void Initialize()
         {
-            oldState = Keyboard.GetState();
-            threshold = 6;
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
-            file2 = File.ReadAllText(@"..\..\..\TrafficTest\Properties\grid.txt");
 
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
