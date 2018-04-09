@@ -8,9 +8,9 @@ namespace TrafficLibrary
 {
     public class Electric : IVehicle
     {
-        public event Handler Done;
-        public event Handler Moved;
-        public event Handler Waiting;
+        public event IVehicleHandler Done;
+        public event IVehicleHandler Moved;
+        public event IVehicleHandler Waiting;
         public IVehicle Vehicle;
 
         public Electric(IVehicle v)
