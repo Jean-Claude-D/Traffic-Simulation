@@ -9,13 +9,12 @@ using System.Text;
 using System.Threading.Tasks;
 using TrafficLibrary;
 
-namespace Game
+
+namespace TrafficSimulation
 {
     public class GridSprite : DrawableGameComponent
     {
 
-        private TrafficControl tc = new TrafficControl();
-        private Grid grid;
 
         //to render
         private SpriteBatch spriteBatch;
@@ -29,17 +28,18 @@ namespace Game
         private Texture2D redLight;
         private Texture2D greenLight;
         private Texture2D amberLight;
-        private Game1 game;
+
 
         //keyboard input
-        private KeyboardState oldState;
+        private Grid g;
+        private Simulation s;
         private int counter;
-        private int threshold;
 
         public GridSprite(Simulation s,Grid g)
-            : base(game)
+            : base(s)
         {
-            this.game = game;
+            this.s = s;
+            this.g = g;
         }
         public override void Initialize()
         {
@@ -51,64 +51,63 @@ namespace Game
 
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            grass = game.Content.Load<Texture2D>("grass");
-            intersection = game.Content.Load<Texture2D>("intersection");
-            roadDown = game.Content.Load<Texture2D>("roaddown");
-            roadUp = game.Content.Load<Texture2D>("roadup");
-            roadLeft = game.Content.Load<Texture2D>("roadleft");
-            roadRight = game.Content.Load<Texture2D>("roadright");
-            redLight = game.Content.Load<Texture2D>("red");
-            amberLight = game.Content.Load<Texture2D>("yellow");
-            greenLight = game.Content.Load<Texture2D>("green");
+            grass = s.Content.Load<Texture2D>("grass");
+            intersection = s.Content.Load<Texture2D>("intersection");
+            roadDown = s.Content.Load<Texture2D>("roaddown");
+            roadUp = s.Content.Load<Texture2D>("roadup");
+            roadLeft = s.Content.Load<Texture2D>("roadleft");
+            roadRight = s.Content.Load<Texture2D>("roadright");
+            redLight = s.Content.Load<Texture2D>("red");
+            amberLight = s.Content.Load<Texture2D>("yellow");
+            greenLight = s.Content.Load<Texture2D>("green");
 
             base.LoadContent();
-            tc.Parse(file2);
-            grid = tc.Grid;
         }
 
 
 
         public override void Draw(GameTime gameTime)
         {
-            int lightCount = 1;
             spriteBatch.Begin();
-            for (int i = 0; i < grid.Size; i++)
+            for (int i = 0; i < g.Size; i++)
             {
-                for (int j = 0; j < grid.Size; j++)
+                for (int j = 0; j < g.Size; j++)
                 {
-                    if (grid[i, j] is Grass)
+                    if (g[i, j] is Grass)
                     {
                         spriteBatch.Draw(grass, new Rectangle(i * 30, j * 30, 30, 30), Color.Green);
                     }
-                    else if (grid[i, j] is Road && (grid[i, j].Direction == Direction.Down))
+                    else if (g[i, j] is Road && (g[i, j].Direction == Direction.Down))
                     {
                         spriteBatch.Draw(roadDown, new Rectangle(i * 30, j * 30, 30, 30), Color.White);
                     }
-                    else if (grid[i, j] is Road && (grid[i, j].Direction == Direction.Left))
+                    else if (g[i, j] is Road && (g[i, j].Direction == Direction.Left))
                     {
                         spriteBatch.Draw(roadLeft, new Rectangle(i * 30, j * 30, 30, 30), Color.White);
                     }
-                    else if (grid[i, j] is Road && (grid[i, j].Direction == Direction.Right))
+                    else if (g[i, j] is Road && (g[i, j].Direction == Direction.Right))
                     {
                         spriteBatch.Draw(roadRight, new Rectangle(i * 30, j * 30, 30, 30), Color.White);
                     }
-                    else if (grid[i, j] is Road && (grid[i, j].Direction == Direction.Up))
+                    else if (g[i, j] is Road && (g[i, j].Direction == Direction.Up))
                     {
                         spriteBatch.Draw(roadUp, new Rectangle(i * 30, j * 30, 30, 30), Color.White);
                     }
-                    else if (grid[i, j] is IntersectionTile)
+                    else if (g[i, j] is IntersectionTile)
                     {
                         spriteBatch.Draw(intersection, new Rectangle(i * 30, j * 30, 30, 30), Color.White);
                     }
-                    else if (grid[i, j] is Light && (lightCount % 2 == 1))
+                    else if (g[i, j] is Light && ((Light)g[i,j]).Colour == Colour.Amber)
+                    {
+                        spriteBatch.Draw(amberLight, new Rectangle(i * 30, j * 30, 30, 30), Color.White);
+                    }
+                    else if (g[i, j] is Light && ((Light)g[i, j]).Colour == Colour.Green)
                     {
                         spriteBatch.Draw(greenLight, new Rectangle(i * 30, j * 30, 30, 30), Color.White);
-                        lightCount++;
                     }
-                    else if (grid[i, j] is Light && (lightCount % 2 == 0))
+                    else if (g[i, j] is Light && ((Light)g[i, j]).Colour == Colour.Red)
                     {
                         spriteBatch.Draw(redLight, new Rectangle(i * 30, j * 30, 30, 30), Color.White);
-                        lightCount++;
                     }
                 }
             }
