@@ -89,7 +89,7 @@ namespace TrafficSimulation
             TotalSprite = new TotalSprite(this, _trafficControl.Total);
             Components.Add(TotalSprite);
 
-            VehicleSprite = new VehicleSprite(this, _trafficControl.Intersection);
+            VehicleSprite = new VehicleSprite(this, _trafficControl);
             Components.Add(VehicleSprite);
 
             base.Initialize();
