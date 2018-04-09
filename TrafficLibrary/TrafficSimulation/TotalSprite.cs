@@ -9,20 +9,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TrafficLibrary;
 
 namespace TrafficSimulation
 {
     class TotalSprite : DrawableGameComponent
     {
 
+        private Total total;
+
         //to render
         private SpriteBatch spriteBatch;
         private Texture2D totalImage;
         private Simulation sim;
 
-        public TotalSprite(Simulation sim) : base(sim)
+        public TotalSprite(Simulation sim, Total total) : base(sim)
         {
             this.sim = sim;
+            this.total = total;
         }
 
         public override void Initialize()
