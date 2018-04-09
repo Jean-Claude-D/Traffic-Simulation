@@ -30,7 +30,7 @@ namespace TrafficSimulation
         private Texture2D amberLight;
 
 
-        //keyboard input
+        //class variables
         private Grid g;
         private Simulation s;
         private int counter;
