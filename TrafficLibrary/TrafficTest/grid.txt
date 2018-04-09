@@ -2,7 +2,7 @@
 2
 60
 10
-40 5 10 5
+40 20 10 5
 G G G G G G G G G G G D U G G G G G G G G G G G
 G G G G G G G G G G G D U G G G G G G G G G G G
 G G G G G G G G G G G D U G G G G G G G G G G G

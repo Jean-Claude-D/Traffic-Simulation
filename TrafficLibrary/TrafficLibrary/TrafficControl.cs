@@ -336,9 +336,14 @@ namespace TrafficLibrary
                         (currTileDir == Direction.Down && i == 0) ||
                         (currTileDir == Direction.Left && j == (Grid.Size - 1)))
                     {
-                        entryPoints.Add(new Vector2(i, j));
+                        entryPoints.Add(new Vector2(j, i));
                     }
                 }
+            }
+
+            foreach(Vector2 v in entryPoints)
+            {
+                Console.WriteLine(v);
             }
 
             Total = new Total();
@@ -532,7 +537,9 @@ namespace TrafficLibrary
                     newIVehicle.Moved += Total.Moved;
                     newIVehicle.Waiting += Total.Waiting;
                     newIVehicle.Done += Total.VehicleOver;
-                    
+                    newIVehicle.Done += (doneVehicle) => _numVehicles--;
+
+
                     Intersection.Add(newIVehicle);
                 }
 
