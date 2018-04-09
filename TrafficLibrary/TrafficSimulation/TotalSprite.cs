@@ -21,7 +21,6 @@ namespace TrafficSimulation
         //to render
         private SpriteFont font;
         private SpriteBatch spriteBatch;
-        private Texture2D totalImage;
         private Simulation sim;
 
         public TotalSprite(Simulation sim, Total total) : base(sim)
