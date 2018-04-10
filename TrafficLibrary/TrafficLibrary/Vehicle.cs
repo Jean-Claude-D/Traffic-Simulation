@@ -30,16 +30,16 @@ namespace TrafficLibrary
                 throw new ArgumentException("grid cannot be null");
             }
 
-            this._grid = grid;
-            this.Direction = grid[x, y].Direction;
+            _grid = grid;
+            Direction = grid[x, y].Direction;
 
-            this.X = x;
-            this.Y = y;
+            X = x;
+            Y = y;
 
-            this.Passengers = passengers;
+            Passengers = passengers;
 
-            this.EmissionMoving = emissionMoving;
-            this.EmissionIdle = emissionIdle;
+            EmissionMoving = emissionMoving;
+            EmissionIdle = emissionIdle;
         }
 
         /// <summary>

@@ -65,10 +65,10 @@ namespace TrafficLibrary
         /// </summary>
         private double _percentElectric;
         /// <summary>
-        /// The actual percentage of Electric compared to
+        /// The actual number of Electric compared to
         /// other IVehicle implementations in this simulation
         /// </summary>
-        private double _electricCount;
+        private int _electricCount;
 
         /// <summary>
         /// The counter for Update to update contained
@@ -500,25 +500,29 @@ namespace TrafficLibrary
                 if (_numVehicles < _maxVehicles)
                 {
                     IVehicle newIVehicle;
+                    bool addedCar = true;
+                    bool decoratedVehicle = false;
 
                     if ((_numVehicles / (double)_carCount) - _percentCar < 0.005)
                     {
                         if (randBool())
                         {
-                            newIVehicle = createCar();
+                            newIVehicle = new Car(Grid);
                         }
                         else
                         {
-                            newIVehicle = createMotorcycle();
+                            newIVehicle = new Motorcycle(Grid);
+                            addedCar = false;
                         }
                     }
                     else if ((_numVehicles / (double)_carCount) > _percentCar)
                     {
-                        newIVehicle = createMotorcycle();
+                        newIVehicle = new Motorcycle(Grid);
+                        addedCar = false;
                     }
                     else
                     {
-                        newIVehicle = createCar();
+                        newIVehicle = new Car(Grid);
                     }
 
 
@@ -526,60 +530,40 @@ namespace TrafficLibrary
                     {
                         if (randBool())
                         {
-                            newIVehicle = createElectric(newIVehicle);
+                            newIVehicle = new Electric(newIVehicle);
+                            decoratedVehicle = true;
                         }
                     }
                     else if ((_numVehicles / (double)_electricCount) < _percentElectric)
                     {
-                        newIVehicle = createElectric(newIVehicle);
+                        newIVehicle = new Electric(newIVehicle);
+                        decoratedVehicle = true;
                     }
 
-                    newIVehicle.Moved += Total.Moved;
-                    newIVehicle.Waiting += Total.Waiting;
-                    newIVehicle.Done += Total.VehicleOver;
-                    newIVehicle.Done += (doneVehicle) => _numVehicles--;
+                    if(Intersection.Add(newIVehicle))
+                    {
+                        _numVehicles++;
+                        newIVehicle.Done += (doneVehicle) => _numVehicles--;
+                        if (addedCar)
+                        {
+                            _carCount++;
+                            newIVehicle.Done += (doneVehicle) => _carCount--;
+                        }
 
+                        if(decoratedVehicle)
+                        {
+                            _electricCount++;
+                            newIVehicle.Done += (doneVehicle) => _electricCount--;
+                        }
 
-                    Intersection.Add(newIVehicle);
+                        newIVehicle.Moved += Total.Moved;
+                        newIVehicle.Waiting += Total.Waiting;
+                        newIVehicle.Done += Total.VehicleOver;
+                    }
                 }
 
                 Intersection.Update();
             }
-        }
-
-        /// <summary>
-        /// Create a new Car object,
-        /// also updates TrafficControl's counters
-        /// </summary>
-        /// <returns>a new Car with this TrafficControl's Grid</returns>
-        private Car createCar()
-        {
-            _numVehicles++;
-            _carCount++;
-            return new Car(Grid);
-        }
-
-        /// <summary>
-        /// Create a new Motorcycle object,
-        /// also updates TrafficControl's counters
-        /// </summary>
-        /// <returns>a new Motorcycle with this TrafficControl's Grid</returns>
-        private Motorcycle createMotorcycle()
-        {
-            _numVehicles++;
-            return new Motorcycle(Grid);
-        }
-
-        /// <summary>
-        /// Decorates an IVehicle with Electric,
-        /// also updates TrafficControl's counter
-        /// </summary>
-        /// <param name="toDecorate">The IVehicle to make Electric</param>
-        /// <returns>The IVehicle toDecorate as an Electric</returns>
-        private Electric createElectric(IVehicle toDecorate)
-        {
-            _electricCount++;
-            return new Electric(toDecorate);
         }
     }
 }

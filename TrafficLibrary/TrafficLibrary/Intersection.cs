@@ -132,7 +132,9 @@ namespace TrafficLibrary
         /// </summary>
         /// <param name="vehicle">The IVehicle to
         /// add into the Intersection</param>
-        public void Add(IVehicle vehicle)
+        /// <returns>true if the addition
+        /// was succesfull, false otherwise</returns>
+        public bool Add(IVehicle vehicle)
         {
             Vector2 chosenCoords;
             int tries = 0;
@@ -145,13 +147,18 @@ namespace TrafficLibrary
                 {
                     vehicle.X = (int)chosenCoords.X;
                     vehicle.Y = (int)chosenCoords.Y;
+                    _grid[vehicle.X, vehicle.Y].Occupied = true;
+
                     vehicle.Direction = _grid[vehicle.X, vehicle.Y].Direction;
                     vehicle.Done += removeFromIntersection;
 
                     _vehicles.Add(vehicle);
+                    return true;
                 }
             }
             while (++tries <= _maxTries);
+
+            return false;
         }
 
         /// <summary>
