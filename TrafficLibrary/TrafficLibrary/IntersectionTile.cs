@@ -6,15 +6,17 @@ using System.Threading.Tasks;
 
 namespace TrafficLibrary
 {
-    
+    /// <summary>
+    /// The intersection between crossing
+    /// roads of different directions
+    /// </summary>
     public class IntersectionTile : Tile
     {
         /// <summary>
-        /// Constructor that makes an IntersectionTile and passes none to the direction because intersection tiles cannot have a direction
+        /// Creates a new IntersectionTile
+        /// with Direction None
         /// </summary>
         public IntersectionTile() : base(Direction.None)
-        {
-            Occupied = false;
-        }
+        { }
     }
 }

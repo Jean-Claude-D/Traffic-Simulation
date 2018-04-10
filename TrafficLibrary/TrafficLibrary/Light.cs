@@ -8,36 +8,45 @@ using Microsoft.Xna.Framework;
 namespace TrafficLibrary
 {
     /// <summary>
-    /// Light class representing each light tile
+    /// Represents a traffic light
+    /// for a specific direction
     /// </summary>
     public class Light : Tile
     {
-        private ISignalStrategy strategy;
         /// <summary>
-        /// Light constructor instantiating a light tile with a direction
+        /// Dictates the colour
+        /// cycle of this Light tile
         /// </summary>
-        /// <param name="member"></param>
-        /// <param name="d"></param>
-        public Light(ISignalStrategy member, Direction d) : base(d)
-        {
-            if(member == null)
-            {
-                throw new ArgumentException("Cannot have null member");
-            }
-            if(d == Direction.None)
-            {
-                throw new ArgumentException("Cannot have Direction.None direction");
-            }
-            Direction = d;
-            strategy = member;
-        }
+        private ISignalStrategy _strategy;
+
         /// <summary>
-        /// The color property which determines the color of the light
+        /// Creates a Light for a given direction
+        /// </summary>
+        /// <param name="strategy">The strategy
+        /// dictating colour changes</param>
+        /// <param name="direction">The direction for
+        /// which this Light shows the colour</param>
+        public Light(ISignalStrategy strategy, Direction direction) : base(direction)
+        {
+            if(strategy == null)
+            {
+                throw new ArgumentException("strategy cannot be null");
+            }
+            else if(direction == Direction.None)
+            {
+                throw new ArgumentException("direction cannot be Direction None");
+            }
+
+            _strategy = strategy;
+        }
+
+        /// <summary>
+        /// The colour this Light
+        /// indicates for its Direction
         /// </summary>
         public Colour Colour 
         {
-            get { return strategy.GetColour(this.Direction); } 
-            private set { Colour = value; }
+            get { return _strategy.GetColour(Direction); }
         } 
     }
 }

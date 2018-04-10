@@ -8,17 +8,16 @@ using Microsoft.Xna.Framework;
 namespace TrafficLibrary
 {
     /// <summary>
-    /// The road tile
+    /// The road on which
+    /// IVehicles travel
     /// </summary>
     public class Road : Tile
     {
         /// <summary>
-        /// Road constructor which passes the direction to the tile class
+        /// Creates a Road with a given direction
         /// </summary>
-        /// <param name="direction"></param>
+        /// <param name="direction">The orientation of the road</param>
         public Road(Direction direction) : base(direction)
-        {
-            Occupied = false;
-        }
+        { }
     }
 }

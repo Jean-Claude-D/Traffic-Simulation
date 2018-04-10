@@ -7,16 +7,15 @@ using System.Threading.Tasks;
 namespace TrafficLibrary
 {
     /// <summary>
-    /// Grass tile that inherets from tile
+    /// Empty grass tile
     /// </summary>
     public class Grass : Tile
     {
         /// <summary>
-        /// Passing the base class no direction as grass cannot have a direction
+        /// Creates a new Grass
+        /// with Direction None
         /// </summary>
         public Grass() : base(Direction.None)
-        {
-            Occupied = false;
-        }
+        { }
     }
 }
