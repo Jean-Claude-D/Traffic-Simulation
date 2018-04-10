@@ -6,68 +6,134 @@ using System.Threading.Tasks;
 
 namespace TrafficLibrary
 {
+    /// <summary>
+    /// Decorates and IVehicle by
+    /// greatly reducing emission values
+    /// </summary>
     public class Electric : IVehicle
     {
+        /// <summary>
+        /// Event fired when this Electric Vehicle has
+        /// crossed the entire intersection
+        /// </summary>
         public event IVehicleHandler Done;
+        /// <summary>
+        /// Event fired when this Electric Vehicle's
+        /// Move method is called and moved it
+        /// </summary>
         public event IVehicleHandler Moved;
+        /// <summary>
+        /// Event fired when this Electric Vehicle's
+        /// Move method is called and did not move it
+        /// </summary>
         public event IVehicleHandler Waiting;
-        public IVehicle Vehicle;
 
-        public Electric(IVehicle v)
+        /// <summary>
+        /// The IVehicle this
+        /// Electric is decorating
+        /// </summary>
+        public IVehicle IVehicle;
+
+        /// <summary>
+        /// Creates an Electric from an IVehicle
+        /// </summary>
+        /// <param name="vehicle">The IVehicle to decorate</param>
+        public Electric(IVehicle vehicle)
         {
-            if (v != null)
+            if(vehicle == null)
             {
-                this.Vehicle = v;
-                this.Vehicle.Done += Done;
-                this.Vehicle.Moved += Moved;
-                this.Vehicle.Waiting += Waiting;
+                throw new ArgumentException("Cannot decorate a null IVehicle");
             }
-            else
-            {
-                throw new ArgumentException("Vehicle is null!");
-            }
+
+            /* Getting all event handlers
+             * into this Electric */
+            this.IVehicle.Done += Done;
+            this.IVehicle.Moved += Moved;
+            this.IVehicle.Waiting += Waiting;
+
+            this.IVehicle = vehicle;
         }
+
+        /// <summary>
+        /// The Direction of the decorated IVehicle
+        /// </summary>
         public Direction Direction
         {
-            get { return Vehicle.Direction; }
-            set { Vehicle.Direction = value; }
+            get { return IVehicle.Direction; }
+            set { IVehicle.Direction = value; }
         }
+
+        /// <summary>
+        /// The X of the decorated IVehicle
+        /// </summary>
         public int X
         {
-            get { return Vehicle.X; }
-            set { Vehicle.X = value; }
+            get { return IVehicle.X; }
+            set { IVehicle.X = value; }
         }
+        /// <summary>
+        /// The Y of the decorated IVehicle
+        /// </summary>
         public int Y
         {
-            get { return Vehicle.Y; }
-            set { Vehicle.Y = value; }
+            get { return IVehicle.Y; }
+            set { IVehicle.Y = value; }
         }
+
+        /// <summary>
+        /// The Passengers of the decorated IVehicle
+        /// </summary>
         public int Passengers
         {
-            get { return Vehicle.Passengers; }
+            get { return IVehicle.Passengers; }
         }
+
+        /// <summary>
+        /// The amount of emission unit emitted
+        /// when this Electric is waiting (always 0)
+        /// </summary>
         public double EmissionIdle
         {
             get { return 0; }
         }
+        /// <summary>
+        /// The amount of emission unit emitted when this
+        /// Electric is moving (less than the decorated IVehicle)
+        /// </summary>
         public double EmissionMoving
         {
-            get { return Vehicle.EmissionMoving / 4; }
+            get { return IVehicle.EmissionMoving / 4; }
         }
 
+        /// <summary>
+        /// Checks if the decorated IVehicle
+        /// is on an IntersectionTile
+        /// </summary>
+        /// <returns>this Electric's IVehicle's
+        /// InIntersection()</returns>
         public bool InIntersection()
         {
-            return Vehicle.InIntersection();
+            return IVehicle.InIntersection();
         }
 
+        /// <summary>
+        /// Moves the decorated IVehicle
+        /// </summary>
+        /// <param name="signal">The traffic lights in the simulation</param>
         public void Move(ISignalStrategy signal)
         {
-            Vehicle.Move(signal);
+            IVehicle.Move(signal);
         }
 
+        /// <summary>
+        /// Checks if the decorated IVehicle's
+        /// next tile is an IntersectionTile
+        /// </summary>
+        /// <returns>this Electric's IVehicle's
+        /// NextIsIntersection()</returns>
         public bool NextIsIntersection()
         {
-            return Vehicle.NextIsIntersection();
+            return IVehicle.NextIsIntersection();
         }
     }
 }
