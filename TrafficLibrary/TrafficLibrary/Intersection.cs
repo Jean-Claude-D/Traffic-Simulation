@@ -8,6 +8,9 @@ using Microsoft.Xna.Framework;
 
 namespace TrafficLibrary
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class Intersection : IEnumerable
     {
         private List<IVehicle> vehicles = new List<IVehicle>();
@@ -16,16 +19,29 @@ namespace TrafficLibrary
         private ISignalStrategy signal;
         private static Random random;
 
+        /// <summary>
+        /// Enumerates through the vehicles
+        /// </summary>
+        /// <returns></returns>
         IEnumerator IEnumerable.GetEnumerator()
         {
             return vehicles.GetEnumerator();
         }
 
+        /// <summary>
+        /// Instantiates the random object of Intersection
+        /// </summary>
         static Intersection()
         {
             random = new Random();
         }
 
+        /// <summary>
+        /// Intersection Constructor
+        /// </summary>
+        /// <param name="signal">Signal Strategy of the light</param>
+        /// <param name="startCoords">Coordonates where vehicles can be placed</param>
+        /// <param name="grid">Grid layout of the simulation</param>
         public Intersection(ISignalStrategy signal, List<Vector2> startCoords, Grid grid)
         {
             this.signal = signal;
@@ -33,6 +49,9 @@ namespace TrafficLibrary
             this.grid = grid;
         }
 
+        /// <summary>
+        /// Moves all the vehicles in the system
+        /// </summary>
         public void Update()
         {
             for(int i = 0; i < vehicles.Count; i++)
@@ -45,7 +64,6 @@ namespace TrafficLibrary
         /// <summary>
         /// Adds new vehicles into the system.
         /// Vehicles are placed at the start of the roads randomly.
-        /// 
         /// </summary>
         /// <param name="vehicle"></param>
         public void Add(IVehicle vehicle)

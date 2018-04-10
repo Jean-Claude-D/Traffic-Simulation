@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace TrafficLibrary
 {
-    
+    /// <summary>
+    /// FixedSignal class handling the colour of the lights 
+    /// and their timings
+    /// </summary>
     public class FixedSignal : ISignalStrategy
     {
         private int[] timing;
@@ -15,6 +18,10 @@ namespace TrafficLibrary
         private Colour rightleft = Colour.Red;
         private int totalCycleTime = 0;
 
+        /// <summary>
+        /// FixedSignal Constructor
+        /// </summary>
+        /// <param name="timing">Light signal timings</param>
         public FixedSignal(params int[] timing)
         {
             this.timing = new int[timing.Length];
@@ -25,6 +32,11 @@ namespace TrafficLibrary
             }
         }
 
+        /// <summary>
+        /// Returns the color of the light, depending of what road it is
+        /// </summary>
+        /// <param name="dir">The road direction</param>
+        /// <returns>The colour of the light, given its direction</returns>
         public Colour GetColour(Direction dir)
         {
             if (dir == Direction.None)
@@ -41,6 +53,10 @@ namespace TrafficLibrary
             }
         }
 
+        /// <summary>
+        /// Assigns the colour of the lights for each road, depending
+        /// on where it is in the timing cycle
+        /// </summary>
         public void Update()
         {
             currentIndex %= totalCycleTime;
