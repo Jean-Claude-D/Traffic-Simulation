@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace TrafficLibrary
 {
     /// <summary>
-    /// Direction enum
+    /// Directions used by IVehicles
     /// </summary>
     public enum Direction
     {

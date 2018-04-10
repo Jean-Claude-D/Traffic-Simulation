@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace TrafficLibrary
 {
+    /// <summary>
+    /// Colours used by ISignalStrategy
+    /// </summary>
     public enum Colour
     {
         Green, 
