@@ -6,64 +6,117 @@ using System.Threading.Tasks;
 
 namespace TrafficLibrary
 {
-    
+    /// <summary>
+    /// Implementation of ISignalStrategy which
+    /// changes colours based on a fixed timer
+    /// </summary>
     public class FixedSignal : ISignalStrategy
     {
-        private int[] timing;
-        private int currentIndex = 0;
-        private Colour updown = Colour.Red;
-        private Colour rightleft = Colour.Red;
-        private int totalCycleTime = 0;
+        /// <summary>
+        /// Timings for green and amber for right-left,
+        /// and green and amber for up-down
+        /// </summary>
+        private int[] _timings;
 
-        public FixedSignal(params int[] timing)
+        /// <summary>
+        /// The number of ticks it takes
+        /// for a complete cycle to happen
+        /// </summary>
+        private int _totalCycleTime;
+
+        /// <summary>
+        /// The tick at which this FixedSignal
+        /// is (used to indicate timing)
+        /// </summary>
+        private int _currTick = 0;
+
+        /// <summary>
+        /// The traffic light colour
+        /// for up-down direction
+        /// </summary>
+        private Colour _updown = Colour.Red;
+        /// <summary>
+        /// The traffic light colour
+        /// for right-left direction
+        /// </summary>
+        private Colour _rightleft = Colour.Red;
+
+        /// <summary>
+        /// Creates a new FixedSignal with specific timings
+        /// </summary>
+        /// <param name="timings">Timings for light colours</param>
+        public FixedSignal(params int[] timings)
         {
-            this.timing = new int[timing.Length];
-            for(int i = 0; i < timing.Length; i++)
+            if(timings == null)
             {
-                this.timing[i] = timing[i];
-                totalCycleTime += timing[i];
+                throw new ArgumentException("timings cannot be null");
+            }
+            else if(timings.Length != 4)
+            {
+                throw new ArgumentException
+                    ("The length of timings (" + timings.Length + ") should be 4");
+            }
+
+            _timings = new int[timings.Length];
+            for(int i = 0; i < timings.Length; i++)
+            {
+                _timings[i] = timings[i];
+                _totalCycleTime += timings[i];
             }
         }
 
-        public Colour GetColour(Direction dir)
+        /// <summary>
+        /// Gets the traffic light
+        /// color for a given direction
+        /// </summary>
+        /// <param name="direction">The direction for
+        /// which to get the colour</param>
+        /// <returns>The Colour for the Direction</returns>
+        public Colour GetColour(Direction direction)
         {
-            if (dir == Direction.None)
+            switch(direction)
             {
-                throw new ArgumentException("Can't return a colour when direction is None");
-            }
-            else if (dir == Direction.Right || dir == Direction.Left)
-            {
-                return rightleft;
-            }
-            else
-            {
-                return updown;
+                case Direction.Right:
+                case Direction.Left:
+                    return _rightleft;
+                case Direction.Up:
+                case Direction.Down:
+                    return _updown;
+                default:
+                    throw new ArgumentException
+                        ("Direction (" + direction + ") is not valid to get a colour");
             }
         }
 
+        /// <summary>
+        /// Updates colours for the traffic
+        /// light accordingly to the incrementing
+        /// current tick counter
+        /// </summary>
         public void Update()
         {
-            currentIndex %= totalCycleTime;
+            /* Restrain _currTick */
+            _currTick %= _totalCycleTime;
 
-            if (currentIndex <= timing[0])
+            if (_currTick <= _timings[0])
             {
-                rightleft = Colour.Green;
-                updown = Colour.Red;
+                _rightleft = Colour.Green;
+                _updown = Colour.Red;
             }
-            else if (currentIndex <= timing[0] + timing[1])
+            else if (_currTick <= _timings[0] + _timings[1])
             {
-                rightleft = Colour.Amber;
+                _rightleft = Colour.Amber;
             }
-            else if (currentIndex <= timing[0] + timing[1] + timing[2])
+            else if (_currTick <= _timings[0] + _timings[1] + _timings[2])
             {
-                rightleft = Colour.Red;
-                updown = Colour.Green;
+                _rightleft = Colour.Red;
+                _updown = Colour.Green;
             }
-            else if (currentIndex <= timing[0] + timing[1] + timing[2] + timing[3])
+            else if (_currTick <= _timings[0] + _timings[1] + _timings[2] + _timings[3])
             {
-                updown = Colour.Amber;
+                _updown = Colour.Amber;
             }
-            currentIndex++;
+            _currTick++;
         }
     }
 }
