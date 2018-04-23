@@ -47,9 +47,9 @@ namespace TrafficLibrary
 
             /* Getting all event handlers
              * into this Electric */
-            this.IVehicle.Done += Done;
-            this.IVehicle.Moved += Moved;
-            this.IVehicle.Waiting += Waiting;
+            this.IVehicle.Done += vehicle.Done;
+            this.IVehicle.Moved += vehicle.Moved;
+            this.IVehicle.Waiting += vehicle.Waiting;
 
             this.IVehicle = vehicle;
         }

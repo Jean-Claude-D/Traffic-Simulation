@@ -503,7 +503,7 @@ namespace TrafficLibrary
                     bool addedCar = true;
                     bool decoratedVehicle = false;
 
-                    if ((_numVehicles / (double)_carCount) - _percentCar < 0.005)
+                    if (((double)_carCount / _numVehicles) - _percentCar < 0.005)
                     {
                         if (randBool())
                         {
@@ -515,7 +515,7 @@ namespace TrafficLibrary
                             addedCar = false;
                         }
                     }
-                    else if ((_numVehicles / (double)_carCount) > _percentCar)
+                    else if (((double)_carCount / _numVehicles) > _percentCar)
                     {
                         newIVehicle = new Motorcycle(Grid);
                         addedCar = false;
@@ -526,7 +526,7 @@ namespace TrafficLibrary
                     }
 
 
-                    if (((_numVehicles / (double)_electricCount) - _percentElectric) < 0.005)
+                    if (((double)_electricCount / _numVehicles) - _percentElectric < 0.005)
                     {
                         if (randBool())
                         {
@@ -534,7 +534,7 @@ namespace TrafficLibrary
                             decoratedVehicle = true;
                         }
                     }
-                    else if ((_numVehicles / (double)_electricCount) < _percentElectric)
+                    else if (((double)_electricCount / _numVehicles) < _percentElectric)
                     {
                         newIVehicle = new Electric(newIVehicle);
                         decoratedVehicle = true;

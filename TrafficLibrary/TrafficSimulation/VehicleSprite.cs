@@ -13,19 +13,25 @@ using TrafficLibrary;
 
 namespace TrafficSimulation
 {
+    public class VehicleSpriteImages
+    {
+        public Texture2D down;
+        public Texture2D up;
+        public Texture2D left;
+        public Texture2D right;
+    }
+
     public class VehicleSprite : DrawableGameComponent
     {
         private Intersection intersection;
         private TrafficControl trafficControl;
         private Simulation game;
-        private Texture2D carDownImg;
-        private Texture2D carUpImg;
-        private Texture2D carLeftImg;
-        private Texture2D carRightImg;
-        private Texture2D motoDownImg;
-        private Texture2D motoUpImg;
-        private Texture2D motoLeftImg;
-        private Texture2D motoRightImg;
+
+        private VehicleSpriteImages _carA;
+        private VehicleSpriteImages _electricCarA;
+        private VehicleSpriteImages _motoA;
+        private VehicleSpriteImages _electricMotoA;
+
         private SpriteBatch spriteBatch;
 
         public VehicleSprite(Simulation game, Intersection intersection, TrafficControl trafficControl) : base(game)
@@ -38,48 +44,28 @@ namespace TrafficSimulation
         public override void Draw(GameTime gameTime)
         {
             spriteBatch.Begin();
-            foreach(Vehicle v in intersection)
+            foreach(IVehicle v in intersection)
             {
                 if(v is Car)
                 {
-                    switch (v.Direction)
+                    if (typeof(Electric) == v.GetType())
                     {
-                        case Direction.Down:
-                            spriteBatch.Draw(carDownImg, new Vector2(v.X * 30, v.Y * 30), Color.Bisque);
-                            break;
-                        case Direction.Up:
-                            spriteBatch.Draw(carUpImg, new Vector2(v.X * 30, v.Y * 30), Color.Bisque);
-                            break;
-                        case Direction.Left:
-                            spriteBatch.Draw(carLeftImg, new Vector2(v.X * 30, v.Y * 30), Color.Bisque);
-                            break;
-                        case Direction.Right:
-                            spriteBatch.Draw(carRightImg, new Vector2(v.X * 30, v.Y * 30), Color.Bisque);
-                            break;
-                        default:
-                            spriteBatch.Draw(carRightImg, new Vector2(v.X * 30, v.Y * 30), Color.Bisque);
-                            break;
+                        drawVehicle(_electricCarA, v);
+                    }
+                    else
+                    {
+                        drawVehicle(_carA, v);
                     }
                 }
-                else
+                else if(v is Motorcycle)
                 {
-                    switch (v.Direction)
+                    if (typeof(Electric) == v.GetType())
                     {
-                        case Direction.Down:
-                            spriteBatch.Draw(motoDownImg, new Vector2(v.X * 30, v.Y * 30), Color.Bisque);
-                            break;
-                        case Direction.Up:
-                            spriteBatch.Draw(motoUpImg, new Vector2(v.X * 30, v.Y * 30), Color.Bisque);
-                            break;
-                        case Direction.Left:
-                            spriteBatch.Draw(motoLeftImg, new Vector2(v.X * 30, v.Y * 30), Color.Bisque);
-                            break;
-                        case Direction.Right:
-                            spriteBatch.Draw(motoRightImg, new Vector2(v.X * 30, v.Y * 30), Color.Bisque);
-                            break;
-                        default:
-                            spriteBatch.Draw(motoRightImg, new Vector2(v.X * 30, v.Y * 30), Color.Bisque);
-                            break;
+                        drawVehicle(_electricMotoA, v);
+                    }
+                    else
+                    {
+                        drawVehicle(_motoA, v);
                     }
                 }
             }
@@ -107,15 +93,58 @@ namespace TrafficSimulation
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            carDownImg = game.Content.Load<Texture2D>("carDown");
-            carUpImg = game.Content.Load<Texture2D>("carUp");
-            carLeftImg = game.Content.Load<Texture2D>("carLeft");
-            carRightImg = game.Content.Load<Texture2D>("carRight");
-            motoDownImg = game.Content.Load<Texture2D>("motorcycleDown");
-            motoUpImg = game.Content.Load<Texture2D>("motorcycleUp");
-            motoLeftImg = game.Content.Load<Texture2D>("motorcycleLeft");
-            motoRightImg = game.Content.Load<Texture2D>("motorcycleRight");
+
+            _carA = new VehicleSpriteImages()
+            {
+                down = game.Content.Load<Texture2D>("c_A_NE_Down"),
+                left = game.Content.Load<Texture2D>("c_A_NE_Left"),
+                up = game.Content.Load<Texture2D>("c_A_NE_Up"),
+                right = game.Content.Load<Texture2D>("c_A_NE_Right"),
+            };
+            _electricCarA = new VehicleSpriteImages()
+            {
+                down = game.Content.Load<Texture2D>("c_A_E_Down"),
+                left = game.Content.Load<Texture2D>("c_A_E_Left"),
+                up = game.Content.Load<Texture2D>("c_A_E_Up"),
+                right = game.Content.Load<Texture2D>("c_A_E_Right"),
+            };
+            _motoA = new VehicleSpriteImages()
+            {
+                down = game.Content.Load<Texture2D>("m_A_NE_Down"),
+                left = game.Content.Load<Texture2D>("m_A_NE_Left"),
+                up = game.Content.Load<Texture2D>("m_A_NE_Up"),
+                right = game.Content.Load<Texture2D>("m_A_NE_Right"),
+            };
+            _electricMotoA = new VehicleSpriteImages()
+            {
+                down = game.Content.Load<Texture2D>("m_A_E_Down"),
+                left = game.Content.Load<Texture2D>("m_A_E_Left"),
+                up = game.Content.Load<Texture2D>("m_A_E_Up"),
+                right = game.Content.Load<Texture2D>("m_A_E_Right"),
+            };
+
             base.LoadContent();
+        }
+
+        private void drawVehicle(VehicleSpriteImages vehicleImg, IVehicle vehicle)
+        {
+            switch(vehicle.Direction)
+            {
+                case Direction.Up:
+                    spriteBatch.Draw(vehicleImg.up, new Vector2(vehicle.X * 30, vehicle.Y * 30), Color.White);
+                    break;
+                case Direction.Down:
+                    spriteBatch.Draw(vehicleImg.down, new Vector2(vehicle.X * 30, vehicle.Y * 30), Color.White);
+                    break;
+                case Direction.Left:
+                    spriteBatch.Draw(vehicleImg.left, new Vector2(vehicle.X * 30, vehicle.Y * 30), Color.White);
+                    break;
+                case Direction.Right:
+                    spriteBatch.Draw(vehicleImg.right, new Vector2(vehicle.X * 30, vehicle.Y * 30), Color.White);
+                    break;
+                default:
+                    throw new ArgumentException("Cannot draw Vehicle with Direction : " + vehicle.Direction);
+            }
         }
     }
 }
